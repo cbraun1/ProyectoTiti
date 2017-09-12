@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -10,8 +11,70 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.proyectotiti.MainActivity">
 
-    <TextView
+    <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        app:srcCompat="@mipmap/proyectotitilogo"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="65dp"/>
+
+    <ImageView
+        android:id="@+id/wordsLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/proyectotitilogowords"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="15dp"/>
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="usuario"
+        android:textSize="18sp"
+        android:layout_below="@+id/wordsLogo"
+        android:paddingTop="15dp"
+        android:layout_alignRight="@+id/password"/>
+
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textSize="18sp"
+        android:layout_below="@+id/wordsLogo"
+        android:layout_toRightOf="@+id/username"/>
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="contrasena"
+        android:textSize="18sp"
+        android:layout_below="@+id/username"
+        android:paddingTop="15dp"
+        android:paddingBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textSize="18sp"
+        android:layout_below="@+id/username"
+        android:layout_toRightOf="@+id/password"/>
+
+
+    <Button
+        android:id="@+id/startButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="204dp"
+        android:layout_height="52dp"
+        android:text="INICIAR SESION"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
