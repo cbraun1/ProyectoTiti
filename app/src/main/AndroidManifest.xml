@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".home" />
         <activity android:name=".basicData" />
-        <activity android:name=".addFamilies"></activity>
+        <activity android:name=".addFamilies" />
+        <activity android:name=".animals0"></activity>
     </application>
 
 </manifest>
