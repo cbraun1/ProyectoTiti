@@ -27,7 +27,8 @@
         <activity android:name=".madera3" />
         <activity android:name=".madera2" />
         <activity android:name=".madera4" />
-        <activity android:name=".recycle1"></activity>
+        <activity android:name=".recycle1" />
+        <activity android:name=".recycle2"></activity>
     </application>
 
 </manifest>
