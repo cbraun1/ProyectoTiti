@@ -21,7 +21,8 @@
         <activity android:name=".animals0" />
         <activity android:name=".animals1" />
         <activity android:name=".animals2" />
-        <activity android:name=".animals3"></activity>
+        <activity android:name=".animals3" />
+        <activity android:name=".madera0"></activity>
     </application>
 
 </manifest>
