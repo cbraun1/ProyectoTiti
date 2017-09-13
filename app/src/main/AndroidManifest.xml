@@ -23,7 +23,8 @@
         <activity android:name=".animals2" />
         <activity android:name=".animals3" />
         <activity android:name=".madera0" />
-        <activity android:name=".madera1"></activity>
+        <activity android:name=".madera1" />
+        <activity android:name=".madera3"></activity>
     </application>
 
 </manifest>
