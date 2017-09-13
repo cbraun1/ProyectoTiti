@@ -30,7 +30,8 @@
         <activity android:name=".recycle1" />
         <activity android:name=".recycle2" />
         <activity android:name=".recycle3" />
-        <activity android:name=".benefits"></activity>
+        <activity android:name=".benefits" />
+        <activity android:name=".revise"></activity>
     </application>
 
 </manifest>
