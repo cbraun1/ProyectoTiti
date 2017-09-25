@@ -32,11 +32,12 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="usuario"
+        android:text="@string/username"
         android:textSize="18sp"
         android:layout_below="@+id/wordsLogo"
         android:paddingTop="15dp"
-        android:layout_alignRight="@+id/password"/>
+        android:layout_alignRight="@+id/password"
+        android:layout_alignEnd="@+id/password"/>
 
     <EditText
         android:id="@+id/usernameInput"
@@ -45,13 +46,14 @@
         android:inputType="text"
         android:textSize="18sp"
         android:layout_below="@+id/wordsLogo"
-        android:layout_toRightOf="@+id/username"/>
+        android:layout_toRightOf="@+id/username"
+        android:layout_toEndOf="@+id/username" />
 
     <TextView
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="contrasena"
+        android:text="@string/password"
         android:textSize="18sp"
         android:layout_below="@+id/username"
         android:paddingTop="15dp"
@@ -61,10 +63,11 @@
         android:id="@+id/passwordInput"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:textSize="18sp"
         android:layout_below="@+id/username"
-        android:layout_toRightOf="@+id/password"/>
+        android:layout_toRightOf="@+id/password"
+        android:layout_toEndOf="@+id/password"/>
 
 
     <Button
@@ -72,9 +75,9 @@
         style="@android:style/Widget.Button"
         android:layout_width="204dp"
         android:layout_height="52dp"
-        android:text="INICIAR SESION"
+        android:text="@string/start_session"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
