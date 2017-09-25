@@ -38,13 +38,6 @@
         <activity android:name=".recycle3" />
         <activity android:name=".benefits" />
         <activity android:name=".revise" />
-        <activity
-            android:name=".login"
-            android:label="@string/title_activity_login">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
