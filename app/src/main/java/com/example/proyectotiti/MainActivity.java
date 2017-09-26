@@ -29,8 +29,13 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userInput.getText().toString().equals("admin") &&
-                        passInput.getText().toString().equals("admin")) {
+                if(userInput.getText().toString().equals("admin") && passInput.getText().toString().equals("admin")) {
+//                    // Write a message to the database
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                    DatabaseReference myRef = database.getReference("message");
+//
+//                    myRef.setValue("Hello, World!");
+
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
