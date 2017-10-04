@@ -26,6 +26,40 @@
         android:layout_alignParentEnd="true" />
 
     <Button
+        android:id="@+id/existingFamilyButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="225dp"
+        android:layout_height="52dp"
+        android:text="CONTINUAR ACUERDO"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/newFamilyButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="225dp"
+        android:layout_height="52dp"
+        android:text="INICIAR ACUERDO"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_above="@+id/existingFamilyButton"
+        android:layout_alignLeft="@+id/existingFamilyButton"
+        android:layout_alignStart="@+id/existingFamilyButton"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/saveFamilyButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="225dp"
+        android:layout_height="52dp"
+        android:text="DESCARGAR ACUERDO"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/existingFamilyButton"
+        android:layout_alignLeft="@+id/existingFamilyButton"
+        android:layout_alignStart="@+id/existingFamilyButton" />
+
+    <Button
         android:id="@+id/backButton"
         style="@android:style/Widget.Button"
         android:layout_width="150dp"
