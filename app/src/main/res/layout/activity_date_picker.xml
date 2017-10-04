@@ -50,5 +50,13 @@
         tools:layout_editor_absoluteY="460dp"
         tools:layout_editor_absoluteX="0dp" />
 
-   
+    <DatePicker
+        android:id="@+id/simpleDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:layout_below="@+id/logo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
