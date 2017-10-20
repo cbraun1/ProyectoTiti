@@ -41,7 +41,7 @@
 
     <EditText
         android:id="@+id/usernameInput"
-        android:layout_width="150dp"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:textSize="18sp"
@@ -61,7 +61,7 @@
 
     <EditText
         android:id="@+id/passwordInput"
-        android:layout_width="150dp"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:textSize="18sp"
@@ -80,4 +80,22 @@
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:id="@+id/email_create_account_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="15dp" />
+
+    <Button
+        android:id="@+id/forgot_password_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password"
+        android:layout_below="@+id/email_create_account_button"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
