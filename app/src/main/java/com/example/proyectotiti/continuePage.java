@@ -18,34 +18,46 @@ public class continuePage extends AppCompatActivity {
 
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.checkbox_family1:
+            case R.id.checkBox_family1:
                 if (checked)
                 // download
-            else
+                else
                 // don't download
                 break;
-            case R.id.checkbox_family2:
+            case R.id.checkBox_family2:
                 if (checked)
                 // download
-            else
+                else
                 // don't download
                 break;
-            case R.id.checkbox_family3:
+            case R.id.checkBox_family3:
                 if (checked)
                 // download
-            else
+                else
                 // don't download
                 break;
-            case R.id.checkbox_family4:
+            case R.id.checkBox_family4:
                 if (checked)
                 // download
-            else
+                else
                 // don't download
                 break;
-            case R.id.checkbox_family5:
+            case R.id.checkBox_family5:
                 if (checked)
                 // download
-            else
+                else
+                // don't download
+                break;
+            case R.id.checkBox_family6:
+                if (checked)
+                // download
+                else
+                // don't download
+                break;
+            case R.id.checkBox_family7:
+                if (checked)
+                // download
+                else
                 // don't download
                 break;
         }
