@@ -38,7 +38,8 @@
         <activity android:name=".benefits" />
         <activity android:name=".revise" />
         <activity android:name=".continuePage" />
-        <activity android:name=".download"></activity>
+        <activity android:name=".download" />
+        <activity android:name=".animals4"></activity>
     </application>
 
 </manifest>
