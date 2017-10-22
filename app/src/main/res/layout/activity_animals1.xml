@@ -95,26 +95,66 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editTextAnimalQ1"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textViewWildAnimalsQ1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Animales Silvestres"
-                android:textStyle="bold"/>
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:text="¿Tiene animales "
+                android:textColor="#000000"
+                android:textStyle="normal"
+                android:paddingTop="10dp"
+                android:textSize="16sp" />
 
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView"
+            <TextView
+            android:id="@+id/textViewWildAnimalsQ2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout"
             android:layout_toLeftOf="@+id/continueButton"
             android:layout_toStartOf="@+id/continueButton"
-            android:text="TextView \<b> test \</b>"
+                android:text="silvestres "
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/textViewWildAnimalsQ3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="1.65"
+                android:text="en su casa? "
+                android:textColor="#000000"
+                android:textStyle="normal"
+                android:paddingTop="10dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radioButtonSi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Sí" />
+
+            <RadioButton
+                android:id="@+id/radioButtonNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23"
+                android:text="No" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
