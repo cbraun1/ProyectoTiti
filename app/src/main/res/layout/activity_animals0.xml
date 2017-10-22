@@ -60,4 +60,142 @@
         tools:layout_editor_absoluteY="460dp"
         tools:layout_editor_absoluteX="0dp" />
 
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:text="Acuerdo" />
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.35"
+                android:ems="10"
+                android:inputType="date" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/textViewWildAnimals"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="0.94"
+                android:text="Animales Silvestres"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:paddingTop="10dp"
+                android:textSize="19sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonEdit1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+
+            <ImageButton
+                android:id="@+id/imageButtonDelete1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewAnimal1"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toLeftOf="@+id/continueButton"
+            android:layout_toStartOf="@+id/continueButton"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="Animal 1" />
+        <TextView
+            android:id="@+id/textViewAnimal2"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toLeftOf="@+id/continueButton"
+            android:layout_toStartOf="@+id/continueButton"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="Animal 2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textViewWildAnimals"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:paddingTop="10dp"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="0.94"
+                android:text="Animales Domesticos"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="19sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonEdit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+
+            <ImageButton
+                android:id="@+id/imageButtonDelete2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/textViewAnimal3"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toLeftOf="@+id/continueButton"
+            android:layout_toStartOf="@+id/continueButton"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="Animal 3" />
+        <TextView
+            android:id="@+id/textViewAnimal4"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toLeftOf="@+id/continueButton"
+            android:layout_toStartOf="@+id/continueButton"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="Animal 4" />
+    </LinearLayout>
+
 </RelativeLayout>
