@@ -41,7 +41,6 @@
         <activity android:name=".download" />
         <activity android:name=".animals4" />
         <activity android:name=".madera5" />
-        <activity android:name=".madera6"></activity>
     </application>
 
 </manifest>

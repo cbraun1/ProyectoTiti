@@ -18,7 +18,7 @@
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="6 de 7"
+        android:text="6 de 6"
         android:textSize="18sp"
         android:layout_below="@+id/logo"
         android:paddingTop="0dp"
