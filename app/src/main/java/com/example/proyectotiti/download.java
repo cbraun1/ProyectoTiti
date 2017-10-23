@@ -1,11 +1,16 @@
 package com.example.proyectotiti;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
 
 public class download extends AppCompatActivity {
 
-    public void onCheckboxClicked(view view) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_download);
+    }
+}
         // Is the view now checked?
         /*
         boolean checked = ((checkBox) view).isChecked();
@@ -74,10 +79,3 @@ public class download extends AppCompatActivity {
                 break;
         }
         */
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState); {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_download);
-    }
-}
