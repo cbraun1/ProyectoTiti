@@ -33,7 +33,7 @@
         style="@android:style/Widget.Button"
         android:layout_width="150dp"
         android:layout_height="52dp"
-        android:text="SIGUENTE"
+        android:text="DESCARGAR"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
