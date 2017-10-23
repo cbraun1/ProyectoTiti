@@ -78,14 +78,15 @@
         android:text="@string/start_session"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="openHome"/>
 
     <Button
         android:id="@+id/email_create_account_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="Crear Cuenta"
         android:layout_below="@+id/startButton"
         android:layout_centerHorizontal="true"
         android:paddingTop="15dp" />
@@ -95,7 +96,8 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password"
+        android:text="Contraseña Olvidada"
         android:layout_below="@+id/email_create_account_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>

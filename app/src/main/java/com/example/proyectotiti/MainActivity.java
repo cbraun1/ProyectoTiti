@@ -1,6 +1,7 @@
 package com.example.proyectotiti;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -213,5 +214,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(i == R.id.forgot_password_button) {
             sendPasswordReset();
         }
+    }
+
+    public void openHome(View v){
+        startActivity(new Intent(MainActivity.this, home.class));
     }
 }
