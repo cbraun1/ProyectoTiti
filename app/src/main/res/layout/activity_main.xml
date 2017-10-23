@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.proyectotiti.MainActivity">
+    tools:context="com.example.proyectotiti.MainActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotitilogo"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="65dp"/>
+        android:paddingTop="65dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginTop="4dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/wordsLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotitilogowords"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="15dp"/>
+        android:paddingTop="15dp"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/username" />
 
     <TextView
         android:id="@+id/username"
@@ -34,20 +40,26 @@
         android:layout_height="wrap_content"
         android:text="@string/username"
         android:textSize="18sp"
-        android:layout_below="@+id/wordsLogo"
         android:paddingTop="15dp"
-        android:layout_alignRight="@+id/password"
-        android:layout_alignEnd="@+id/password"/>
+        android:layout_marginEnd="6dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintRight_toRightOf="@+id/password"
+        android:layout_marginRight="6dp" />
 
     <EditText
         android:id="@+id/usernameInput"
-        android:layout_width="275dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:textSize="18sp"
-        android:layout_below="@+id/wordsLogo"
-        android:layout_toRightOf="@+id/username"
-        android:layout_toEndOf="@+id/username" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="11dp"
+        app:layout_constraintTop_toBottomOf="@+id/wordsLogo" />
 
     <TextView
         android:id="@+id/password"
@@ -55,47 +67,76 @@
         android:layout_height="wrap_content"
         android:text="@string/password"
         android:textSize="18sp"
-        android:layout_below="@+id/username"
         android:paddingTop="15dp"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="20dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="37dp"
+        app:layout_constraintTop_toTopOf="@+id/usernameInput" />
 
     <EditText
         android:id="@+id/passwordInput"
-        android:layout_width="275dp"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="0dp"
         android:inputType="textPassword"
         android:textSize="18sp"
-        android:layout_below="@+id/username"
-        android:layout_toRightOf="@+id/password"
-        android:layout_toEndOf="@+id/password"/>
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/password"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintTop_toTopOf="@+id/password" />
 
 
     <Button
         android:id="@+id/startButton"
         style="@android:style/Widget.Button"
         android:layout_width="204dp"
-        android:layout_height="52dp"
+        android:layout_height="0dp"
         android:text="@string/start_session"
         android:textColorLink="@color/colorPrimaryDark"
-        android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true" />
+        android:onClick="openHome"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/email_create_account_button"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        tools:layout_constraintLeft_creator="1" />
 
     <Button
         android:id="@+id/email_create_account_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:layout_below="@+id/startButton"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="15dp" />
+        android:text="Crear Cuenta"
+        android:paddingTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/forgot_password_button"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="46dp" />
 
     <Button
         android:id="@+id/forgot_password_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password"
-        android:layout_below="@+id/email_create_account_button"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+        android:text="Contraseña Olvidada"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="3dp" />
+</android.support.constraint.ConstraintLayout>

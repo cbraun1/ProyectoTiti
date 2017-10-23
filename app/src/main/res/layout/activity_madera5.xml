@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyectotiti.recycle2">
+    tools:context="com.example.proyectotiti.madera5">
 
     <ImageView
         android:id="@+id/logo"
@@ -18,21 +18,26 @@
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2 de 3"
+        android:text="6 de 6"
         android:textSize="18sp"
         android:layout_below="@+id/logo"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="120dp"
+        tools:layout_editor_absoluteX="168dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RECICLAR"
+        android:text="MADERA DEL BOSQUE"
         android:textSize="18sp"
         android:layout_below="@+id/number"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="142dp"
+        tools:layout_editor_absoluteX="103dp" />
+
 
     <Button
         android:id="@+id/continueButton"
@@ -77,20 +82,20 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewRecyclingQ2"
+                android:id="@+id/textViewCookingQ5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayout"
                 android:layout_toLeftOf="@+id/continueButton"
                 android:layout_toStartOf="@+id/continueButton"
                 android:paddingTop="0dp"
-                android:text="¿Que recicla?"
+                android:text="¿Con que frequencia?"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
             <EditText
-                android:id="@+id/editTextRecycled"
+                android:id="@+id/editTextFreq"
                 android:layout_width="137dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.52"
@@ -106,14 +111,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewRecyclingQ3"
+                android:id="@+id/textViewCookingQ6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayout"
                 android:layout_toLeftOf="@+id/continueButton"
                 android:layout_toStartOf="@+id/continueButton"
                 android:paddingTop="0dp"
-                android:text="¿A quien entrega recidados?"
+                android:text="¿En que tipo de estufa?"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -131,5 +136,4 @@
 
 
     </LinearLayout>
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

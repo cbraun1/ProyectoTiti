@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyectotiti.animals2">
+    tools:context="com.example.proyectotiti.animals4">
 
     <ImageView
         android:id="@+id/logo"
@@ -18,66 +18,13 @@
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1 de 3"
+        android:text="5 de 5"
         android:textSize="18sp"
         android:layout_below="@+id/logo"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ANIMALES"
-        android:textSize="18sp"
-        android:layout_below="@+id/number"
-        android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
-
-
-    <Button
-        android:id="@+id/continueButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
-        android:text="SIGUENTE"
-        android:textColorLink="@color/colorPrimaryDark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
-
-    <Button
-        android:id="@+id/backButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
-        android:text="ANTERIOR"
-        android:textColorLink="@color/colorPrimaryDark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
-
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3 de 5"
-        android:textSize="18sp"
-        android:layout_below="@+id/logo"
-        android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        tools:layout_editor_absoluteY="120dp"
+        tools:layout_editor_absoluteX="168dp" />
 
     <TextView
         android:id="@+id/title"
@@ -87,7 +34,9 @@
         android:textSize="18sp"
         android:layout_below="@+id/number"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="142dp"
+        tools:layout_editor_absoluteX="149dp" />
 
     <Button
         android:id="@+id/continueButton"
@@ -120,58 +69,63 @@
         android:layout_height="300dp"
         android:layout_below="@+id/number"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp">
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="164dp">
+
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout"
             android:layout_below="@+id/title"
             android:layout_centerHorizontal="true"
-            android:weightSum="1">
+            android:orientation="vertical"
+            android:weightSum="1"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="189dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewWildAnimalsQ1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
-                    android:text="¿Cuantos animales "
-                    android:textColor="#000000"
-                    android:textStyle="normal"
-                    android:paddingTop="10dp"
-                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textViewWildAnimalsQ2"
+                    android:id="@+id/textViewPetsQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayout"
                     android:layout_toLeftOf="@+id/continueButton"
                     android:layout_toStartOf="@+id/continueButton"
-                    android:text="silvestres "
-                    android:textColor="#000000"
-                    android:textStyle="bold"
                     android:paddingTop="10dp"
-                    android:textSize="16sp" />
+                    android:text="¿Cuantos animales "
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
                 <TextView
-                    android:id="@+id/textViewWildAnimalsQ3"
+                    android:id="@+id/textViewPetsQ2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayout"
                     android:layout_toLeftOf="@+id/continueButton"
                     android:layout_toStartOf="@+id/continueButton"
-                    android:layout_weight="1.65"
+                    android:paddingTop="10dp"
+                    android:text="domesticos "
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewPetsQ3"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_toLeftOf="@+id/continueButton"
+                    android:layout_toStartOf="@+id/continueButton"
+                    android:paddingTop="10dp"
                     android:text="tiene? "
                     android:textColor="#000000"
-                    android:textStyle="normal"
-                    android:paddingTop="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
 
                 <EditText
                     android:id="@+id/editText"
@@ -191,29 +145,30 @@
                 android:layout_toLeftOf="@+id/continueButton"
                 android:layout_toStartOf="@+id/continueButton"
                 android:layout_weight="0.24"
+                android:paddingTop="5dp"
                 android:text="Animal 1"
                 android:textColor="#000000"
-                android:textStyle="bold"
-                android:paddingTop="5dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:id="@+id/textViewWildAnimalsQ4"
+                    android:id="@+id/textViewPetsQ4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayout"
                     android:layout_toLeftOf="@+id/continueButton"
                     android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.24"
+                    android:paddingTop="0dp"
                     android:text="¿De que tipo?"
                     android:textColor="#000000"
-                    android:textStyle="normal"
-                    android:paddingTop="0dp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
 
                 <Spinner
                     android:id="@+id/spinnerWildAnimals"
@@ -221,8 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1.65"
 
-                />
-
+                    />
 
 
             </LinearLayout>
@@ -233,7 +187,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewWildAnimalsQ5"
+                    android:id="@+id/textViewPetsQ5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayout"
@@ -260,8 +214,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:id="@+id/textViewWildAnimalsQ6"
+                    android:id="@+id/textViewPetsQ6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayout"
@@ -273,6 +228,7 @@
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="normal" />
+
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
@@ -284,8 +240,8 @@
                     android:layout_width="162dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="0 fotos subidas" />
+                    android:hint="0 fotos subidas"
+                    android:inputType="textPersonName" />
 
 
             </LinearLayout>
@@ -293,4 +249,4 @@
 
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
