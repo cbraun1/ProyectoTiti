@@ -1,7 +1,9 @@
 package com.example.proyectotiti;
 
+        import android.content.Intent;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
+        import android.view.View;
 
 public class download extends AppCompatActivity {
 
@@ -9,6 +11,13 @@ public class download extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
+    }
+
+    public void openHome(View v){
+        startActivity(new Intent(download.this, home.class));
+    }
+    public void openContinue(View v){
+        startActivity(new Intent(download.this, continuePage.class));
     }
 }
         // Is the view now checked?
