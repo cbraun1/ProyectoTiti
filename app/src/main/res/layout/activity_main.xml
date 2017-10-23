@@ -100,7 +100,6 @@
         android:layout_height="0dp"
         android:text="@string/start_session"
         android:textColorLink="@color/colorPrimaryDark"
-        android:onClick="openHome"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintTop_creator="1"

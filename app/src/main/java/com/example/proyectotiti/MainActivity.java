@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(), "Authentication success.", Toast.LENGTH_SHORT).show();
                             //updateUI(user);
+                            startActivity(new Intent(MainActivity.this, home.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("DEBUG", "createUserWithEmail:failure", task.getException());
@@ -214,9 +215,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(i == R.id.forgot_password_button) {
             sendPasswordReset();
         }
-    }
-
-    public void openHome(View v){
-        startActivity(new Intent(MainActivity.this, home.class));
     }
 }
