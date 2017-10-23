@@ -68,47 +68,77 @@
             android:iconifiedByDefault="false"
             android:queryHint="Busca Aquí" />
 
-        <CheckBox
-            android:id="@+id/checkBox_family1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="familia 1" />
+        <ScrollView
+            android:layout_width="281dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/number"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp">
+            <LinearLayout
+                android:layout_width="281dp"
+                android:layout_height="250dp"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="52dp"
+                tools:layout_editor_absoluteY="170dp">
+                <CheckBox
+                    android:id="@+id/checkBox_family1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 1" />
 
-        <CheckBox
-            android:id="@+id/checkBox_family2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="familia 2" />
+                <CheckBox
+                    android:id="@+id/checkBox_family2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 2" />
 
-        <CheckBox
-            android:id="@+id/checkBox_family3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="familia 3" />
+                <CheckBox
+                    android:id="@+id/checkBox_family3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 3" />
 
-        <CheckBox
-            android:id="@+id/checkBox_family4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="familia 4" />
+                <CheckBox
+                    android:id="@+id/checkBox_family4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 4" />
 
-        <CheckBox
-            android:id="@+id/checkBox_family5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="familia 5" />
+                <CheckBox
+                    android:id="@+id/checkBox_family5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 5" />
 
-        <CheckBox
-            android:id="@+id/checkBox_family6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="familia 6" />
+                <CheckBox
+                    android:id="@+id/checkBox_family6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 6" />
 
-        <CheckBox
-            android:id="@+id/checkBox_family7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="familia 7" />
+                <CheckBox
+                    android:id="@+id/checkBox_family7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 7" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_family8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 8" />
+                <CheckBox
+                    android:id="@+id/checkBox_family9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 9" />
+                <CheckBox
+                    android:id="@+id/checkBox_family10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="familia 10" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

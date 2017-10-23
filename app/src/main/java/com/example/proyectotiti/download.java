@@ -53,6 +53,24 @@ public class download extends AppCompatActivity {
                 else
                 // don't download
                 break;
+            case R.id.checkBox_family8:
+                if (checked)
+                // download
+                else
+                // don't download
+                break;
+            case R.id.checkBox_family9:
+                if (checked)
+                // download
+                else
+                // don't download
+                break;
+            case R.id.checkBox_family10:
+                if (checked)
+                // download
+                else
+                // don't download
+                break;
         }
 
     @Override
