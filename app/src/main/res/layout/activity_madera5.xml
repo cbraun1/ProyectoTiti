@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyectotiti.madera2">
+    tools:context="com.example.proyectotiti.madera5">
 
     <ImageView
         android:id="@+id/logo"
@@ -18,11 +18,13 @@
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3 de 7"
+        android:text="6 de 7"
         android:textSize="18sp"
         android:layout_below="@+id/logo"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="120dp"
+        tools:layout_editor_absoluteX="168dp" />
 
     <TextView
         android:id="@+id/title"
@@ -32,7 +34,10 @@
         android:textSize="18sp"
         android:layout_below="@+id/number"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="142dp"
+        tools:layout_editor_absoluteX="103dp" />
+
 
     <Button
         android:id="@+id/continueButton"
@@ -60,4 +65,4 @@
         tools:layout_editor_absoluteY="460dp"
         tools:layout_editor_absoluteX="0dp" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

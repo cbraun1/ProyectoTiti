@@ -4,10 +4,10 @@
     <string name="password">contrasena</string>
     <string name="start_session">INICIAR SESION</string>
     <string-array name="spinnerWildAnimals">
-            <item>tití cabeciblanco</item>
-            <item>tigre</item>
-            <item>perezoso</item>
-            <item>pájaro</item>
+        <item>tití cabeciblanco</item>
+        <item>tigre</item>
+        <item>perezoso</item>
+        <item>pájaro</item>
     </string-array>
     <string-array name="spinnerDay">
         <item>01</item>
