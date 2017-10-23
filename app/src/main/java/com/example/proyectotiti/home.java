@@ -24,4 +24,8 @@ public class home extends AppCompatActivity {
     public void openDownload(View v){
         startActivity(new Intent(home.this, download.class));
     }
+
+    public void openMain(View v){
+        startActivity(new Intent(home.this, MainActivity.class));
+    }
 }
