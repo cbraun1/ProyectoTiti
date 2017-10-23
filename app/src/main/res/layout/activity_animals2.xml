@@ -177,11 +177,23 @@
 
         </LinearLayout>
 
-
+        <TextView
+            android:id="@+id/textViewWildAnimalsSub1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toLeftOf="@+id/continueButton"
+            android:layout_toStartOf="@+id/continueButton"
+            android:layout_weight="0.24"
+            android:text="Animal 1"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:paddingTop="5dp"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/textViewWildAnimalsQ4"
@@ -194,7 +206,7 @@
                 android:text="¿De que tipo?"
                 android:textColor="#000000"
                 android:textStyle="normal"
-                android:paddingTop="10dp"
+                android:paddingTop="0dp"
                 android:textSize="16sp" />
 
             <Spinner
@@ -204,6 +216,71 @@
                 android:layout_weight="1.65"
 
             />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewWildAnimalsQ5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="0.40"
+                android:paddingTop="0dp"
+                android:text="Marcaje"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/editTextMarking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textViewWildAnimalsQ6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="0.40"
+                android:paddingTop="0dp"
+                android:text="Foto/Video"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="162dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="0 fotos subidas" />
+
 
         </LinearLayout>
 
