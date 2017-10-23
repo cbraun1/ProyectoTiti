@@ -7,6 +7,7 @@ public class download extends AppCompatActivity {
 
     public void onCheckboxClicked(view view) {
         // Is the view now checked?
+        /*
         boolean checked = ((checkBox) view).isChecked();
 
         // Check which checkbox was clicked
@@ -72,9 +73,10 @@ public class download extends AppCompatActivity {
                 // don't download
                 break;
         }
+        */
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState); {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
     }
