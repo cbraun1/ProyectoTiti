@@ -60,4 +60,38 @@
         tools:layout_editor_absoluteY="460dp"
         tools:layout_editor_absoluteX="0dp" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="179dp">
+
+        <TextView
+            android:id="@+id/textViewRecyclingQ5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toLeftOf="@+id/continueButton"
+            android:layout_toStartOf="@+id/continueButton"
+            android:paddingTop="10dp"
+            android:text="¿Como maneja residuos?"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine" />
+
+
+    </LinearLayout>
+
 </RelativeLayout>
