@@ -23,7 +23,7 @@
         android:layout_below="@+id/logo"
         android:paddingTop="0dp"
         android:layout_centerHorizontal="true"
-        tools:layout_editor_absoluteY="142dp"
+        tools:layout_editor_absoluteY="120dp"
         tools:layout_editor_absoluteX="168dp" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_below="@+id/number"
         android:paddingTop="0dp"
         android:layout_centerHorizontal="true"
-        tools:layout_editor_absoluteY="120dp"
+        tools:layout_editor_absoluteY="142dp"
         tools:layout_editor_absoluteX="149dp" />
 
     <Button
