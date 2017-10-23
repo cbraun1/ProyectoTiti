@@ -64,6 +64,181 @@
         tools:layout_editor_absoluteY="460dp"
         tools:layout_editor_absoluteX="0dp" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="186dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewPetsQ1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:paddingTop="10dp"
+                android:text="¿Cuantos animales "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/textViewPetsQ2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:paddingTop="10dp"
+                android:text="domesticos "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewPetsQ3"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:paddingTop="10dp"
+                android:text="tiene? "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewWildAnimalsSub1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toLeftOf="@+id/continueButton"
+            android:layout_toStartOf="@+id/continueButton"
+            android:layout_weight="0.24"
+            android:paddingTop="5dp"
+            android:text="Animal 1"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewPetsQ4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="0.24"
+                android:paddingTop="0dp"
+                android:text="¿De que tipo?"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <Spinner
+                android:id="@+id/spinnerWildAnimals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.65"
+
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewPetsQ5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="0.40"
+                android:paddingTop="0dp"
+                android:text="Marcaje"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/editTextMarking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewPetsQ6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toLeftOf="@+id/continueButton"
+                android:layout_toStartOf="@+id/continueButton"
+                android:layout_weight="0.40"
+                android:paddingTop="0dp"
+                android:text="Foto/Video"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="162dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="0 fotos subidas"
+                android:inputType="textPersonName" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
