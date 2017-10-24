@@ -16,4 +16,8 @@ public class animals4 extends AppCompatActivity {
     public void openMadera0(View v){
         startActivity(new Intent(animals4.this, madera0.class));
     }
+
+    public void openAnimals3(View v){
+        startActivity(new Intent(animals4.this, animals3.class));
+    }
 }
