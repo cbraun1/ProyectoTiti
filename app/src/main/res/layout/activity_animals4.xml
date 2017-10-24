@@ -12,7 +12,12 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
+        android:paddingTop="0dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/number"
@@ -23,8 +28,12 @@
         android:layout_below="@+id/logo"
         android:paddingTop="0dp"
         android:layout_centerHorizontal="true"
-        tools:layout_editor_absoluteY="120dp"
-        tools:layout_editor_absoluteX="168dp" />
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintRight_toRightOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:layout_marginRight="18dp" />
 
     <TextView
         android:id="@+id/title"
@@ -35,21 +44,29 @@
         android:layout_below="@+id/number"
         android:paddingTop="0dp"
         android:layout_centerHorizontal="true"
-        tools:layout_editor_absoluteY="142dp"
-        tools:layout_editor_absoluteX="149dp" />
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/continueButton"
         style="@android:style/Widget.Button"
         android:layout_width="150dp"
-        android:layout_height="52dp"
+        android:layout_height="0dp"
         android:text="SIGUENTE"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
 
     <Button
         android:id="@+id/backButton"
@@ -61,23 +78,36 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/continueButton"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ScrollView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/number"
         android:layout_centerHorizontal="true"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="164dp">
+        android:id="@+id/scrollView4"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="42dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="44dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="47dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/number"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="42dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true"
             android:orientation="vertical"
             android:weightSum="1"
             tools:layout_editor_absoluteX="42dp"
@@ -92,9 +122,6 @@
                     android:id="@+id/textViewPetsQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="10dp"
                     android:text="¿Cuantos animales "
                     android:textColor="#000000"
@@ -105,9 +132,6 @@
                     android:id="@+id/textViewPetsQ2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="10dp"
                     android:text="domesticos "
                     android:textColor="#000000"
@@ -118,9 +142,6 @@
                     android:id="@+id/textViewPetsQ3"
                     android:layout_width="45dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="10dp"
                     android:text="tiene? "
                     android:textColor="#000000"
@@ -140,10 +161,7 @@
             <TextView
                 android:id="@+id/textViewWildAnimalsSub1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toLeftOf="@+id/continueButton"
-                android:layout_toStartOf="@+id/continueButton"
+                android:layout_height="30dp"
                 android:layout_weight="0.24"
                 android:paddingTop="5dp"
                 android:text="Animal 1"
@@ -160,9 +178,6 @@
                     android:id="@+id/textViewPetsQ4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.24"
                     android:paddingTop="0dp"
                     android:text="¿De que tipo?"
@@ -188,11 +203,8 @@
 
                 <TextView
                     android:id="@+id/textViewPetsQ5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.40"
                     android:paddingTop="0dp"
                     android:text="Marcaje"
@@ -217,11 +229,8 @@
 
                 <TextView
                     android:id="@+id/textViewPetsQ6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.40"
                     android:paddingTop="0dp"
                     android:text="Foto/Video"
@@ -233,7 +242,8 @@
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/ic_menu_camera" />
+                    app:srcCompat="@android:drawable/ic_menu_camera"
+                    tools:ignore="ContentDescription"/>
 
                 <EditText
                     android:id="@+id/editText5"
