@@ -252,10 +252,7 @@
                     android:ems="10"
                     android:hint="0 fotos subidas"
                     android:inputType="textPersonName" />
-
-
             </LinearLayout>
-
 
         </LinearLayout>
     </ScrollView>

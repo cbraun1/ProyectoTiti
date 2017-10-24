@@ -47,7 +47,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
+        tools:layout_editor_absoluteX="234dp"
+        android:onClick="openAnimals4"/>
 
     <Button
         android:id="@+id/backButton"
