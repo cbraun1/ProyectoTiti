@@ -45,7 +45,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
+        tools:layout_editor_absoluteX="234dp"
+        android:onClick="openAnimals1"/>
 
     <Button
         android:id="@+id/backButton"
@@ -58,7 +59,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:onClick="openBasicData"/>
 
     <ScrollView
         android:layout_width="300dp"
@@ -121,7 +123,8 @@
                     android:id="@+id/imageButtonEdit1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
+                    app:srcCompat="@android:drawable/ic_menu_edit"
+                    android:onClick="openAnimals2"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonDelete1"
@@ -174,7 +177,8 @@
                     android:id="@+id/imageButtonEdit2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
+                    app:srcCompat="@android:drawable/ic_menu_edit"
+                    android:onClick="openAnimals4"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonDelete2"

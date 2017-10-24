@@ -14,14 +14,17 @@ public class home extends AppCompatActivity {
     }
 
     public void openBasicData(View v){
+
         startActivity(new Intent(home.this, basicData.class));
     }
 
     public void openContinue(View v){
+
         startActivity(new Intent(home.this, continuePage.class));
     }
 
     public void openDownload(View v){
+
         startActivity(new Intent(home.this, download.class));
     }
 
