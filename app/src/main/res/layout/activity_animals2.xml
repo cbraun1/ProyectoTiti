@@ -12,65 +12,11 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
-
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1 de 3"
-        android:textSize="18sp"
-        android:layout_below="@+id/logo"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        tools:ignore="ContentDescription"/>
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ANIMALES"
-        android:textSize="18sp"
-        android:layout_below="@+id/number"
-        android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
-
-
-    <Button
-        android:id="@+id/continueButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
-        android:text="SIGUENTE"
-        android:textColorLink="@color/colorPrimaryDark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
-
-    <Button
-        android:id="@+id/backButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
-        android:text="ANTERIOR"
-        android:textColorLink="@color/colorPrimaryDark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/proyectotiti"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
-
-    <TextView
-        android:id="@+id/number"
+        android:id="@+id/numberTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3 de 5"
@@ -85,9 +31,10 @@
         android:layout_height="wrap_content"
         android:text="ANIMALES"
         android:textSize="18sp"
-        android:layout_below="@+id/number"
         android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_above="@+id/scrollView3"
+        android:layout_toRightOf="@+id/backButton"
+        android:layout_toEndOf="@+id/backButton" />
 
     <Button
         android:id="@+id/continueButton"
@@ -118,16 +65,14 @@
     <ScrollView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_below="@+id/number"
+        android:layout_above="@+id/continueButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp">
+        android:id="@+id/scrollView3">
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/linearLayout"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true"
             android:weightSum="1">
 
             <LinearLayout
@@ -138,9 +83,6 @@
                     android:id="@+id/textViewWildAnimalsQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="¿Cuantos animales "
                     android:textColor="#000000"
                     android:textStyle="normal"
@@ -151,9 +93,6 @@
                     android:id="@+id/textViewWildAnimalsQ2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="silvestres "
                     android:textColor="#000000"
                     android:textStyle="bold"
@@ -161,11 +100,8 @@
                     android:textSize="16sp" />
                 <TextView
                     android:id="@+id/textViewWildAnimalsQ3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="1.65"
                     android:text="tiene? "
                     android:textColor="#000000"
@@ -186,10 +122,7 @@
             <TextView
                 android:id="@+id/textViewWildAnimalsSub1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toLeftOf="@+id/continueButton"
-                android:layout_toStartOf="@+id/continueButton"
+                android:layout_height="30dp"
                 android:layout_weight="0.24"
                 android:text="Animal 1"
                 android:textColor="#000000"
@@ -205,9 +138,6 @@
                     android:id="@+id/textViewWildAnimalsQ4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.24"
                     android:text="¿De que tipo?"
                     android:textColor="#000000"
@@ -234,11 +164,8 @@
 
                 <TextView
                     android:id="@+id/textViewWildAnimalsQ5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.40"
                     android:paddingTop="0dp"
                     android:text="Marcaje"
@@ -262,11 +189,8 @@
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/textViewWildAnimalsQ6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.40"
                     android:paddingTop="0dp"
                     android:text="Foto/Video"
@@ -277,7 +201,8 @@
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/ic_menu_camera" />
+                    app:srcCompat="@android:drawable/ic_menu_camera"
+                    tools:ignore="ContentDescription"/>
 
                 <EditText
                     android:id="@+id/editText5"
