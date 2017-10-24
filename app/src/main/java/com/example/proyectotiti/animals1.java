@@ -37,5 +37,5 @@ public class animals1 extends AppCompatActivity {
     public void openAnimals0(View v){
         startActivity(new Intent(animals1.this, animals0.class));
     }
-    
+
 }

@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
+        android:paddingTop="0dp"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/number"
@@ -72,8 +73,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="0dp"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout">
 
             <LinearLayout
@@ -81,17 +80,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 tools:layout_editor_absoluteX="52dp"
-                tools:layout_editor_absoluteY="180dp"
-                android:layout_above="@+id/continueButton"
-                android:layout_centerHorizontal="true">
+                tools:layout_editor_absoluteY="180dp">
 
                 <TextView
                     android:id="@+id/textViewDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="Fecha" />
 
                 <Spinner
@@ -118,9 +112,6 @@
                     android:id="@+id/textViewWildAnimalsQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="¿Tiene animales "
                     android:textColor="#000000"
                     android:textStyle="normal"
@@ -131,9 +122,6 @@
                 android:id="@+id/textViewWildAnimalsQ2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toLeftOf="@+id/continueButton"
-                android:layout_toStartOf="@+id/continueButton"
                     android:text="silvestres "
                 android:textColor="#000000"
                 android:textStyle="bold"
@@ -141,17 +129,13 @@
                 android:textSize="16sp" />
                 <TextView
                     android:id="@+id/textViewWildAnimalsQ3"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
-                    android:layout_weight="1.65"
                     android:text="en su casa? "
                     android:textColor="#000000"
                     android:textStyle="normal"
                     android:paddingTop="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_width="100dp" />
 
             </LinearLayout>
 
