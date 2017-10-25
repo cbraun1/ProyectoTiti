@@ -45,7 +45,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
+        tools:layout_editor_absoluteX="234dp"
+        android:onClick="openMadera3"/>
 
     <Button
         android:id="@+id/backButton"
@@ -58,7 +59,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:onClick="openMadera0"/>
 
     <ScrollView
         android:layout_width="350dp"
