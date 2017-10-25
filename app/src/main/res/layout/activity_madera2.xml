@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
+        android:paddingTop="0dp"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/number"
@@ -73,9 +74,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/linearLayout"
-            android:weightSum="1"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true">
+            android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,9 +84,6 @@
                     android:id="@+id/textViewConstructionsQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="¿Cuantos "
                     android:textColor="#000000"
                     android:textStyle="normal"
@@ -98,9 +94,6 @@
                     android:id="@+id/textViewConstructionsQ2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="construcciones "
                     android:textColor="#000000"
                     android:textStyle="bold"
@@ -110,9 +103,6 @@
                     android:id="@+id/textViewConstructionsQ3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.00"
                     android:text="tiene? "
                     android:textColor="#000000"
@@ -134,10 +124,7 @@
             <TextView
                 android:id="@+id/textViewConstructionsSub1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toLeftOf="@+id/continueButton"
-                android:layout_toStartOf="@+id/continueButton"
+                android:layout_height="30dp"
                 android:layout_weight="0.24"
                 android:text="Construccion 1"
                 android:textColor="#000000"
@@ -154,9 +141,6 @@
                     android:id="@+id/textViewConstructionsQ5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿De que tipo?"
                     android:textColor="#000000"
@@ -165,7 +149,7 @@
 
                 <EditText
                     android:id="@+id/editTextConType"
-                    android:layout_width="137dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -183,9 +167,6 @@
                     android:id="@+id/textViewConstructionsQ6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿Cuantos metros cuadrados?"
                     android:textColor="#000000"
@@ -194,7 +175,7 @@
 
                 <EditText
                     android:id="@+id/editTextArea"
-                    android:layout_width="77dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -212,9 +193,6 @@
                     android:id="@+id/textViewConstructionsQ7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿Para que funcion?"
                     android:textColor="#000000"
@@ -223,7 +201,7 @@
 
                 <EditText
                     android:id="@+id/editTextFunction"
-                    android:layout_width="77dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -241,9 +219,6 @@
                     android:id="@+id/textViewConstructionsQ8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿En que estado esta?"
                     android:textColor="#000000"
@@ -252,7 +227,7 @@
 
                 <EditText
                     android:id="@+id/editTextState"
-                    android:layout_width="77dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.62"
                     android:ems="10"
