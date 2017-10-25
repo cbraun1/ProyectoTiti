@@ -33,4 +33,8 @@ public class madera4 extends AppCompatActivity {
             }
         });
     }
+
+    public void openMadera0(View v){
+        startActivity(new Intent(madera4.this, madera0.class));
+    }
 }
