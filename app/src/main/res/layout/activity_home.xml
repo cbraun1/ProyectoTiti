@@ -57,7 +57,7 @@
         style="@android:style/Widget.Button"
         android:layout_width="150dp"
         android:layout_height="52dp"
-        android:text="ANTERIOR"
+        android:text="CERRAR SESIÓN"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
