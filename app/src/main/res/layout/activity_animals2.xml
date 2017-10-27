@@ -32,9 +32,9 @@
         android:text="ANIMALES"
         android:textSize="18sp"
         android:paddingTop="0dp"
-        android:layout_above="@+id/scrollView3"
-        android:layout_toRightOf="@+id/backButton"
-        android:layout_toEndOf="@+id/backButton" />
+        android:layout_below="@+id/numberTotal"
+        android:layout_toLeftOf="@+id/continueButton"
+        android:layout_toStartOf="@+id/continueButton" />
 
     <Button
         android:id="@+id/continueButton"
