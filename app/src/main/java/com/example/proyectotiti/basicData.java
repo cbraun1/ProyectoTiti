@@ -5,14 +5,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
 public class basicData extends AppCompatActivity {
+
+    // Declare database reference
+    private DatabaseReference mDatabase;
+
+    private EditText family_no;
+    private EditText family_name;
+    private EditText family_phone;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_data);
+
+        // Views
+        family_no = (EditText)findViewById(R.id.editTextNoRegistro);
+        family_name = (EditText)findViewById(R.id.editTextNombre);
+        family_phone = (EditText)findViewById(R.id.editTextTelefono);
+
+        // Set up instance of database reference
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinnerDay);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -45,10 +66,21 @@ public class basicData extends AppCompatActivity {
 
 
     public void openContinue(View v){
+        // Create new instance of family
+        Family fam = new Family("family1", "4567890");
+
+        // Send family info to database
+        mDatabase.child("families").child("1").setValue(fam);
+
         startActivity(new Intent(basicData.this, continuePage.class));
     }
 
     public void openAnimals0(View v){
+        // Create new instance of family
+        Family fam = new Family(family_name.getText().toString(), family_phone.getText().toString());
+
+        // Send family info to database
+        mDatabase.child("families").child(family_no.getText().toString()).setValue(fam);
         startActivity(new Intent(basicData.this, animals0.class));
     }
 }
