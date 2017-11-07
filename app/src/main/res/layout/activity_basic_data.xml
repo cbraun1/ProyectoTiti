@@ -54,13 +54,14 @@
         android:onClick="openContinue"/>
 
     <ScrollView
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="320dp"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="52dp"
@@ -75,26 +76,26 @@
 
                 <TextView
                     android:id="@+id/textViewDate"
-                    android:layout_width="104dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
-                    android:text="Fecha"
+                    android:text="   Fecha"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
                 <Spinner
                     android:id="@+id/spinnerDay"
-                    android:layout_width="63dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content" />
 
                 <Spinner
                     android:id="@+id/spinnerMonth"
-                    android:layout_width="95dp"
+                    android:layout_width="121dp"
                     android:layout_height="wrap_content" />
 
                 <Spinner
                     android:id="@+id/spinnerYear"
-                    android:layout_width="81dp"
+                    android:layout_width="118dp"
                     android:layout_height="wrap_content" />
 
 
@@ -109,12 +110,12 @@
 
                 <TextView
                     android:id="@+id/textViewRegNum"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:text="No. Registro" />
+                    android:text="        No. Registro" />
 
                 <EditText
                     android:id="@+id/editTextNoRegistro"
@@ -133,12 +134,12 @@
 
                 <TextView
                     android:id="@+id/textViewName"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:text="Nombre" />
+                    android:text="        Nombre" />
 
                 <EditText
                     android:id="@+id/editTextNombre"
@@ -157,12 +158,12 @@
 
                 <TextView
                     android:id="@+id/textViewAddress"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:text="Dirrecion" />
+                    android:text="        Dirrecion" />
 
                 <EditText
                     android:id="@+id/editTextDirrecion"
@@ -182,12 +183,12 @@
 
                 <TextView
                     android:id="@+id/textViewCity"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:text="Comunidad" />
+                    android:text="        Comunidad" />
 
                 <EditText
                     android:id="@+id/editTextComunidad"
@@ -206,12 +207,12 @@
 
                 <TextView
                     android:id="@+id/textViewPhone"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:text="Telefono" />
+                    android:text="        Telefono" />
 
                 <EditText
                     android:id="@+id/editTextTelefono"
@@ -230,12 +231,12 @@
 
                 <TextView
                     android:id="@+id/textViewPhoto"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:text="Foto/Video" />
+                    android:text="        Foto/Video" />
 
                 <ImageButton
                     android:id="@+id/imageButton"

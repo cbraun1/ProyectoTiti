@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
+        android:paddingTop="0dp"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/number"
@@ -45,7 +46,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
+        tools:layout_editor_absoluteX="234dp"
+        android:onClick="openMadera4"/>
 
     <Button
         android:id="@+id/backButton"
@@ -58,7 +60,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:onClick="openMadera0"/>
 
     <ScrollView
         android:layout_width="350dp"
@@ -71,9 +74,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/linearLayout"
-            android:weightSum="1"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true">
+            android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,9 +84,6 @@
                     android:id="@+id/textViewFencesQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="¿Cuantos "
                     android:textColor="#000000"
                     android:textStyle="normal"
@@ -96,10 +94,7 @@
                     android:id="@+id/textViewFencesQ2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
-                    android:text="construcciones "
+                    android:text="cercados "
                     android:textColor="#000000"
                     android:textStyle="bold"
                     android:paddingTop="10dp"
@@ -108,9 +103,6 @@
                     android:id="@+id/textViewFencesQ3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.00"
                     android:text="tiene? "
                     android:textColor="#000000"
@@ -132,9 +124,6 @@
                 android:id="@+id/textViewFencesSub1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toLeftOf="@+id/continueButton"
-                android:layout_toStartOf="@+id/continueButton"
                 android:layout_weight="0.24"
                 android:text="Cercado 1"
                 android:textColor="#000000"
@@ -151,9 +140,6 @@
                     android:id="@+id/textViewFencesQ5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿De que tipo?"
                     android:textColor="#000000"
@@ -180,9 +166,6 @@
                     android:id="@+id/textViewFencesQ6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿Cuantos metros lineales?"
                     android:textColor="#000000"
@@ -209,9 +192,6 @@
                     android:id="@+id/textViewFencesQ7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿Para que funcion?"
                     android:textColor="#000000"
@@ -238,9 +218,6 @@
                     android:id="@+id/textViewFencesQ8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:paddingTop="0dp"
                     android:text="¿En que estado esta?"
                     android:textColor="#000000"
@@ -255,10 +232,7 @@
                     android:ems="10"
                     android:inputType="textPersonName" />
 
-
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

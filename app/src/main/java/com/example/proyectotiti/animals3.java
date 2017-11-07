@@ -38,4 +38,7 @@ public class animals3 extends AppCompatActivity {
         startActivity(new Intent(animals3.this, animals0.class));
     }
 
+    public void openAnimals4(View v){
+        startActivity(new Intent(animals3.this, animals4.class));
+    }
 }

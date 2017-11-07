@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
+        android:paddingTop="0dp"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/number"
@@ -45,7 +46,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
+        tools:layout_editor_absoluteX="234dp"
+        android:onClick="openRevise"/>
 
     <Button
         android:id="@+id/backButton"
@@ -58,7 +60,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:onClick="openRecycle1"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -80,9 +83,6 @@
                 android:id="@+id/textViewRecyclingQ2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toLeftOf="@+id/continueButton"
-                android:layout_toStartOf="@+id/continueButton"
                 android:paddingTop="0dp"
                 android:text="¿Que recicla?"
                 android:textColor="#000000"
@@ -109,9 +109,6 @@
                 android:id="@+id/textViewRecyclingQ3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toLeftOf="@+id/continueButton"
-                android:layout_toStartOf="@+id/continueButton"
                 android:paddingTop="0dp"
                 android:text="¿A quien entrega recidados?"
                 android:textColor="#000000"

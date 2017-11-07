@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"/>
+        android:paddingTop="0dp"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/number"
@@ -71,43 +72,7 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/title">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="52dp"
-                tools:layout_editor_absoluteY="180dp"
-                android:layout_above="@+id/continueButton"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:id="@+id/textViewDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
-                    android:text="Fecha" />
-
-                <Spinner
-                    android:id="@+id/spinnerDay"
-                    android:layout_width="78dp"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:id="@+id/spinnerMonth"
-                    android:layout_width="148dp"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:id="@+id/spinnerYear"
-                    android:layout_width="87dp"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            android:id="@+id/linearLayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,9 +82,6 @@
                     android:id="@+id/textViewConstructionsQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="¿Tiene "
                     android:textColor="#000000"
                     android:textStyle="normal"
@@ -130,9 +92,6 @@
                     android:id="@+id/textViewConstructionsQ2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="construcciones "
                     android:textColor="#000000"
                     android:textStyle="bold"
@@ -140,11 +99,8 @@
                     android:textSize="16sp" />
                 <TextView
                     android:id="@+id/textViewConstructionssQ3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="1.65"
                     android:text="con madera del bosque? "
                     android:textColor="#000000"
@@ -180,9 +136,6 @@
                     android:id="@+id/textViewFencesQ1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="¿Tiene "
                     android:textColor="#000000"
                     android:textStyle="normal"
@@ -193,9 +146,6 @@
                     android:id="@+id/textViewFencesQ2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:text="cercados "
                     android:textColor="#000000"
                     android:textStyle="bold"
@@ -203,11 +153,8 @@
                     android:textSize="16sp" />
                 <TextView
                     android:id="@+id/textViewFencesQ3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="1.65"
                     android:text="con madera del bosque? "
                     android:textColor="#000000"
@@ -242,11 +189,8 @@
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/textViewMaderaQ"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/continueButton"
-                    android:layout_toStartOf="@+id/continueButton"
                     android:layout_weight="0.40"
                     android:paddingTop="0dp"
                     android:text="Foto/Video"
@@ -257,7 +201,8 @@
                     android:id="@+id/imageButtonMadera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/ic_menu_camera" />
+                    app:srcCompat="@android:drawable/ic_menu_camera"
+                    tools:ignore="ContentDescription"/>
 
                 <EditText
                     android:id="@+id/editTextMaderaPics"
