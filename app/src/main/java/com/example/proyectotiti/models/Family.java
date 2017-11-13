@@ -7,16 +7,23 @@ package com.example.proyectotiti.models;
 public class Family {
 
     public Double id;
-    public String name;
-    public String phone_number;
+    public BasicData basic_data;
 
     public Family() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Family.class)
     }
 
-    public Family(Double id, String name, String phone_number) {
+    public Family(Double id, BasicData basicData) {
         this.id = id;
-        this.name = name;
-        this.phone_number = phone_number;
+        this.basic_data = basicData;
     }
+
+    public BasicData getBasic_data() {
+        return basic_data;
+    }
+
+    public void setBasic_data(BasicData basic_data) {
+        this.basic_data = basic_data;
+    }
+
 }

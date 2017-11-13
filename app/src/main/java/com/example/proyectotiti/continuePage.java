@@ -51,8 +51,10 @@ public class continuePage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot familySnapshot: dataSnapshot.getChildren()) {
+                    Log.e("DEBUG", String.valueOf(familySnapshot));
                     Family post = familySnapshot.getValue(Family.class);
-                    if (post.name != "") {
+                    Log.e("DEBUG", String.valueOf(post));
+                    if (post.basic_data.name != null) {
                         addFamilyRadioButton(post);
                     }
                 }
@@ -71,7 +73,7 @@ public class continuePage extends AppCompatActivity {
         RadioButton rdbtn = new RadioButton(this);
         int id = fam.id.intValue();
         rdbtn.setId(id);
-        rdbtn.setText(fam.name);
+        rdbtn.setText(fam.basic_data.name);
         familyRdbtn.addView(rdbtn);
     }
 

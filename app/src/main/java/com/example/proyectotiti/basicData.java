@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.proyectotiti.models.BasicData;
 import com.example.proyectotiti.models.Family;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -91,6 +92,7 @@ public class basicData extends BaseActivity {
         ValueEventListener bdListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("DEBUG", String.valueOf(dataSnapshot));
                 Family post = dataSnapshot.getValue(Family.class);
                 //for (DataSnapshot bdSnapshot: dataSnapshot.getChildren()) {
                     Log.e("DEBUG", String.valueOf(post));
@@ -111,33 +113,34 @@ public class basicData extends BaseActivity {
 
     public void prepopulate(Family fam) {
         family_no.setText(String.valueOf(fam.id));
-        family_name.setText(fam.name);
-        family_phone.setText(fam.phone_number);
+        family_name.setText(fam.basic_data.name);
+        family_phone.setText(fam.basic_data.phone_number);
     }
 
     public void openContinue(View v){
-        // Create new instance of family
-        Family fam = new Family((double) 1, "family1", "4567890");
-
-        // Send family info to database
-        mDatabase.child("families").child("1").setValue(fam);
-
-        startActivity(new Intent(basicData.this, continuePage.class));
+        if (isInitVisit){
+            startActivity(new Intent(basicData.this, home.class));
+        }
+        else{
+            startActivity(new Intent(basicData.this, continuePage.class));
+        }
     }
 
     public void openAnimals0(View v){
 
         if (isInitVisit){
+            // Create new instance of BasicData
+            BasicData bdata = new BasicData(family_name.getText().toString(), "", "", family_phone.getText().toString());
             // Create new instance of family
-            Family fam = new Family(Double.parseDouble(family_no.getText().toString()), family_name.getText().toString(), family_phone.getText().toString());
+            Family fam = new Family(Double.parseDouble(family_no.getText().toString()), bdata);
             // Send family info to database
             mDatabase.child(family_no.getText().toString()).setValue(fam);
         }
         else{
             // Send family info to database
-            mDatabase.child("name").setValue(family_name.getText().toString());
+            mDatabase.child("basic_data").child("name").setValue(family_name.getText().toString());
             Log.e("DEBUG", family_name.getText().toString());
-            mDatabase.child("phone_number").setValue(family_phone.getText().toString());
+            mDatabase.child("basic_data").child("phone_number").setValue(family_phone.getText().toString());
         }
 
         startActivity(new Intent(basicData.this, animals0.class));
