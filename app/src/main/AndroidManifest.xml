@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".models.ProyectoTiti"
         android:allowBackup="true"
         android:exported="true"
         android:icon="@mipmap/ic_launcher"

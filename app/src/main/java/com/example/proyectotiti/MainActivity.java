@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Button;
 
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,14 +18,24 @@ import com.google.firebase.auth.AuthResult;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.example.proyectotiti.models.User;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
+
+    private static final String TAG = "MainActivity";
+
 
     private EditText userInput;
     private EditText passInput;
+    private Button SignInButton;
+    private Button SignUpButton;
+    private Button ForgotPasswordButton;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +45,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Views
         userInput = (EditText)findViewById(R.id.usernameInput);
         passInput = (EditText)findViewById(R.id.passwordInput);
+        SignInButton = (Button)findViewById(R.id.startButton);
+        SignUpButton = (Button)findViewById(R.id.email_create_account_button);
+        ForgotPasswordButton = (Button)findViewById(R.id.forgot_password_button);
 
         // Buttons
-        findViewById(R.id.startButton).setOnClickListener(this);
-        findViewById(R.id.email_create_account_button).setOnClickListener(this);
-        findViewById(R.id.forgot_password_button).setOnClickListener(this);
+        SignInButton.setOnClickListener(this);
+        SignUpButton.setOnClickListener(this);
+        ForgotPasswordButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.keepSynced(true);
 
     }
 
@@ -48,34 +64,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (mAuth.getCurrentUser() != null) {
+            onAuthSuccess(mAuth.getCurrentUser());
+        }
     }
 
-    private void createAccount(String email, String password) {
-        Log.d("DEBUG", "createAccount:" + email);
+    private void signIn(String email, String password) {
+        Log.d(TAG, "signIn");
         if (!validateForm()) {
             return;
         }
 
-        // [START create_user_with_email]
+        showProgressDialog();
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
+                hideProgressDialog();
+
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    onAuthSuccess(task.getResult().getUser());
+                    Toast.makeText(getApplicationContext(), "Authentication success.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("DEBUG", "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    private void createAccount(String email, String password) {
+        Log.d(TAG, "createAccount:" + email);
+        if (!validateForm()) {
+            return;
+        }
+
+        showProgressDialog();
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
+                        hideProgressDialog();
+
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("DEBUG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            onAuthSuccess(task.getResult().getUser());
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("DEBUG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
-        // [END create_user_with_email]
     }
 
     private void sendPasswordReset() {
@@ -83,13 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.forgot_password_button).setEnabled(false);
 
         // Send reset password email
-        // [START send_email_verification]
         final FirebaseUser user = mAuth.getCurrentUser();
         mAuth.sendPasswordResetEmail(user.getEmail())
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        // [START_EXCLUDE]
                         // Re-enable button
                         findViewById(R.id.forgot_password_button).setEnabled(true);
 
@@ -103,36 +150,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     "Failed to send email.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        // [END_EXCLUDE]
                     }
                 });
-        // [END send_email_verification]
     }
 
+    private void onAuthSuccess(FirebaseUser user) {
+        String username = usernameFromEmail(user.getEmail());
 
-    private void signIn(String email, String password) {
-        if (!validateForm()) {
-            return;
+        // Write new user
+        writeNewUser(user.getUid(), username, user.getEmail());
+
+        // Go to home
+        startActivity(new Intent(MainActivity.this, home.class));
+        finish();
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
         }
-
-        // [START sign_in_with_email]
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Authentication success.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MainActivity.this, home.class));
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("DEBUG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-        // [END sign_in_with_email]
     }
 
     private boolean validateForm() {
@@ -155,6 +193,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return valid;
+    }
+
+    private void writeNewUser(String userId, String name, String email) {
+        User user = new User(name, email);
+
+        mDatabase.child("users").child(userId).setValue(user);
     }
 
 

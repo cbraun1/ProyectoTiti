@@ -1,4 +1,4 @@
-package com.example.proyectotiti;
+package com.example.proyectotiti.models;
 
 /**
  * Holds the information for the family
@@ -6,6 +6,7 @@ package com.example.proyectotiti;
 
 public class Family {
 
+    public Double id;
     public String name;
     public String phone_number;
 
@@ -13,7 +14,8 @@ public class Family {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Family(String name, String phone_number) {
+    public Family(Double id, String name, String phone_number) {
+        this.id = id;
         this.name = name;
         this.phone_number = phone_number;
     }

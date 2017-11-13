@@ -1,25 +1,32 @@
 package com.example.proyectotiti;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.proyectotiti.models.Family;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
-public class basicData extends AppCompatActivity {
+public class basicData extends BaseActivity {
 
     // Declare database reference
     private DatabaseReference mDatabase;
+    private DatabaseReference mFamily;
 
     private EditText family_no;
     private EditText family_name;
     private EditText family_phone;
+
+    private boolean isInitVisit;
 
 
     @Override
@@ -32,9 +39,24 @@ public class basicData extends AppCompatActivity {
         family_name = (EditText)findViewById(R.id.editTextNombre);
         family_phone = (EditText)findViewById(R.id.editTextTelefono);
 
-        // Set up instance of database reference
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        setUpMonthSpinner();
+
+        // Get current Info
+        Intent intentExtras = getIntent();
+        Bundle extrasBundle = intentExtras.getExtras();
+        isInitVisit = extrasBundle.getBoolean("isInitVisit");
+        if (!isInitVisit){
+            int id_no = extrasBundle.getInt("family_no");
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(id_no));
+            readFromDB();
+        }
+        else {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("families");
+        }
+    }
+
+    public void setUpMonthSpinner(){
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinnerDay);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -63,11 +85,39 @@ public class basicData extends AppCompatActivity {
         spinnerYear.setAdapter(adapter3);
     }
 
+    public void readFromDB() {
 
+        // Add value event listener to the list of families
+        ValueEventListener bdListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Family post = dataSnapshot.getValue(Family.class);
+                //for (DataSnapshot bdSnapshot: dataSnapshot.getChildren()) {
+                    Log.e("DEBUG", String.valueOf(post));
+                    //Family post = bdSnapshot.getValue(Family.class);
+                    prepopulate(post);
+                //}
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Family failed, log a message
+                Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        mDatabase.addValueEventListener(bdListener);
+
+    }
+
+    public void prepopulate(Family fam) {
+        family_no.setText(String.valueOf(fam.id));
+        family_name.setText(fam.name);
+        family_phone.setText(fam.phone_number);
+    }
 
     public void openContinue(View v){
         // Create new instance of family
-        Family fam = new Family("family1", "4567890");
+        Family fam = new Family((double) 1, "family1", "4567890");
 
         // Send family info to database
         mDatabase.child("families").child("1").setValue(fam);
@@ -76,11 +126,20 @@ public class basicData extends AppCompatActivity {
     }
 
     public void openAnimals0(View v){
-        // Create new instance of family
-        Family fam = new Family(family_name.getText().toString(), family_phone.getText().toString());
 
-        // Send family info to database
-        mDatabase.child("families").child(family_no.getText().toString()).setValue(fam);
+        if (isInitVisit){
+            // Create new instance of family
+            Family fam = new Family(Double.parseDouble(family_no.getText().toString()), family_name.getText().toString(), family_phone.getText().toString());
+            // Send family info to database
+            mDatabase.child(family_no.getText().toString()).setValue(fam);
+        }
+        else{
+            // Send family info to database
+            mDatabase.child("name").setValue(family_name.getText().toString());
+            Log.e("DEBUG", family_name.getText().toString());
+            mDatabase.child("phone_number").setValue(family_phone.getText().toString());
+        }
+
         startActivity(new Intent(basicData.this, animals0.class));
     }
 }
