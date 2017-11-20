@@ -17,6 +17,7 @@ public class home extends BaseActivity {
         setContentView(R.layout.activity_home);
     }
 
+    // Opens basic data for initial visits for families
     public void openBasicData(View v){
         // Pass the id of the family selected to the new activity
         Intent intentDetails = new Intent(home.this, basicData.class);
@@ -26,6 +27,7 @@ public class home extends BaseActivity {
         startActivity(intentDetails);
     }
 
+    // Opens screen to allow for continued visits for families
     public void openContinue(View v){
         startActivity(new Intent(home.this, continuePage.class));
     }
@@ -34,6 +36,7 @@ public class home extends BaseActivity {
         startActivity(new Intent(home.this, download.class));
     }
 
+    // Signs out and goes back to login screen
     public void openMain(View v){
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(home.this, MainActivity.class));

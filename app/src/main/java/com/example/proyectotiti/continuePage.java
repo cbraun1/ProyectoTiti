@@ -53,7 +53,6 @@ public class continuePage extends AppCompatActivity {
                 for (DataSnapshot familySnapshot: dataSnapshot.getChildren()) {
                     Log.e("DEBUG", String.valueOf(familySnapshot));
                     Family post = familySnapshot.getValue(Family.class);
-                    Log.e("DEBUG", String.valueOf(post));
                     if (post.basic_data.name != null) {
                         addFamilyRadioButton(post);
                     }
@@ -69,6 +68,7 @@ public class continuePage extends AppCompatActivity {
         mDatabase.addValueEventListener(familyListener);
     }
 
+    // Add new family as a radio button with the text as the family name and the id ad the id
     public void addFamilyRadioButton(Family fam) {
         RadioButton rdbtn = new RadioButton(this);
         int id = fam.id.intValue();
@@ -78,7 +78,7 @@ public class continuePage extends AppCompatActivity {
     }
 
 
-
+    // Send the selected family id to the basic data screen
     public void openBasicData(View v){
         int selectedId = familyRdbtn.getCheckedRadioButtonId();
 
