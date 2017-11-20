@@ -11,8 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.proyectotiti.models.Animal;
+import com.example.proyectotiti.models.AnimalDesc;
 import com.example.proyectotiti.models.BasicData;
 import com.example.proyectotiti.models.Changes;
+import com.example.proyectotiti.models.CurrentVisit;
 import com.example.proyectotiti.models.Date_Class;
 import com.example.proyectotiti.models.Family;
 import com.example.proyectotiti.models.OldNewPair;
@@ -211,15 +214,17 @@ public class basicData extends BaseActivity {
             // Make visits map
             Map<String, Date_Class> visits = new HashMap<String, Date_Class>();
             visits.put("visit_1",date);
+            //Make CurrentVisit object
+            CurrentVisit curr_visit = new CurrentVisit(new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()));
 
             // Create new instance of family
-            Family fam = new Family(id, bdata, visits);
+            Family fam = new Family(id, bdata, visits, curr_visit);
             // Send family info to database
             mDatabase.child(family_no.getText().toString()).setValue(fam);
         }
         // Make changes to old information
         else if (!firstPass) {
-            //visit_num = visit_num + 1;
+
             String visitID = "visit_" + visit_num;
             Date_Class existing_date = family.visits.get(visitID);
             // Make map of changes
@@ -298,7 +303,18 @@ public class basicData extends BaseActivity {
             mDatabase.setValue(family);
         }
 
-        startActivity(new Intent(basicData.this, animals0.class));
+        // Send new bundle to Animals0
+
+        // Pass the id of the family selected to the new activity
+        // Pass false to initial visit flag
+        // Pass true to firstPass
+        Intent intentDetails = new Intent(basicData.this, animals0.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("visit_num", visit_num);
+        bundle.putInt("family_no", family.id.intValue());
+        bundle.putBoolean("firstPass", true);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
