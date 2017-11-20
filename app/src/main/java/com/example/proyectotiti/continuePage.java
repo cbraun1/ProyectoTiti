@@ -81,6 +81,9 @@ public class continuePage extends AppCompatActivity {
     // Send the selected family id to the basic data screen
     public void openBasicData(View v){
         int selectedId = familyRdbtn.getCheckedRadioButtonId();
+        if (selectedId == -1) {
+            return;
+        }
 
         // Pass the id of the family selected to the new activity
         // Pass false to initial visit flag
