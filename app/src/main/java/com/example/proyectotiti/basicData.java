@@ -47,6 +47,7 @@ public class basicData extends BaseActivity {
 
     private boolean isInitVisit;
     private long visit_num;
+    private boolean firstPass;
 
 
     @Override
@@ -67,6 +68,7 @@ public class basicData extends BaseActivity {
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
         isInitVisit = extrasBundle.getBoolean("isInitVisit");
+        firstPass = extrasBundle.getBoolean("firstPass");
         if (!isInitVisit){
             // Set so that the number cannot be editable
             family_no.setEnabled(false);
@@ -191,6 +193,7 @@ public class basicData extends BaseActivity {
 
     // Submitting new data to database
     public void openAnimals0(View v){
+
         // If it is a new visit- Set up new family
         if (isInitVisit){
             // Get id of family
@@ -215,7 +218,46 @@ public class basicData extends BaseActivity {
             mDatabase.child(family_no.getText().toString()).setValue(fam);
         }
         // Make changes to old information
-        else{
+        else if (!firstPass) {
+            //visit_num = visit_num + 1;
+            String visitID = "visit_" + visit_num;
+            Date_Class existing_date = family.visits.get(visitID);
+            // Make map of changes
+            // Get values of spinner
+            String day = spinnerDay.getSelectedItem().toString();
+            String month = spinnerMonth.getSelectedItem().toString();
+            String year = spinnerYear.getSelectedItem().toString();
+            // If family name changes
+            if(!family_name.getText().toString().equals(family.basic_data.name)) {
+                OldNewPair new_pair = new OldNewPair(family.basic_data.name, family_name.getText().toString());
+                existing_date.changes.put("basic_data-name", new_pair);
+                family.basic_data.name = family_name.getText().toString();
+            }
+            // If family address changes
+            if(!family_address.getText().toString().equals(family.basic_data.address)) {
+                OldNewPair new_pair = new OldNewPair(family.basic_data.address, family_address.getText().toString());
+                existing_date.changes.put("basic_data-address", new_pair);
+                family.basic_data.address = family_address.getText().toString();
+            }
+            // If family community changes
+            if(!family_comm.getText().toString().equals(family.basic_data.community)) {
+                OldNewPair new_pair = new OldNewPair(family.basic_data.community, family_comm.getText().toString());
+                existing_date.changes.put("basic_data-community", new_pair);
+                family.basic_data.community = family_comm.getText().toString();
+            }
+            // If family phone changes
+            if(!family_phone.getText().toString().equals(family.basic_data.phone_number)) {
+                OldNewPair new_pair = new OldNewPair(family.basic_data.phone_number, family_phone.getText().toString());
+                existing_date.changes.put("basic_data-phone", new_pair);
+                family.basic_data.phone_number = family_phone.getText().toString();
+            }
+            // Create new instance of Date_Class
+            //Date_Class date = new Date_Class(month, day, year, exis);
+            family.visits.put(visitID, existing_date);
+            mDatabase.setValue(family);
+        }
+        else {
+
             // Send family info to database
             // Record new date/visit
             visit_num = visit_num + 1;
@@ -279,7 +321,7 @@ public class basicData extends BaseActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageView.setImageBitmap(imageBitmap);
+            //mImageView.setImageBitmap(imageBitmap);
         }
     }
 

@@ -7,6 +7,8 @@ import android.view.View;
 
 public class animals0 extends AppCompatActivity {
 
+    private int family_no = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,8 +16,16 @@ public class animals0 extends AppCompatActivity {
     }
 
     public void openBasicData(View v){
-
-        startActivity(new Intent(animals0.this, basicData.class));
+        // Pass the id of the family selected to the new activity
+        // Pass false to initial visit flag
+        // Pass false to firstPass
+        Intent intentDetails = new Intent(animals0.this, basicData.class);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isInitVisit", false);
+        bundle.putInt("family_no", family_no);
+        bundle.putBoolean("firstPass", false);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
     }
 
     public void openAnimals1(View v){

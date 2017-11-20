@@ -83,10 +83,13 @@ public class continuePage extends AppCompatActivity {
         int selectedId = familyRdbtn.getCheckedRadioButtonId();
 
         // Pass the id of the family selected to the new activity
+        // Pass false to initial visit flag
+        // Pass true to firstPass
         Intent intentDetails = new Intent(continuePage.this, basicData.class);
         Bundle bundle = new Bundle();
         bundle.putBoolean("isInitVisit", false);
         bundle.putInt("family_no", selectedId);
+        bundle.putBoolean("firstPass", true);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
