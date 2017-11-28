@@ -47,6 +47,7 @@ public class basicData extends BaseActivity {
     private Spinner spinnerYear;
 
     private Family family;
+    private long families_count;
 
     private boolean isInitVisit;
     private long visit_num;
@@ -81,6 +82,23 @@ public class basicData extends BaseActivity {
         }
         else {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("families");
+            // Add value event listener to find the visit number
+            ValueEventListener familyListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.e("DEBUG", String.valueOf(dataSnapshot));
+                    families_count = dataSnapshot.getChildrenCount();
+                    Log.e("DEBUG", String.valueOf(families_count));
+                    prepopulateFamilyNo();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Family failed, log a message
+                    Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
+                }
+            };
+            mDatabase.addValueEventListener(familyListener);
         }
     }
 
@@ -181,6 +199,12 @@ public class basicData extends BaseActivity {
         family_phone.setText(family.basic_data.phone_number);
         family_address.setText(family.basic_data.address);
         family_comm.setText(family.basic_data.community);
+
+    }
+
+    public void prepopulateFamilyNo(){
+        families_count = families_count + 1;
+        family_no.setText(String.valueOf(families_count));
 
     }
 
@@ -311,7 +335,12 @@ public class basicData extends BaseActivity {
         Intent intentDetails = new Intent(basicData.this, animals0.class);
         Bundle bundle = new Bundle();
         bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family.id.intValue());
+        if(isInitVisit){
+            bundle.putInt("family_no", (int)families_count);
+        }
+        else{
+            bundle.putInt("family_no", family.id.intValue());
+        }
         bundle.putBoolean("firstPass", true);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);

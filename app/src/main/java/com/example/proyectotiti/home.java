@@ -23,6 +23,7 @@ public class home extends BaseActivity {
         Intent intentDetails = new Intent(home.this, basicData.class);
         Bundle bundle = new Bundle();
         bundle.putBoolean("isInitVisit", true);
+        bundle.putBoolean("firstPass", true);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
@@ -32,9 +33,9 @@ public class home extends BaseActivity {
         startActivity(new Intent(home.this, continuePage.class));
     }
 
-    public void openDownload(View v){
-        startActivity(new Intent(home.this, download.class));
-    }
+//    public void openDownload(View v){
+//        startActivity(new Intent(home.this, download.class));
+//    }
 
     // Signs out and goes back to login screen
     public void openMain(View v){
