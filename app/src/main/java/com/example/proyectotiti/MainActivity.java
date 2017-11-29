@@ -37,6 +37,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
+    /* This function runs upon the opening of the app.
+    * Sets up the input text boxes and buttons, sets onclick listeners for each,
+    * and sets up the database.*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +57,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         SignUpButton.setOnClickListener(this);
         ForgotPasswordButton.setOnClickListener(this);
 
+        // Sets up Firebase auth and realtime database
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        // Allows for data to be accessed while offline
         mDatabase.keepSynced(true);
 
     }
 
+    /* This function runs upon the starting of the app.
+    * Checks if a user is already signed in. */
     @Override
     public void onStart() {
         super.onStart();
@@ -69,12 +76,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
+    /* This function runs upon pressing the sign in button.  */
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn");
+        // Ensure password and username has been filled out
         if (!validateForm()) {
             return;
         }
 
+        // Shows the "Loading" icon while processing
         showProgressDialog();
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -89,7 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     Toast.makeText(getApplicationContext(), "Authentication success.", Toast.LENGTH_SHORT).show();
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("DEBUG", "createUserWithEmail:failure", task.getException());
+                    Log.w("DEBUG", "signInWithEmail:failure", task.getException());
                     Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -97,12 +107,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         });
     }
 
+    /* This function runs upon pressing the button to create a new account.
+    * Checks if a user is already signed in. */
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
+        // Ensure password and username has been filled out
         if (!validateForm()) {
             return;
         }
 
+        // Shows the "Loading" icon while processing
         showProgressDialog();
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -112,6 +126,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
                         hideProgressDialog();
 
+                        // Automatically sign in
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             onAuthSuccess(task.getResult().getUser());
@@ -127,6 +142,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 });
     }
 
+    /* This function runs upon pressing the button to send a password reset email. */
     private void sendPasswordReset() {
         // Disable button
         findViewById(R.id.forgot_password_button).setEnabled(false);
@@ -154,6 +170,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 });
     }
 
+    /* This function runs upon successful authenication.
+    * Writes a new user to the database and goes to the home screen. */
     private void onAuthSuccess(FirebaseUser user) {
         String username = usernameFromEmail(user.getEmail());
 
@@ -165,6 +183,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         finish();
     }
 
+    /* This function runs upon signing in.
+    * Parses the username from the user email. */
     private String usernameFromEmail(String email) {
         if (email.contains("@")) {
             return email.split("@")[0];
@@ -173,6 +193,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
+    /* This function runs to check that the appropriate requirements are fulfilled when pressing
+    a button.   */
     private boolean validateForm() {
         boolean valid = true;
 
@@ -201,7 +223,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mDatabase.child("users").child(userId).setValue(user);
     }
 
-
+    /* This function runs when one of the buttons is pressed.  */
     @Override
     public void onClick(View v) {
         int i = v.getId();

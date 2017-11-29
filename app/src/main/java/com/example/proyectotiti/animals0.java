@@ -92,7 +92,9 @@ public class animals0 extends AppCompatActivity {
                 Log.e("DEBUG", String.valueOf(entry));
                 String key = entry.getKey();
                 AnimalDesc value = entry.getValue();
-                addWildRadioButton(key,value);
+                if (value != null) {
+                    addWildRadioButton(key,value);
+                }
             }
         }
         // Iterate through domestic animals and prepopulate
@@ -100,7 +102,9 @@ public class animals0 extends AppCompatActivity {
             for (Map.Entry<String, AnimalDesc> entry : animal.domestic.entrySet()) {
                 String key = entry.getKey();
                 AnimalDesc value = entry.getValue();
-                addDomesticRadioButton(key,value);
+                if (value != null) {
+                    addDomesticRadioButton(key,value);
+                }
             }
         }
     }
@@ -138,14 +142,22 @@ public class animals0 extends AppCompatActivity {
         startActivity(intentDetails);
     }
 
-    public void openAnimals1(View v){
+    public void openMadera0(View v){
 
-        startActivity(new Intent(animals0.this, animals1.class));
+        startActivity(new Intent(animals0.this, madera0.class));
     }
 
     public void openAnimals2(View v){
+        int selectedId = domesticRdGp.getCheckedRadioButtonId();
 
-        startActivity(new Intent(animals0.this, animals2.class));
+        Intent intentDetails = new Intent(animals0.this, animals2.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("visit_num", visit_num);
+        bundle.putInt("family_no", family_no);
+        bundle.putInt("animal_no", selectedId);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
+
     }
 
     public void openAnimals4(View v){

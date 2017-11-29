@@ -53,7 +53,10 @@ public class basicData extends BaseActivity {
     private long visit_num;
     private boolean firstPass;
 
-
+    /* This function runs upon the creation of the basic data screen.
+    * If it is not an initial visit, it will prompt the app to read from the database
+    * and prepopulate the text boxes.  Otherwise, it will prepopulate the family number
+    * with the next consecutive number*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,7 @@ public class basicData extends BaseActivity {
         Bundle extrasBundle = intentExtras.getExtras();
         isInitVisit = extrasBundle.getBoolean("isInitVisit");
         firstPass = extrasBundle.getBoolean("firstPass");
+
         if (!isInitVisit){
             // Set so that the number cannot be editable
             family_no.setEnabled(false);
@@ -82,26 +86,12 @@ public class basicData extends BaseActivity {
         }
         else {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("families");
-            // Add value event listener to find the visit number
-            ValueEventListener familyListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.e("DEBUG", String.valueOf(dataSnapshot));
-                    families_count = dataSnapshot.getChildrenCount();
-                    Log.e("DEBUG", String.valueOf(families_count));
-                    prepopulateFamilyNo();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Getting Family failed, log a message
-                    Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
-                }
-            };
-            mDatabase.addValueEventListener(familyListener);
+            readFamilyNum();
         }
     }
 
+    /* This function runs upon the creation of the basic data screen.
+    * It will set up the spinner with the correct spinner options.*/
     public void setUpDateSpinner(){
         spinnerDay = (Spinner) findViewById(R.id.spinnerDay);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -131,6 +121,9 @@ public class basicData extends BaseActivity {
         spinnerYear.setAdapter(adapter3);
     }
 
+    /* This function runs upon the creation of the basic data screen if it is a follow up visit.
+    It will read from the database to prepopulate the text boxes and well as determine which
+    number of visit the follow up is.*/
     public void readFromDB() {
 
         // Add value event listener to find the visit number
@@ -168,7 +161,9 @@ public class basicData extends BaseActivity {
 
     }
 
-    // Prepopulate basic data from last visit
+    /* This function runs once the family has been read from the database if it is not an initial
+    visit.
+     It will prepopulate the editTexts with the most current information.*/
     public void prepopulate(Family fam) {
         family = fam;
         // Set the date to last visit
@@ -202,13 +197,39 @@ public class basicData extends BaseActivity {
 
     }
 
+    /* This function runs once the number of families has been read from the database if it is a
+    * follow up visit.
+    * It will prepopulate the family number editText with the most current number.*/
     public void prepopulateFamilyNo(){
         families_count = families_count + 1;
         family_no.setText(String.valueOf(families_count));
 
     }
 
-    // Back button without saving new input
+    /* This function runs once the family count has been read from the database.*/
+    public void readFamilyNum(){
+        // Add value event listener to find the family number
+        ValueEventListener familyListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("DEBUG", String.valueOf(dataSnapshot));
+                families_count = dataSnapshot.getChildrenCount();
+                Log.e("DEBUG", String.valueOf(families_count));
+                prepopulateFamilyNo();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Family failed, log a message
+                Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        mDatabase.addValueEventListener(familyListener);
+    }
+
+    /* This function runs if the back button is pressed.
+    * If it is an initial visit, this button will bring the user back to the home screen.  If it
+    * is a follow up visit, this button will bring the user back to the family screen.*/
     public void openContinue(View v){
         if (isInitVisit){
             startActivity(new Intent(basicData.this, home.class));

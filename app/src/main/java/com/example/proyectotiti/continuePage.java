@@ -27,6 +27,9 @@ public class continuePage extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
+    /* This function runs upon the creation of the continue screen.
+    * Sets up the radio button group for the families and a reference to the database
+    * where the families are stored. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,8 @@ public class continuePage extends AppCompatActivity {
         mLinearLayout.addView(familyRdbtn);
     }
 
+    /* This function runs upon the creation of the home screen.
+    * It adds a value event listener to the database reference in order to find the families. */
     @Override
     public void onStart() {
         super.onStart();
@@ -53,9 +58,7 @@ public class continuePage extends AppCompatActivity {
                 for (DataSnapshot familySnapshot: dataSnapshot.getChildren()) {
                     Log.e("DEBUG", String.valueOf(familySnapshot));
                     Family post = familySnapshot.getValue(Family.class);
-                    if (post.basic_data.name != null) {
-                        addFamilyRadioButton(post);
-                    }
+                    addFamilyRadioButton(post);
                 }
             }
 
@@ -68,7 +71,9 @@ public class continuePage extends AppCompatActivity {
         mDatabase.addValueEventListener(familyListener);
     }
 
-    // Add new family as a radio button with the text as the family name and the id ad the id
+    /* This function runs upon the finding of an existing family.
+     * It will add the family as a radio button with the text as the family name and the id
+      * as the id.*/
     public void addFamilyRadioButton(Family fam) {
         RadioButton rdbtn = new RadioButton(this);
         int id = fam.id.intValue();
@@ -78,7 +83,8 @@ public class continuePage extends AppCompatActivity {
     }
 
 
-    // Send the selected family id to the basic data screen
+    /* This function runs upon the selection of the submit button.
+     * It will pass the family number to the next screen. */
     public void openBasicData(View v){
         int selectedId = familyRdbtn.getCheckedRadioButtonId();
         if (selectedId == -1) {
@@ -97,6 +103,7 @@ public class continuePage extends AppCompatActivity {
         startActivity(intentDetails);
     }
 
+    /* This function runs upon clicking the back button. */
     public void openHome(View v){
         startActivity(new Intent(continuePage.this, home.class));
     }
