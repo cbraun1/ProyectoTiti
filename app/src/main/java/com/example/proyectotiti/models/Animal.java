@@ -2,8 +2,9 @@ package com.example.proyectotiti.models;
 
 import java.util.Map;
 
-/**
- * Created by katieschermerhorn on 11/20/17.
+/** Animal class
+ * This class contains two different objects "wild" and "domestic" that contain maps so each animal
+ * has an ID and a description.
  */
 
 public class Animal {
@@ -13,7 +14,7 @@ public class Animal {
 
 
     public Animal() {
-        // Default constructor required for calls to DataSnapshot.getValue(Family.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Animal.class)
     }
 
     public Animal(Map<String, AnimalDesc> wild, Map<String, AnimalDesc> domestic) {

@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import com.example.proyectotiti.models.Animal;
 import com.example.proyectotiti.models.AnimalDesc;
 import com.example.proyectotiti.models.BasicData;
-import com.example.proyectotiti.models.Changes;
 import com.example.proyectotiti.models.CurrentVisit;
 import com.example.proyectotiti.models.Date_Class;
 import com.example.proyectotiti.models.Family;
@@ -25,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -239,7 +237,9 @@ public class basicData extends BaseActivity {
         }
     }
 
-    // Submitting new data to database
+    /* This function runs if the forward button is pressed.
+    * This will submit the basic data to the database.  It will create a new family if it is the
+    * initial visit, or create a new visit and document changes made.*/
     public void openAnimals0(View v){
 
         // If it is a new visit- Set up new family

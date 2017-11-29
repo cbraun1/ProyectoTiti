@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
+/** Family class
  * Holds the information for the family
  */
 
