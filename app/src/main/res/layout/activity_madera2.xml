@@ -121,17 +121,15 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textViewConstructionsSub1"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_weight="0.24"
-                android:text="Construccion 1"
+            <EditText
+                android:id="@+id/editTextConstruccion"
+                android:layout_width="193dp"
+                android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:paddingTop="5dp"
-                android:textSize="16sp" />
-
+                android:ems="10"
+                android:hint="Nuevo Construccion"
+                android:inputType="textPersonName" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

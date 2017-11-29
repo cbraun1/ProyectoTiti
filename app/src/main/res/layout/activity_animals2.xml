@@ -121,16 +121,17 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textViewWildAnimalsSub1"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+
+            <EditText
+                android:id="@+id/editTextAnimal"
+                android:layout_width="162dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.24"
-                android:text="Animal 1"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:paddingTop="5dp"
-                android:textSize="16sp" />
+                android:ems="10"
+                android:hint="Nuevo Animal"
+                android:inputType="textPersonName" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,16 +190,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/textViewWildAnimalsQ6"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.40"
                     android:paddingTop="0dp"
                     android:text="Foto/Video"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="normal" />
+
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
@@ -207,12 +209,13 @@
                     tools:ignore="ContentDescription"/>
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/editText4"
                     android:layout_width="162dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.15"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="0 fotos subidas" />
+                    android:hint="0 fotos subidas"
+                    android:inputType="textPersonName" />
 
 
             </LinearLayout>
