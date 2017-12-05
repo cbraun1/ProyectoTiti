@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"
+        android:paddingTop="0sp"
         tools:ignore="ContentDescription"/>
 
     <TextView
@@ -22,7 +22,7 @@
         android:text="2 de 5"
         android:textSize="18sp"
         android:layout_below="@+id/logo"
-        android:paddingTop="0dp"
+        android:paddingTop="0sp"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -32,52 +32,52 @@
         android:text="ANIMALES"
         android:textSize="18sp"
         android:layout_below="@+id/number"
-        android:paddingTop="0dp"
+        android:paddingTop="0sp"
         android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/continueButton"
         style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
+        android:layout_width="150sp"
+        android:layout_height="52sp"
         android:text="SIGUENTE"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp" />
+        tools:layout_editor_absoluteY="460sp"
+        tools:layout_editor_absoluteX="234sp" />
 
     <Button
         android:id="@+id/backButton"
         style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
+        android:layout_width="150sp"
+        android:layout_height="52sp"
         android:text="ANTERIOR"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="460sp"
+        tools:layout_editor_absoluteX="0sp"
         android:onClick="openAnimals0"/>
 
     <ScrollView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="300sp"
+        android:layout_height="300sp"
         android:layout_below="@+id/number"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp">
+        android:layout_marginTop="13sp">
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="0sp"
             android:id="@+id/linearLayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="40sp"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/textViewWildAnimalsQ1"
@@ -86,7 +86,7 @@
                     android:text="¿Tiene animales "
                     android:textColor="#000000"
                     android:textStyle="normal"
-                    android:paddingTop="10dp"
+                    android:paddingTop="10sp"
                     android:textSize="16sp" />
 
                 <TextView
@@ -96,7 +96,7 @@
                     android:text="silvestres "
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:paddingTop="10dp"
+                android:paddingTop="10sp"
                 android:textSize="16sp" />
                 <TextView
                     android:id="@+id/textViewWildAnimalsQ3"
@@ -104,9 +104,9 @@
                     android:text="en su casa? "
                     android:textColor="#000000"
                     android:textStyle="normal"
-                    android:paddingTop="10dp"
+                    android:paddingTop="10sp"
                     android:textSize="16sp"
-                    android:layout_width="100dp" />
+                    android:layout_width="100sp" />
 
             </LinearLayout>
 
