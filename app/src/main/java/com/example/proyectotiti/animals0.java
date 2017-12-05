@@ -27,12 +27,16 @@ public class animals0 extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     private Integer family_no;
-    private Boolean firstPass;
+    //private Boolean firstPass;
     private Long visit_num;
 
     private RadioGroup wildRdGp;
     private RadioGroup domesticRdGp;
 
+    /* This function runs upon the creation of the animals0 screen.
+    * If it is not an initial visit, it will prompt the app to read from the database
+    * and prepopulate the text boxes.  Otherwise, it will prepopulate the family number
+    * with the next consecutive number*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +53,7 @@ public class animals0 extends AppCompatActivity {
         // Get current Info
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        firstPass = extrasBundle.getBoolean("firstPass");
+        //firstPass = extrasBundle.getBoolean("firstPass");
         family_no = extrasBundle.getInt("family_no");
         visit_num = extrasBundle.getLong("visit_num");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("animals");
@@ -154,7 +158,7 @@ public class animals0 extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("visit_num", visit_num);
         bundle.putInt("family_no", family_no);
-        bundle.putInt("animal_no", selectedId);
+//        bundle.putInt("animal_no", selectedId);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
 
@@ -162,6 +166,11 @@ public class animals0 extends AppCompatActivity {
 
     public void openAnimals4(View v){
 
-        startActivity(new Intent(animals0.this, animals4.class));
+        Intent intentDetails = new Intent(animals0.this, animals4.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("visit_num", visit_num);
+        bundle.putInt("family_no", family_no);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
     }
 }

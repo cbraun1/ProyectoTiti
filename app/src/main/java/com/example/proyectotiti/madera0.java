@@ -24,6 +24,13 @@ public class madera0 extends AppCompatActivity {
         startActivity(new Intent(madera0.this, madera3.class));
     }
     public void openAnimals0(View v){
-        startActivity(new Intent(madera0.this, animals0.class));
+
+        Intent intentDetails = new Intent(madera0.this, animals0.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("visit_num", 1);
+        bundle.putInt("family_no", 1);
+        //bundle.putBoolean("firstPass", true);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
     }
 }
