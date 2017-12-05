@@ -2,8 +2,10 @@ package com.example.proyectotiti.models;
 
 import java.util.Map;
 
-/**
- * Created by katieschermerhorn on 11/16/17.
+/** Date_Class class
+ * This class contains the date and changes for each visit.
+ * <String, OldNewPair>: String is the path that was changed.  OldNewPair is the old and new
+ * values given.
  */
 
 public class Date_Class {
@@ -14,7 +16,7 @@ public class Date_Class {
     public Map<String, OldNewPair> changes;
 
     public Date_Class() {
-        // Default constructor required for calls to DataSnapshot.getValue(Family.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Date_Class.class)
     }
 
     public Date_Class(String month, String day, String year, Map<String, OldNewPair> changes) {

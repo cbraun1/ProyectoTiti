@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Created by katieschermerhorn on 11/10/17.
+ * This enables the database to be accessed while the user is offline.
  */
 
 public class ProyectoTiti extends Application{

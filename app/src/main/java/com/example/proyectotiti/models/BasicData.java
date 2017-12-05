@@ -1,7 +1,11 @@
 package com.example.proyectotiti.models;
 
-/**
- * Created by katieschermerhorn on 11/13/17.
+/** Basic Data Class
+ * This class contains the basic data recorded for each family.
+ * Name: name of the family
+ * Community: name of the community for the famiy
+ * Address: family's address
+ * Phone_number: family phone number
  */
 
 public class BasicData {
@@ -12,7 +16,7 @@ public class BasicData {
     public String phone_number;
 
     public BasicData() {
-        // Default constructor required for calls to DataSnapshot.getValue(Family.class)
+        // Default constructor required for calls to DataSnapshot.getValue(BasicData.class)
     }
 
     public BasicData(String name, String community, String address, String phone_number) {

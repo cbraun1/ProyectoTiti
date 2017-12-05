@@ -2,6 +2,10 @@ package com.example.proyectotiti.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+/** User Class
+ * This class contains the username and email for each user.
+ */
+
 @IgnoreExtraProperties
 public class User {
 
