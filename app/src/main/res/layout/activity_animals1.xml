@@ -110,25 +110,25 @@
 
             </LinearLayout>
 
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/radioButtonSi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="Sí" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25" >
+
+                <RadioButton
+                    android:id="@+id/radioButtonSi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sí" />
 
                 <RadioButton
                     android:id="@+id/radioButtonNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.23"
+                    android:layout_weight="1"
                     android:text="No" />
-            </LinearLayout>
-
+            </RadioGroup>
 
         </LinearLayout>
     </ScrollView>

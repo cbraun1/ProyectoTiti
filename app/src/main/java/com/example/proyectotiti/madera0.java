@@ -13,8 +13,8 @@ public class madera0 extends AppCompatActivity {
         setContentView(R.layout.activity_madera0);
     }
 
-    public void openMadera1(View v){
-        startActivity(new Intent(madera0.this, madera1.class));
+    public void openMadera4(View v){
+        startActivity(new Intent(madera0.this, madera4.class));
     }
 
     public void openMadera2(View v){

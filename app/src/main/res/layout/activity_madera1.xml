@@ -110,24 +110,26 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_weight="0.25" >
+
                 <RadioButton
                     android:id="@+id/radioButtonConstructionSi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
+                    android:layout_weight="1"
                     android:text="Sí" />
 
                 <RadioButton
                     android:id="@+id/radioButtonConstructionNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.23"
+                    android:layout_weight="1"
                     android:text="No" />
-            </LinearLayout>
+            </RadioGroup>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -164,24 +166,25 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_weight="0.25" >
+
                 <RadioButton
                     android:id="@+id/radioButtonFencesSi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
+                    android:layout_weight="1"
                     android:text="Sí" />
 
                 <RadioButton
                     android:id="@+id/radioButtonFencesNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.23"
+                    android:layout_weight="1"
                     android:text="No" />
-            </LinearLayout>
+            </RadioGroup>
 
             <LinearLayout
                 android:layout_width="match_parent"
