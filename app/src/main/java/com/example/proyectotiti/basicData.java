@@ -362,7 +362,7 @@ public class basicData extends BaseActivity {
         else{
             bundle.putInt("family_no", family.id.intValue());
         }
-        bundle.putBoolean("firstPass", true);
+        //bundle.putBoolean("firstPass", true);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
