@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/proyectotiti"
         android:layout_centerHorizontal="true"
-        android:paddingTop="0sp"
+        android:paddingTop="0dp"
         tools:ignore="ContentDescription"/>
 
     <TextView
@@ -22,7 +22,7 @@
         android:text="1 de 5"
         android:textSize="18sp"
         android:layout_below="@+id/logo"
-        android:paddingTop="0sp"
+        android:paddingTop="0dp"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -32,51 +32,51 @@
         android:text="ANIMALES"
         android:textSize="18sp"
         android:layout_below="@+id/number"
-        android:paddingTop="0sp"
+        android:paddingTop="0dp"
         android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/continueButton"
         style="@android:style/Widget.Button"
-        android:layout_width="150sp"
-        android:layout_height="52sp"
+        android:layout_width="150dp"
+        android:layout_height="52dp"
         android:text="SIGUENTE"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        tools:layout_editor_absoluteY="460sp"
-        tools:layout_editor_absoluteX="234sp"
+        tools:layout_editor_absoluteY="460dp"
+        tools:layout_editor_absoluteX="234dp"
         android:onClick="openMadera0"/>
 
     <Button
         android:id="@+id/backButton"
         style="@android:style/Widget.Button"
-        android:layout_width="150sp"
-        android:layout_height="52sp"
+        android:layout_width="150dp"
+        android:layout_height="52dp"
         android:text="ANTERIOR"
         android:textColorLink="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        tools:layout_editor_absoluteY="460sp"
-        tools:layout_editor_absoluteX="0sp"
+        tools:layout_editor_absoluteY="460dp"
+        tools:layout_editor_absoluteX="0dp"
         android:onClick="openBasicData"/>
 
     <ScrollView
-        android:layout_width="300sp"
-        android:layout_height="300sp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_below="@+id/number"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13sp">
+        android:layout_marginTop="13dp">
         <LinearLayout
-            android:layout_width="300sp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
             </LinearLayout>
@@ -88,13 +88,13 @@
 
                 <TextView
                     android:id="@+id/textViewWildAnimals"
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.00"
                     android:text="Animales Silvestres"
                     android:textColor="#000000"
                     android:textStyle="bold"
-                    android:paddingTop="10sp"
+                    android:paddingTop="10dp"
                     android:textSize="19sp" />
 
                 <ImageButton
@@ -115,11 +115,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/linear_wild"
-                android:layout_width="281sp"
+                android:layout_width="281dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                tools:layout_editor_absoluteX="52sp"
-                tools:layout_editor_absoluteY="188sp">
+                tools:layout_editor_absoluteX="52dp"
+                tools:layout_editor_absoluteY="188dp">
 
             </LinearLayout>
 
@@ -140,13 +140,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/textViewPets"
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10sp"
+                    android:paddingTop="10dp"
                     android:layout_weight="0.94"
                     android:text="Animales Domesticos"
                     android:textColor="#000000"
@@ -170,11 +170,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/linear_domestic"
-                android:layout_width="281sp"
+                android:layout_width="281dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                tools:layout_editor_absoluteX="52sp"
-                tools:layout_editor_absoluteY="188sp">
+                tools:layout_editor_absoluteX="52dp"
+                tools:layout_editor_absoluteY="188dp">
 
             </LinearLayout>
             <!--<TextView-->
@@ -186,7 +186,7 @@
                 <!--android:text="Animal 3" />-->
             <!--<TextView-->
                 <!--android:id="@+id/textViewAnimal4"-->
-                <!--android:layout_width="88sp"-->
+                <!--android:layout_width="88dp"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:textSize="18sp"-->
                 <!--android:textColor="#000000"-->

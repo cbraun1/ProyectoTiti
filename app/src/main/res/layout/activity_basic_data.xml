@@ -123,14 +123,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                tools:layout_editor_absoluteX="52sp"
-                tools:layout_editor_absoluteY="180sp">
+                tools:layout_editor_absoluteX="52dp"
+                tools:layout_editor_absoluteY="180dp">
 
                 <TextView
                     android:id="@+id/textViewRegNum"
-                    android:layout_width="140sp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5sp"
+                    android:paddingTop="5dp"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:text="        No. Registro" />
