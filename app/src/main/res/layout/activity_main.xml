@@ -99,7 +99,7 @@
         android:id="@+id/startButton"
         style="@android:style/Widget.Button"
         android:layout_width="204dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:text="@string/start_session"
         android:textColorLink="@color/colorPrimaryDark"
         app:layout_constraintLeft_toLeftOf="parent"
