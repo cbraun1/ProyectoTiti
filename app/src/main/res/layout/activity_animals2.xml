@@ -29,12 +29,11 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ANIMALES"
-        android:textSize="18sp"
-        android:paddingTop="0dp"
         android:layout_below="@+id/numberTotal"
-        android:layout_toLeftOf="@+id/continueButton"
-        android:layout_toStartOf="@+id/continueButton" />
+        android:layout_centerHorizontal="true"
+        android:paddingTop="0dp"
+        android:text="ANIMALES"
+        android:textSize="18sp" />
 
     <!--<Button-->
         <!--android:id="@+id/continueButton"-->
