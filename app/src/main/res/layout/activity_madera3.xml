@@ -35,38 +35,73 @@
         android:paddingTop="0dp"
         android:layout_centerHorizontal="true"/>
 
-    <Button
-        android:id="@+id/continueButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
-        android:text="SIGUENTE"
-        android:textColorLink="@color/colorPrimaryDark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="234dp"
-        android:onClick="openMadera0"/>
+    <!--<Button-->
+        <!--android:id="@+id/continueButton"-->
+        <!--style="@android:style/Widget.Button"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="52dp"-->
+        <!--android:text="SIGUENTE"-->
+        <!--android:textColorLink="@color/colorPrimaryDark"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--tools:layout_editor_absoluteY="460dp"-->
+        <!--tools:layout_editor_absoluteX="234dp"-->
+        <!--android:onClick="openMadera0"/>-->
 
-    <Button
-        android:id="@+id/backButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
-        android:text="ANTERIOR"
-        android:textColorLink="@color/colorPrimaryDark"
+    <!--<Button-->
+        <!--android:id="@+id/backButton"-->
+        <!--style="@android:style/Widget.Button"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="52dp"-->
+        <!--android:text="ANTERIOR"-->
+        <!--android:textColorLink="@color/colorPrimaryDark"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--tools:layout_editor_absoluteY="460dp"-->
+        <!--tools:layout_editor_absoluteX="0dp"-->
+        <!--android:onClick="openMadera0"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:layout_editor_absoluteY="460dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:onClick="openMadera0"/>
+        android:layout_below="@+id/scrollView3"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/backButton"
+            style="@android:style/Widget.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:onClick="openMadera0"
+            android:text="ANTERIOR"
+            android:textColorLink="@color/colorPrimaryDark" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/continueButton"
+            style="@android:style/Widget.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:onClick="openMadera0"
+            android:text="SIGUENTE"
+            android:textColorLink="@color/colorPrimaryDark" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="350dp"
         android:layout_height="280dp"
         android:layout_below="@+id/title"
+        android:id="@+id/scrollView3"
         android:layout_centerHorizontal="true">
 
         <LinearLayout
