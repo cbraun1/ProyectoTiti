@@ -31,7 +31,7 @@
         <activity android:name=".home"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".basicData"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".animals0"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".animals1"

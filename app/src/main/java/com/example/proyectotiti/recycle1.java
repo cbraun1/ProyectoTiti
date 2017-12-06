@@ -33,4 +33,8 @@ public class recycle1 extends AppCompatActivity {
             }
         });
     }
+
+    public void openMadera0(View v){
+        startActivity(new Intent(recycle1.this, madera0.class));
+    }
 }

@@ -47,7 +47,7 @@
         android:layout_alignParentEnd="true"
         tools:layout_editor_absoluteY="460dp"
         tools:layout_editor_absoluteX="234dp"
-        android:onClick="openMadera4"/>
+        android:onClick="openMadera0"/>
 
     <Button
         android:id="@+id/backButton"
