@@ -366,7 +366,7 @@ public class basicData extends BaseActivity {
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
-
+    /*
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private void dispatchTakePictureIntent() {
@@ -396,7 +396,7 @@ public class basicData extends BaseActivity {
     /** Determines whether one Location reading is better than the current Location fix
      * @param location  The new Location that you want to evaluate
      * @param currentBestLocation  The current Location fix, to which you want to compare the new one
-     */
+
     protected boolean isBetterLocation(Location location, Location currentBestLocation) {
         if (currentBestLocation == null) {
             // A new location is always better than no location
@@ -439,12 +439,12 @@ public class basicData extends BaseActivity {
         return false;
     }
 
-    /** Checks whether two providers are the same */
+    /** Checks whether two providers are the same
     private boolean isSameProvider(String provider1, String provider2) {
         if (provider1 == null) {
             return provider2 == null;
         }
         return provider1.equals(provider2);
     }
-
+    */
 }
