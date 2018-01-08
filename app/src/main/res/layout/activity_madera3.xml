@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:onClick="openMadera0"
+            android:onClick="submitStructure"
             android:text="SIGUENTE"
             android:textColorLink="@color/colorPrimaryDark" />
     </LinearLayout>

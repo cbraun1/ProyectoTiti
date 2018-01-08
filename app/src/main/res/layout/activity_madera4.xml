@@ -92,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="SIGUENTE"
+            android:onClick="submitStructure"
             android:textColorLink="@color/colorPrimaryDark" />
     </LinearLayout>
 

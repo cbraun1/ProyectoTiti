@@ -9,13 +9,17 @@ import java.util.Map;
 public class CurrentVisit {
 
     public Animal animals;
+    public Structure structures;
+    public Recycle recycle;
 
     public CurrentVisit() {
         // Default constructor required for calls to DataSnapshot.getValue(CurrentVisit.class)
     }
 
-    public CurrentVisit(Animal animals) {
+    public CurrentVisit(Animal animals, Structure structures, Recycle recycle) {
         this.animals = animals;
+        this.structures = structures;
+        this.recycle = recycle;
 
     }
 }

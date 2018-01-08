@@ -115,22 +115,50 @@ public class animals0 extends AppCompatActivity {
 
     // Add new animal as a radio button with the text as the animal name and the id as the id
     public void addWildRadioButton(String key, AnimalDesc value) {
-        RadioButton rdbtn = new RadioButton(this);
-        String[] s = key.split("_");
-        int id = Integer.valueOf(s[1]);
-        rdbtn.setId(id);
-        rdbtn.setText(value.name);
-        wildRdGp.addView(rdbtn);
+        if(value.active == true){
+            RadioButton rdbtn = new RadioButton(this);
+            String[] s = key.split("_");
+            int id = Integer.valueOf(s[1]);
+            rdbtn.setId(id);
+            rdbtn.setText(value.name);
+            wildRdGp.addView(rdbtn);
+        }
     }
 
     // Add new animal as a radio button with the text as the animal name and the id as the id
     public void addDomesticRadioButton(String key, AnimalDesc value) {
-        RadioButton rdbtn = new RadioButton(this);
-        String[] s = key.split("_");
-        int id = Integer.valueOf(s[1]);
-        rdbtn.setId(id);
-        rdbtn.setText(value.name);
-        domesticRdGp.addView(rdbtn);
+        if(value.active == true){
+            RadioButton rdbtn = new RadioButton(this);
+            String[] s = key.split("_");
+            int id = Integer.valueOf(s[1]);
+            rdbtn.setId(id);
+            rdbtn.setText(value.name);
+            domesticRdGp.addView(rdbtn);
+        }
+    }
+
+    public void deleteWildAnimal(View v){
+        int selectedId = wildRdGp.getCheckedRadioButtonId();
+        if(selectedId != -1){
+            String id = "a_" + selectedId;
+            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("animals").child("wild").child(id);
+            dDatabase.child("active").setValue(false);
+            wildRdGp.removeAllViews();
+            domesticRdGp.removeAllViews();
+            wildRdGp.clearCheck();
+        }
+    }
+
+    public void deleteDomAnimal(View v){
+        int selectedId = domesticRdGp.getCheckedRadioButtonId();
+        if(selectedId != -1){
+            String id = "a_" + selectedId;
+            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("animals").child("domestic").child(id);
+            dDatabase.child("active").setValue(false);
+            wildRdGp.removeAllViews();
+            domesticRdGp.removeAllViews();
+            domesticRdGp.clearCheck();
+        }
     }
 
     public void openBasicData(View v){
@@ -148,28 +176,38 @@ public class animals0 extends AppCompatActivity {
 
     public void openMadera0(View v){
 
-        startActivity(new Intent(animals0.this, madera0.class));
+        Intent intentDetails = new Intent(animals0.this, madera0.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("visit_num", visit_num);
+        bundle.putInt("family_no", family_no);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
     }
 
     public void openAnimals2(View v){
-        int selectedId = domesticRdGp.getCheckedRadioButtonId();
+        int selectedId = wildRdGp.getCheckedRadioButtonId();
+        Log.e("DEBUG", String.valueOf(selectedId));
+        Log.e("DEBUG", String.valueOf(visit_num));
+        Log.e("DEBUG", String.valueOf(family_no));
 
         Intent intentDetails = new Intent(animals0.this, animals2.class);
         Bundle bundle = new Bundle();
         bundle.putLong("visit_num", visit_num);
         bundle.putInt("family_no", family_no);
-//        bundle.putInt("animal_no", selectedId);
+        bundle.putInt("animal_no", selectedId);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
 
     }
 
     public void openAnimals4(View v){
+        int selectedId = domesticRdGp.getCheckedRadioButtonId();
 
         Intent intentDetails = new Intent(animals0.this, animals4.class);
         Bundle bundle = new Bundle();
         bundle.putLong("visit_num", visit_num);
         bundle.putInt("family_no", family_no);
+        bundle.putInt("animal_no", selectedId);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }

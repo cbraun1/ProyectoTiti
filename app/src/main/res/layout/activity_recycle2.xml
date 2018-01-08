@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:onClick="openRevise"
+            android:onClick="submitRecycle"
             android:text="SIGUENTE"
             android:textColorLink="@color/colorPrimaryDark" />
     </LinearLayout>
@@ -150,7 +150,7 @@
                 android:textStyle="normal" />
 
             <EditText
-                android:id="@+id/editTextStoveType"
+                android:id="@+id/editTextRecyclingQ3"
                 android:layout_width="77dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.16"

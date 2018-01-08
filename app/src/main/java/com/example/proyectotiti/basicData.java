@@ -18,6 +18,9 @@ import com.example.proyectotiti.models.CurrentVisit;
 import com.example.proyectotiti.models.Date_Class;
 import com.example.proyectotiti.models.Family;
 import com.example.proyectotiti.models.OldNewPair;
+import com.example.proyectotiti.models.Recycle;
+import com.example.proyectotiti.models.Structure;
+import com.example.proyectotiti.models.StructureDesc;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -260,7 +263,7 @@ public class basicData extends BaseActivity {
             Map<String, Date_Class> visits = new HashMap<String, Date_Class>();
             visits.put("visit_1",date);
             //Make CurrentVisit object
-            CurrentVisit curr_visit = new CurrentVisit(new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()));
+            CurrentVisit curr_visit = new CurrentVisit(new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()), new Structure(new HashMap<String, StructureDesc>(), new HashMap<String, StructureDesc>(), false, "", ""), new Recycle(false, "", "", ""));
 
             // Create new instance of family
             Family fam = new Family(id, bdata, visits, curr_visit);

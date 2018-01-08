@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:onClick="openAnimals0"
+            android:onClick="submitAnimal"
             android:text="SIGUENTE"
             android:textColorLink="@color/colorPrimaryDark" />
     </LinearLayout>
@@ -186,13 +186,20 @@
                     android:textSize="16sp"
                     android:textStyle="normal" />
 
-                <Spinner
-                    android:id="@+id/spinnerWildAnimals"
+                <EditText
+                    android:id="@+id/editTextType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.65"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
 
-                    />
+                <!--<Spinner-->
+                    <!--android:id="@+id/spinnerWildAnimals"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1.65"-->
+
+                    <!--/>-->
 
 
             </LinearLayout>
