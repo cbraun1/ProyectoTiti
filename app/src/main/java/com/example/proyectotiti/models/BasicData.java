@@ -2,10 +2,10 @@ package com.example.proyectotiti.models;
 
 /** Basic Data Class
  * This class contains the basic data recorded for each family.
- * Name: name of the family
- * Community: name of the community for the famiy
- * Address: family's address
- * Phone_number: family phone number
+ * Name (String): name of the family
+ * Community (String): name of the community for the famiy
+ * Address (String): family's address
+ * Phone_number (String): family phone number
  */
 
 public class BasicData {

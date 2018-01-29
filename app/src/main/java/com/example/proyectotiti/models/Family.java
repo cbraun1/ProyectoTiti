@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Family class
- * Holds the information for the family
+ * Holds the information for the family.
+ * id (Double): the unique number given to the family
+ * basic_data (BasicData): the basic data object for the family
+ * visits (Map<String, Date_Class>): String is the visit number corresponding to a specific date class
+ * curr_visit (CurrentVisit): the current visit object for the family.
  */
 
 public class Family {

@@ -5,6 +5,9 @@ import java.util.Map;
 /** Structure class
  * This class contains two different objects "construction" and "fence" that contain maps so each structure
  * has an ID and a description.
+ * cookWithWoodCoal (Boolean): true if the family cooks with wood or coal
+ * stove_freq (String): indicates how frequently the family uses the stove
+ * stove_type (String): indicates the type of stove used by the family.
  */
 
 public class Structure {
@@ -16,7 +19,7 @@ public class Structure {
     public String stove_type;
 
     public Structure() {
-        // Default constructor required for calls to DataSnapshot.getValue(Animal.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Structure.class)
     }
 
     public Structure(Map<String, StructureDesc> construction, Map<String, StructureDesc> fence, Boolean cookWithWoodCoal, String stove_freq, String stove_type) {

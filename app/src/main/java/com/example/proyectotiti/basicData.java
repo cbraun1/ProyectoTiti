@@ -1,15 +1,25 @@
 package com.example.proyectotiti;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.proyectotiti.models.Animal;
 import com.example.proyectotiti.models.AnimalDesc;
@@ -21,14 +31,29 @@ import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Recycle;
 import com.example.proyectotiti.models.Structure;
 import com.example.proyectotiti.models.StructureDesc;
+import com.example.proyectotiti.models.Upload;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 
 public class basicData extends BaseActivity {
@@ -36,6 +61,11 @@ public class basicData extends BaseActivity {
     // Declare database reference
     private DatabaseReference mDatabase;
     private DatabaseReference mFamily;
+    private StorageReference storageReference;
+
+    private ImageButton mImageButton;
+    private String mCurrentPhotoPath;
+    private Uri photoURI;
 
     private EditText family_no;
     private EditText family_name;
@@ -54,6 +84,8 @@ public class basicData extends BaseActivity {
     private long visit_num;
     private boolean firstPass;
 
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     /* This function runs upon the creation of the basic data screen.
     * If it is not an initial visit, it will prompt the app to read from the database
     * and prepopulate the text boxes.  Otherwise, it will prepopulate the family number
@@ -69,6 +101,18 @@ public class basicData extends BaseActivity {
         family_phone = (EditText)findViewById(R.id.editTextTelefono);
         family_address = (EditText)findViewById(R.id.editTextDirrecion);
         family_comm = (EditText)findViewById(R.id.editTextComunidad);
+
+        mImageButton = (ImageButton)findViewById(R.id.imageButton);
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        // When the photo button is pressed, app will switch to android camera
+        mImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+
+            }
+        });
 
         setUpDateSpinner();
 
@@ -89,6 +133,88 @@ public class basicData extends BaseActivity {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("families");
             readFamilyNum();
         }
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                photoURI = FileProvider.getUriForFile(this,
+                        "com.example.proyectotiti.fileprovider",
+                        photoFile);
+                Log.e("debug", String.valueOf(photoURI));
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+
+        }
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp;
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg"         /* suffix */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            //displaying progress dialog while image is uploading
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading");
+            progressDialog.show();
+
+            Uri uri = photoURI;
+
+            //getting the storage reference
+            StorageReference filePath = storageReference.child("Photos").child(uri.getLastPathSegment());
+
+            //adding the file to reference
+            filePath.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //dismissing the progress dialog
+                            progressDialog.dismiss();
+
+                            //displaying success toast
+                            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+
+                            //creating the upload object to store uploaded image details
+                            Upload upload = new Upload(family_name.getText().toString().trim(), taskSnapshot.getDownloadUrl().toString());
+
+                            //adding an upload to firebase database
+                            String uploadId = mDatabase.push().getKey();
+                            mDatabase.child(uploadId).setValue(upload);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+
     }
 
     /* This function runs upon the creation of the basic data screen.
@@ -243,10 +369,10 @@ public class basicData extends BaseActivity {
     /* This function runs if the forward button is pressed.
     * This will submit the basic data to the database.  It will create a new family if it is the
     * initial visit, or create a new visit and document changes made.*/
-    public void openAnimals0(View v){
+    public void openAnimals0(View v) {
 
         // If it is a new visit- Set up new family
-        if (isInitVisit){
+        if (isInitVisit) {
             // Get id of family
             Double id = Double.parseDouble(family_no.getText().toString());
             // Create new instance of BasicData
@@ -261,7 +387,7 @@ public class basicData extends BaseActivity {
             Date_Class date = new Date_Class(month, day, year, changes);
             // Make visits map
             Map<String, Date_Class> visits = new HashMap<String, Date_Class>();
-            visits.put("visit_1",date);
+            visits.put("visit_1", date);
             //Make CurrentVisit object
             CurrentVisit curr_visit = new CurrentVisit(new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()), new Structure(new HashMap<String, StructureDesc>(), new HashMap<String, StructureDesc>(), false, "", ""), new Recycle(false, "", "", ""));
 
@@ -281,25 +407,25 @@ public class basicData extends BaseActivity {
             String month = spinnerMonth.getSelectedItem().toString();
             String year = spinnerYear.getSelectedItem().toString();
             // If family name changes
-            if(!family_name.getText().toString().equals(family.basic_data.name)) {
+            if (!family_name.getText().toString().equals(family.basic_data.name)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.name, family_name.getText().toString());
                 existing_date.changes.put("basic_data-name", new_pair);
                 family.basic_data.name = family_name.getText().toString();
             }
             // If family address changes
-            if(!family_address.getText().toString().equals(family.basic_data.address)) {
+            if (!family_address.getText().toString().equals(family.basic_data.address)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.address, family_address.getText().toString());
                 existing_date.changes.put("basic_data-address", new_pair);
                 family.basic_data.address = family_address.getText().toString();
             }
             // If family community changes
-            if(!family_comm.getText().toString().equals(family.basic_data.community)) {
+            if (!family_comm.getText().toString().equals(family.basic_data.community)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.community, family_comm.getText().toString());
                 existing_date.changes.put("basic_data-community", new_pair);
                 family.basic_data.community = family_comm.getText().toString();
             }
             // If family phone changes
-            if(!family_phone.getText().toString().equals(family.basic_data.phone_number)) {
+            if (!family_phone.getText().toString().equals(family.basic_data.phone_number)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.phone_number, family_phone.getText().toString());
                 existing_date.changes.put("basic_data-phone", new_pair);
                 family.basic_data.phone_number = family_phone.getText().toString();
@@ -308,8 +434,7 @@ public class basicData extends BaseActivity {
             //Date_Class date = new Date_Class(month, day, year, exis);
             family.visits.put(visitID, existing_date);
             mDatabase.setValue(family);
-        }
-        else {
+        } else {
 
             // Send family info to database
             // Record new date/visit
@@ -322,25 +447,25 @@ public class basicData extends BaseActivity {
             String month = spinnerMonth.getSelectedItem().toString();
             String year = spinnerYear.getSelectedItem().toString();
             // If family name changes
-            if(!family_name.getText().toString().equals(family.basic_data.name)) {
+            if (!family_name.getText().toString().equals(family.basic_data.name)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.name, family_name.getText().toString());
                 changes.put("basic_data-name", new_pair);
                 family.basic_data.name = family_name.getText().toString();
             }
             // If family address changes
-            if(!family_address.getText().toString().equals(family.basic_data.address)) {
+            if (!family_address.getText().toString().equals(family.basic_data.address)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.address, family_address.getText().toString());
                 changes.put("basic_data-address", new_pair);
                 family.basic_data.address = family_address.getText().toString();
             }
             // If family community changes
-            if(!family_comm.getText().toString().equals(family.basic_data.community)) {
+            if (!family_comm.getText().toString().equals(family.basic_data.community)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.community, family_comm.getText().toString());
                 changes.put("basic_data-community", new_pair);
                 family.basic_data.community = family_comm.getText().toString();
             }
             // If family phone changes
-            if(!family_phone.getText().toString().equals(family.basic_data.phone_number)) {
+            if (!family_phone.getText().toString().equals(family.basic_data.phone_number)) {
                 OldNewPair new_pair = new OldNewPair(family.basic_data.phone_number, family_phone.getText().toString());
                 changes.put("basic_data-phone", new_pair);
                 family.basic_data.phone_number = family_phone.getText().toString();
@@ -359,25 +484,25 @@ public class basicData extends BaseActivity {
         Intent intentDetails = new Intent(basicData.this, animals0.class);
         Bundle bundle = new Bundle();
         bundle.putLong("visit_num", visit_num);
-        if(isInitVisit){
-            bundle.putInt("family_no", (int)families_count);
-        }
-        else{
+        if (isInitVisit) {
+            bundle.putInt("family_no", (int) families_count);
+        } else {
             bundle.putInt("family_no", family.id.intValue());
         }
         //bundle.putBoolean("firstPass", true);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
-    /*
-    static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
+//    private static final int REQUEST_IMAGE_CAPTURE = 1;
+//
+//    public void dispatchTakePictureIntent(View v) {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//        }
+//    }
+    /*
     static final int REQUEST_VIDEO_CAPTURE = 1;
 
     private void dispatchTakeVideoIntent() {

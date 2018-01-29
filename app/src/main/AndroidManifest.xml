@@ -6,12 +6,17 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!--  To use the camera -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- To get location info -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:name=".models.ProyectoTiti"
@@ -21,6 +26,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.proyectotiti.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,46 +42,67 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".basicData"
+        <activity
+            android:name=".home"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".animals0"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".animals1"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".animals2"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".animals3"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".madera0"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".madera1"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".madera3"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".madera2"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".madera4"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".recycle1"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".recycle2"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".recycle3"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".benefits"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".revise"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".continuePage"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".download"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".animals4"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".madera5"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".basicData"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".animals0"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".animals1"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".animals2"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".animals3"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".madera0"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".madera1"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".madera3"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".madera2"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".madera4"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".recycle1"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".recycle2"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".recycle3"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".benefits"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".revise"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".continuePage"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".download"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".animals4"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".madera5"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".displayImages"></activity>
     </application>
 
 </manifest>

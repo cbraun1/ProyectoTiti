@@ -4,7 +4,7 @@ import java.util.Map;
 
 /** Animal class
  * This class contains two different objects "wild" and "domestic" that contain maps so each animal
- * has an ID and a description.
+ * has an ID (String) and a description (AnimalDesc).
  */
 
 public class Animal {

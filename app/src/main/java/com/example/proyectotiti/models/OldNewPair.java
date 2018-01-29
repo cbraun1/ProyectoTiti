@@ -4,6 +4,8 @@ import java.util.Map;
 
 /** OldNewPair Class
  * This class contains old and new values for each change.
+ * old_value (String): the value of the original
+ * new_value (String): the new value
  */
 
 public class OldNewPair {

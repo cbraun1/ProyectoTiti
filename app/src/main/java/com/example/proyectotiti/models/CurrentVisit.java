@@ -3,7 +3,7 @@ package com.example.proyectotiti.models;
 import java.util.Map;
 
 /** CurrentVisit Class
- * This class contains the animal, structure, etc. objects for each family.
+ * This class contains the animals, structures, and recycle objects for each family.
  */
 
 public class CurrentVisit {

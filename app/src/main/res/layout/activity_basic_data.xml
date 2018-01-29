@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@android:drawable/ic_menu_camera"
                     tools:ignore="ContentDescription" />
-                <!-- android:onClick="dispatchTakePictureIntent" -->
+                    <!--android:onClick="dispatchTakePictureIntent"-->
 
                 <ImageView
                     android:id="@+id/mImageView"
@@ -213,7 +213,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="0 fotos subidas"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:onClick="displayImage"/>
             </LinearLayout>
 
             <LinearLayout
@@ -287,7 +288,13 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName" />
+
             </LinearLayout>
+            <ImageView
+                android:layout_width="1000dp"
+                android:layout_height="1000dp"
+                android:id="@+id/imageView"/>
+
 
         </LinearLayout>
     </ScrollView>

@@ -9,6 +9,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private ProgressDialog mProgressDialog;
 
+    // Function for the "Loading..." box
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
