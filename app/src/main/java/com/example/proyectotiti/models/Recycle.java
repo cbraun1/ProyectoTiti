@@ -1,5 +1,7 @@
 package com.example.proyectotiti.models;
 
+import java.util.Map;
+
 /**
  * This class contains the recycle information for the family.
  * doRecycle (Boolean): indicates if the family does recycle
@@ -14,15 +16,17 @@ public class Recycle {
     public String recycle_items;
     public String recycle_deliver;
     public String waste_man;
+    public Map<String, String> images;
 
     public Recycle() {
         // Default constructor required for calls to DataSnapshot.getValue(Recycle.class)
     }
 
-    public Recycle(Boolean doRecycle, String recycle_items, String recycle_deliver, String waste_man) {
+    public Recycle(Boolean doRecycle, String recycle_items, String recycle_deliver, String waste_man, Map<String, String> images) {
         this.doRecycle = doRecycle;
         this.recycle_items = recycle_items;
         this.recycle_deliver = recycle_deliver;
         this.waste_man = waste_man;
+        this.images = images;
     }
 }

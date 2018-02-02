@@ -88,6 +88,7 @@
         android:id="@+id/scrollView5">
 
         <LinearLayout
+            android:id="@+id/linearLayoutMain"
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:orientation="vertical"
@@ -207,14 +208,14 @@
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/menuitem_background" />
 
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="162dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="0 fotos subidas"
-                    android:inputType="textPersonName"
-                    android:onClick="displayImage"/>
+                <!--<EditText-->
+                    <!--android:id="@+id/editText5"-->
+                    <!--android:layout_width="162dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:ems="10"-->
+                    <!--android:hint="Fotos subidas"-->
+                    <!--android:inputType="textPersonName"-->
+                    <!--android:onClick="displayImage"/>-->
             </LinearLayout>
 
             <LinearLayout
@@ -290,10 +291,6 @@
                     android:inputType="textPersonName" />
 
             </LinearLayout>
-            <ImageView
-                android:layout_width="1000dp"
-                android:layout_height="1000dp"
-                android:id="@+id/imageView"/>
 
 
         </LinearLayout>

@@ -16,17 +16,19 @@ public class AnimalDesc {
     public String marking;
     public String name;
     public Boolean active;
+    public Map<String, String> images;
 
 
     public AnimalDesc() {
         // Default constructor required for calls to DataSnapshot.getValue(AnimalDesc.class)
     }
 
-    public AnimalDesc(String type, String marking, String name, Boolean active) {
+    public AnimalDesc(String type, String marking, String name, Boolean active, Map<String, String> images) {
         this.type = type;
         this.marking = marking;
         this.name = name;
         this.active = active;
+        this.images = images;
 
     }
 }

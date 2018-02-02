@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,6 +54,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -64,8 +68,11 @@ public class basicData extends BaseActivity {
     private StorageReference storageReference;
 
     private ImageButton mImageButton;
-    private String mCurrentPhotoPath;
     private Uri photoURI;
+    private Map<String, String> images;
+    private ArrayList<String> uris = new ArrayList<String>() {};
+
+    private LinearLayout mainLinearLayout;
 
     private EditText family_no;
     private EditText family_name;
@@ -102,6 +109,7 @@ public class basicData extends BaseActivity {
         family_address = (EditText)findViewById(R.id.editTextDirrecion);
         family_comm = (EditText)findViewById(R.id.editTextComunidad);
 
+        mainLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
         mImageButton = (ImageButton)findViewById(R.id.imageButton);
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -110,7 +118,6 @@ public class basicData extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
-
             }
         });
 
@@ -135,9 +142,11 @@ public class basicData extends BaseActivity {
         }
     }
 
+    /* This function runs upon the pressing of the camera button.
+    * It will set up a new photo file and put the new photo into there.*/
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
@@ -151,7 +160,6 @@ public class basicData extends BaseActivity {
                 photoURI = FileProvider.getUriForFile(this,
                         "com.example.proyectotiti.fileprovider",
                         photoFile);
-                Log.e("debug", String.valueOf(photoURI));
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
@@ -168,10 +176,12 @@ public class basicData extends BaseActivity {
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
+        //mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
+    /* This function runs upon completing taking a photo.
+    * It will upload the file to storage and add the uri to an array.*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -198,12 +208,14 @@ public class basicData extends BaseActivity {
                             //displaying success toast
                             Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
-                            //creating the upload object to store uploaded image details
-                            Upload upload = new Upload(family_name.getText().toString().trim(), taskSnapshot.getDownloadUrl().toString());
+                            // Add uri to list of new uris
+                            uris.add(taskSnapshot.getDownloadUrl().toString());
 
-                            //adding an upload to firebase database
-                            String uploadId = mDatabase.push().getKey();
-                            mDatabase.child(uploadId).setValue(upload);
+                            // Display new image
+                            ImageView image = new ImageView(basicData.this);
+                            Picasso.with(image.getContext()).load(taskSnapshot.getDownloadUrl().toString()).into(image);
+                            mainLinearLayout.addView(image);
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -322,6 +334,25 @@ public class basicData extends BaseActivity {
         family_address.setText(family.basic_data.address);
         family_comm.setText(family.basic_data.community);
 
+        Map<String, String> image_object = family.basic_data.images;
+
+        // Display all saved images
+        Iterator it = null;
+
+
+        // Display all saved images
+        if (image_object!=null){
+            it = image_object.entrySet().iterator();
+
+            while(it.hasNext()){
+                Map.Entry pair = (Map.Entry)it.next();
+                ImageView image = new ImageView(basicData.this);
+                Picasso.with(image.getContext()).load(pair.getValue().toString()).into(image);
+                mainLinearLayout.addView(image);
+            }
+
+        }
+
     }
 
     /* This function runs once the number of families has been read from the database if it is a
@@ -370,13 +401,21 @@ public class basicData extends BaseActivity {
     * This will submit the basic data to the database.  It will create a new family if it is the
     * initial visit, or create a new visit and document changes made.*/
     public void openAnimals0(View v) {
+        Map<String, String> uploads = new HashMap<String, String>();
+
+        for (String uri : uris){
+            String uploadId = mDatabase.push().getKey();
+            //creating the upload object to store uploaded image details
+            uploads.put(uploadId, uri);
+            //adding an upload to firebase database
+        }
 
         // If it is a new visit- Set up new family
         if (isInitVisit) {
             // Get id of family
             Double id = Double.parseDouble(family_no.getText().toString());
             // Create new instance of BasicData
-            BasicData bdata = new BasicData(family_name.getText().toString(), family_comm.getText().toString(), family_address.getText().toString(), family_phone.getText().toString());
+            BasicData bdata = new BasicData(family_name.getText().toString(), family_comm.getText().toString(), family_address.getText().toString(), family_phone.getText().toString(), uploads);
             // Get values of spinner
             String day = spinnerDay.getSelectedItem().toString();
             String month = spinnerMonth.getSelectedItem().toString();
@@ -389,7 +428,7 @@ public class basicData extends BaseActivity {
             Map<String, Date_Class> visits = new HashMap<String, Date_Class>();
             visits.put("visit_1", date);
             //Make CurrentVisit object
-            CurrentVisit curr_visit = new CurrentVisit(new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()), new Structure(new HashMap<String, StructureDesc>(), new HashMap<String, StructureDesc>(), false, "", ""), new Recycle(false, "", "", ""));
+            CurrentVisit curr_visit = new CurrentVisit(new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()), new Structure(new HashMap<String, StructureDesc>(), new HashMap<String, StructureDesc>(), false, "", "", null), new Recycle(false, "", "", "", null));
 
             // Create new instance of family
             Family fam = new Family(id, bdata, visits, curr_visit);
@@ -433,6 +472,12 @@ public class basicData extends BaseActivity {
             // Create new instance of Date_Class
             //Date_Class date = new Date_Class(month, day, year, exis);
             family.visits.put(visitID, existing_date);
+            if(uploads != null && family.basic_data.images != null){
+                family.basic_data.images.putAll(uploads);
+            }
+            else if(uploads != null){
+                family.basic_data.images = uploads;
+            }
             mDatabase.setValue(family);
         } else {
 
@@ -473,6 +518,12 @@ public class basicData extends BaseActivity {
             // Create new instance of Date_Class
             Date_Class date = new Date_Class(month, day, year, changes);
             family.visits.put(visitID, date);
+            if(uploads != null && family.basic_data.images != null){
+                family.basic_data.images.putAll(uploads);
+            }
+            else if(uploads != null){
+                family.basic_data.images = uploads;
+            }
             mDatabase.setValue(family);
         }
 
