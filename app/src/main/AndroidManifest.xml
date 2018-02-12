@@ -49,7 +49,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".basicData"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".animals0"
             android:windowSoftInputMode="adjustResize" />
@@ -94,7 +94,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".continuePage"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".download"
             android:windowSoftInputMode="adjustResize" />

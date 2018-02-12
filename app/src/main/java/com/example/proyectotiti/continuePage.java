@@ -19,13 +19,20 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class continuePage extends AppCompatActivity {
 
     private RadioGroup familyRdbtn;
 
     private DatabaseReference mDatabase;
+
+    private Map<Integer,String> families = new HashMap<Integer,String>();
 
     /* This function runs upon the creation of the continue screen.
     * Sets up the radio button group for the families and a reference to the database
@@ -58,8 +65,10 @@ public class continuePage extends AppCompatActivity {
                 for (DataSnapshot familySnapshot: dataSnapshot.getChildren()) {
                     Log.e("DEBUG", String.valueOf(familySnapshot));
                     Family post = familySnapshot.getValue(Family.class);
-                    addFamilyRadioButton(post);
+                    families.put(post.id.intValue(),post.basic_data.name);
+                    //addFamilyRadioButton(post);
                 }
+                sortByFamilyName();
             }
 
             @Override
@@ -71,15 +80,49 @@ public class continuePage extends AppCompatActivity {
         mDatabase.addValueEventListener(familyListener);
     }
 
+    public void sortByFamilyName() {
+        List<Integer> mapKeys = new ArrayList<Integer>(families.keySet());
+        List<String> mapValues = new ArrayList<String>(families.values());
+        Collections.sort(mapValues);
+        Collections.sort(mapKeys);
+
+        for(String name : mapValues){
+            Log.e("DEBUG", name);
+        }
+
+        Map<Integer, String> sortedMap = new HashMap<Integer,String>();
+
+        Iterator<String> valueIt = mapValues.iterator();
+        while (valueIt.hasNext()) {
+            String val = valueIt.next();
+            Iterator<Integer> keyIt = mapKeys.iterator();
+
+            while (keyIt.hasNext()) {
+                Integer key = keyIt.next();
+                String comp1 = families.get(key);
+                String comp2 = val;
+
+                if (comp1.equals(comp2)) {
+                    keyIt.remove();
+                    addFamilyRadioButton(key,val);
+                    break;
+                }
+            }
+        }
+
+    }
+
     /* This function runs upon the finding of an existing family.
      * It will add the family as a radio button with the text as the family name and the id
       * as the id.*/
-    public void addFamilyRadioButton(Family fam) {
+    public void addFamilyRadioButton(Integer key, String val) {
         RadioButton rdbtn = new RadioButton(this);
-        int id = fam.id.intValue();
-        rdbtn.setId(id);
-        rdbtn.setText(fam.basic_data.name);
+
+        rdbtn.setId(key);
+        rdbtn.setText(val);
         familyRdbtn.addView(rdbtn);
+
+
     }
 
 
