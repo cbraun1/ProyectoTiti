@@ -9,12 +9,26 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:hint="contrasena"
+        android:inputType="textPassword"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput"
+        tools:layout_constraintTop_creator="1" />
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
-        android:layout_height="176dp"
-        android:paddingTop="65dp"
-        app:layout_constraintHorizontal_bias="0.502"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
@@ -28,84 +42,60 @@
         android:id="@+id/wordsLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="153dp"
-        android:layout_marginTop="152dp"
-        android:paddingTop="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/forgot_password_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        android:paddingTop="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
         app:srcCompat="@mipmap/proyectotitilogowords"
         tools:ignore="ContentDescription"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:paddingTop="15dp"
-        android:text="@string/username"
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/usernameInput"
-        app:layout_constraintEnd_toStartOf="@+id/usernameInput"
-        app:layout_constraintStart_toStartOf="@+id/wordsLogo"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintRight_creator="1" />
+    <!--<TextView-->
+        <!--android:id="@+id/username"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginEnd="1dp"-->
+        <!--android:layout_marginStart="2dp"-->
+        <!--android:paddingTop="15dp"-->
+        <!--android:text="@string/username"-->
+        <!--android:textSize="18sp"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/usernameInput"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/wordsLogo"-->
+        <!--tools:layout_constraintBottom_creator="1"-->
+        <!--tools:layout_constraintRight_creator="1"-->
+        <!--tools:layout_editor_absoluteY="281dp" />-->
 
     <EditText
         android:id="@+id/usernameInput"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="50dp"
+        android:hint="usuario"
         android:inputType="text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/forgot_password_button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wordsLogo"
         tools:layout_constraintTop_creator="1" />
 
-    <TextView
-        android:id="@+id/password"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="4dp"
-        android:paddingBottom="20dp"
-        android:paddingTop="15dp"
-        android:text="@string/password"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/email_create_account_button"
-        app:layout_constraintEnd_toStartOf="@+id/startButton"
-        app:layout_constraintStart_toStartOf="@+id/startButton"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        tools:layout_constraintTop_creator="1" />
-
-    <EditText
-        android:id="@+id/passwordInput"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="4dp"
-        android:inputType="textPassword"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/password"
-        app:layout_constraintTop_toTopOf="@+id/password"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintTop_creator="1" />
+    <!--<TextView-->
+        <!--android:id="@+id/password"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginBottom="3dp"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--android:paddingBottom="20dp"-->
+        <!--android:paddingTop="15dp"-->
+        <!--android:text="@string/password"-->
+        <!--android:textSize="18sp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/email_create_account_button"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/startButton"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/startButton"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/username"-->
+        <!--tools:layout_constraintTop_creator="1" />-->
 
 
     <Button
@@ -117,9 +107,9 @@
         android:layout_marginStart="58dp"
         android:text="@string/start_session"
         android:textColorLink="@color/colorPrimaryDark"
-        app:layout_constraintBaseline_toBaselineOf="@+id/email_create_account_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -130,15 +120,11 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="46dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        android:layout_marginTop="53dp"
-        android:paddingTop="15dp"
         android:text="@string/create_account"
-        app:layout_constraintBottom_toBottomOf="@+id/forgot_password_button"
-        app:layout_constraintEnd_toEndOf="@+id/forgot_password_button"
-        app:layout_constraintTop_toBottomOf="@+id/usernameInput"
+        app:layout_constraintBottom_toTopOf="@+id/forgot_password_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startButton"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
@@ -148,34 +134,14 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/forgot_password"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/startButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_create_account_button"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
 </android.support.constraint.ConstraintLayout>
