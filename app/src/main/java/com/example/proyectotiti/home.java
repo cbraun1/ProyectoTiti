@@ -1,7 +1,6 @@
 package com.example.proyectotiti;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -36,14 +35,11 @@ public class home extends BaseActivity {
         startActivity(new Intent(home.this, continuePage.class));
     }
 
-//    public void openDownload(View v){
-//        startActivity(new Intent(home.this, download.class));
-//    }
 
     /* This function runs upon the clicking of the sign out  button. */
     public void openMain(View v){
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(home.this, MainActivity.class));
+        startActivity(new Intent(home.this, login.class));
         finish();
     }
 }

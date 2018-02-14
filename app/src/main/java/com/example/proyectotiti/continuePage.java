@@ -28,11 +28,13 @@ import java.util.Map;
 
 public class continuePage extends AppCompatActivity {
 
+    private static final String TAG = "continuePage";
+
     private RadioGroup familyRdbtn;
 
     private DatabaseReference mDatabase;
 
-    private Map<Integer,String> families = new HashMap<Integer,String>();
+    private Map<Integer,String> families = new HashMap<>();
 
     /* This function runs upon the creation of the continue screen.
     * Sets up the radio button group for the families and a reference to the database
@@ -43,7 +45,7 @@ public class continuePage extends AppCompatActivity {
         setContentView(R.layout.activity_continue_page);
 
         // Set up Radio Button Group with Linear Layout
-        LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.linear1);
+        LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.familyLinearLayout);
         familyRdbtn = new RadioGroup(this);
         familyRdbtn.setOrientation(RadioGroup.VERTICAL);
 
@@ -63,10 +65,11 @@ public class continuePage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot familySnapshot: dataSnapshot.getChildren()) {
-                    Log.e("DEBUG", String.valueOf(familySnapshot));
+                    Log.e(TAG, String.valueOf(familySnapshot));
                     Family post = familySnapshot.getValue(Family.class);
-                    families.put(post.id.intValue(),post.basic_data.name);
-                    //addFamilyRadioButton(post);
+                    if (post != null){
+                        families.put(post.id.intValue(),post.basic_data.name);
+                    }
                 }
                 sortByFamilyName();
             }
@@ -74,7 +77,7 @@ public class continuePage extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Family failed, log a message
-                Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
         mDatabase.addValueEventListener(familyListener);
@@ -85,10 +88,6 @@ public class continuePage extends AppCompatActivity {
         List<String> mapValues = new ArrayList<String>(families.values());
         Collections.sort(mapValues);
         Collections.sort(mapKeys);
-
-        for(String name : mapValues){
-            Log.e("DEBUG", name);
-        }
 
         Map<Integer, String> sortedMap = new HashMap<Integer,String>();
 

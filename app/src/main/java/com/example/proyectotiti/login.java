@@ -1,7 +1,6 @@
 package com.example.proyectotiti;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -23,9 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.example.proyectotiti.models.User;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class login extends BaseActivity implements View.OnClickListener{
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "login";
 
 
     private EditText userInput;
@@ -43,14 +42,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Views
         userInput = (EditText)findViewById(R.id.usernameInput);
         passInput = (EditText)findViewById(R.id.passwordInput);
         SignInButton = (Button)findViewById(R.id.startButton);
-        SignUpButton = (Button)findViewById(R.id.email_create_account_button);
-        ForgotPasswordButton = (Button)findViewById(R.id.forgot_password_button);
+        SignUpButton = (Button)findViewById(R.id.emailCreateAccountButton);
+        ForgotPasswordButton = (Button)findViewById(R.id.forgotPasswordButton);
 
         // Buttons
         SignInButton.setOnClickListener(this);
@@ -100,7 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("DEBUG", "signInWithEmail:failure", task.getException());
-                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -134,7 +133,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("DEBUG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                            Toast.makeText(login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -145,7 +144,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     /* This function runs upon pressing the button to send a password reset email. */
     private void sendPasswordReset() {
         // Disable button
-        findViewById(R.id.forgot_password_button).setEnabled(false);
+        findViewById(R.id.forgotPasswordButton).setEnabled(false);
 
         // Send reset password email
         final FirebaseUser user = mAuth.getCurrentUser();
@@ -154,7 +153,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // Re-enable button
-                        findViewById(R.id.forgot_password_button).setEnabled(true);
+                        findViewById(R.id.forgotPasswordButton).setEnabled(true);
 
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(),
@@ -179,7 +178,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         writeNewUser(user.getUid(), username, user.getEmail());
 
         // Go to home
-        startActivity(new Intent(MainActivity.this, home.class));
+        startActivity(new Intent(login.this, home.class));
         finish();
     }
 
@@ -230,10 +229,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         if (i == R.id.startButton) {
             signIn(userInput.getText().toString(), passInput.getText().toString());
         }
-        else if(i == R.id.email_create_account_button) {
+        else if(i == R.id.emailCreateAccountButton) {
             createAccount(userInput.getText().toString(), passInput.getText().toString());
         }
-        else if(i == R.id.forgot_password_button) {
+        else if(i == R.id.forgotPasswordButton) {
             sendPasswordReset();
         }
     }

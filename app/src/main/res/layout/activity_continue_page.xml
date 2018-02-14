@@ -36,11 +36,12 @@
         tools:layout_constraintTop_creator="1" />
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/familySearchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingEnd="0dp"
         android:paddingStart="0dp"
+        android:queryHint="Buscar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -80,23 +81,24 @@
         tools:layout_constraintTop_creator="1" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/familyScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_centerHorizontal="true"
+        android:paddingEnd="0dp"
         android:paddingStart="0dp"
         app:layout_constraintBottom_toTopOf="@+id/backButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintTop_toBottomOf="@+id/familySearchView"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1">
 
         <LinearLayout
-            android:id="@+id/linear1"
+            android:id="@+id/familyLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="52dp"
             tools:layout_editor_absoluteY="188dp">
