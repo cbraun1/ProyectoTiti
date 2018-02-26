@@ -66,9 +66,10 @@ public class continuePage extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot familySnapshot: dataSnapshot.getChildren()) {
                     Log.e(TAG, String.valueOf(familySnapshot));
+                    String family_id = familySnapshot.getKey();
                     Family post = familySnapshot.getValue(Family.class);
                     if (post != null){
-                        families.put(post.id.intValue(),post.basic_data.name);
+                        families.put(Integer.parseInt(family_id),post.name);
                     }
                 }
                 sortByFamilyName();
@@ -80,7 +81,7 @@ public class continuePage extends AppCompatActivity {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(familyListener);
+        mDatabase.addListenerForSingleValueEvent(familyListener);
     }
 
     public void sortByFamilyName() {
@@ -127,7 +128,7 @@ public class continuePage extends AppCompatActivity {
 
     /* This function runs upon the selection of the submit button.
      * It will pass the family number to the next screen. */
-    public void openBasicData(View v){
+    public void openViewVisits(View v){
         int selectedId = familyRdbtn.getCheckedRadioButtonId();
         if (selectedId == -1) {
             return;
@@ -136,11 +137,9 @@ public class continuePage extends AppCompatActivity {
         // Pass the id of the family selected to the new activity
         // Pass false to initial visit flag
         // Pass true to firstPass
-        Intent intentDetails = new Intent(continuePage.this, basicData.class);
+        Intent intentDetails = new Intent(continuePage.this, viewVisits.class);
         Bundle bundle = new Bundle();
-        bundle.putBoolean("isInitVisit", false);
-        bundle.putInt("family_no", selectedId);
-        bundle.putBoolean("firstPass", true);
+        bundle.putString("familyNum", String.valueOf(selectedId));
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }

@@ -1,26 +1,14 @@
 package com.example.proyectotiti;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,14 +20,12 @@ import android.widget.Toast;
 import com.example.proyectotiti.models.Animal;
 import com.example.proyectotiti.models.AnimalDesc;
 import com.example.proyectotiti.models.BasicData;
-import com.example.proyectotiti.models.CurrentVisit;
 import com.example.proyectotiti.models.Date_Class;
 import com.example.proyectotiti.models.Family;
-import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Recycle;
 import com.example.proyectotiti.models.Structure;
 import com.example.proyectotiti.models.StructureDesc;
-import com.example.proyectotiti.models.Upload;
+import com.example.proyectotiti.models.Visit;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -48,44 +34,45 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 
 public class basicData extends BaseActivity {
 
-    // Declare database reference
-    private DatabaseReference mDatabase;
-    private DatabaseReference mFamily;
-    private StorageReference storageReference;
+    private static final String TAG = "basicData";
 
-    private ImageButton mImageButton;
-    private Uri photoURI;
-    private Map<String, String> images;
-    private ArrayList<String> uris = new ArrayList<String>() {};
-
-    private LinearLayout mainLinearLayout;
-
+    //Views
     private EditText family_no;
     private EditText family_name;
     private EditText family_phone;
     private EditText family_address;
     private EditText family_comm;
+    private LinearLayout mainLinearLayout;
+    private ImageButton mImageButton;
+
+    // Declare database and storage reference
+    private DatabaseReference mDatabase;
+    private StorageReference storageReference;
+
+    // Passed variables
+    private String familyNum;
+    private String visitNum;
+
+    private Uri photoURI;
+    private Map<String, String> images;
+    private ArrayList<String> uris = new ArrayList<String>() {};
+
 
     private Spinner spinnerDay;
     private Spinner spinnerMonth;
@@ -94,9 +81,7 @@ public class basicData extends BaseActivity {
     private Family family;
     private long families_count;
 
-    private boolean isInitVisit;
-    private long visit_num;
-    private boolean firstPass;
+
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -133,19 +118,18 @@ public class basicData extends BaseActivity {
         // Get current Info
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        isInitVisit = extrasBundle.getBoolean("isInitVisit");
-        firstPass = extrasBundle.getBoolean("firstPass");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
 
-        if (!isInitVisit){
-            // Set so that the number cannot be editable
-            family_no.setEnabled(false);
-            int id_no = extrasBundle.getInt("family_no");
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(id_no));
+
+        if (!visitNum.equals("1")){
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum);
             readFromDB();
         }
         else {
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families");
-            readFamilyNum();
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum);
+            Log.e(TAG, familyNum);
+            family_no.setText(familyNum);
         }
     }
 
@@ -351,54 +335,36 @@ public class basicData extends BaseActivity {
     It will read from the database to prepopulate the text boxes and well as determine which
     number of visit the follow up is.*/
     public void readFromDB() {
-
-        // Add value event listener to find the visit number
-        ValueEventListener visitListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
-                visit_num = dataSnapshot.getChildrenCount();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Family failed, log a message
-                Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        mDatabase.child("visits").addValueEventListener(visitListener);
+        Integer prevVisitInt = Integer.valueOf(visitNum) - 1;
 
         // Add value event listener to the list of families
         ValueEventListener bdListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
-                Family post = dataSnapshot.getValue(Family.class);
+                Log.e(TAG, String.valueOf(dataSnapshot));
+                Visit post = dataSnapshot.getValue(Visit.class);
+                mDatabase.child("visits").child("visit"+visitNum).setValue(post);
                 prepopulate(post);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Family failed, log a message
-                Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(bdListener);
+        mDatabase.child("visits").child("visit"+String.valueOf(prevVisitInt)).addListenerForSingleValueEvent(bdListener);
 
     }
 
     /* This function runs once the family has been read from the database if it is not an initial
     visit.
      It will prepopulate the editTexts with the most current information.*/
-    public void prepopulate(Family fam) {
-        family = fam;
+    public void prepopulate(Visit visit) {
         // Set the date to last visit
-        String visitID = "visit_" + visit_num;
-        Map<String, Date_Class> visit_object = family.visits;
-        Date_Class date = visit_object.get(visitID);
+        Date_Class date = visit.date;
 
         for (int i=0;i<spinnerDay.getCount();i++){
-            Log.e("DEBUG", String.valueOf(spinnerDay.getItemAtPosition(i)));
             if (spinnerDay.getItemAtPosition(i).equals(date.day)){
                 spinnerDay.setSelection(i);
             }
@@ -415,13 +381,13 @@ public class basicData extends BaseActivity {
         }
 
         // Set all the editTexts to original data
-        family_no.setText(String.valueOf(family.id));
-        family_name.setText(family.basic_data.name);
-        family_phone.setText(family.basic_data.phone_number);
-        family_address.setText(family.basic_data.address);
-        family_comm.setText(family.basic_data.community);
+        family_no.setText(familyNum);
+        family_name.setText(visit.basicData.name);
+        family_phone.setText(visit.basicData.phone_number);
+        family_address.setText(visit.basicData.address);
+        family_comm.setText(visit.basicData.community);
 
-        Map<String, String> image_object = family.basic_data.images;
+        Map<String, String> image_object = visit.basicData.images;
 
         // Display all saved images
         Iterator it = null;
@@ -442,41 +408,11 @@ public class basicData extends BaseActivity {
 
     }
 
-    /* This function runs once the number of families has been read from the database if it is a
-    * follow up visit.
-    * It will prepopulate the family number editText with the most current number.*/
-    public void prepopulateFamilyNo(){
-        families_count = families_count + 1;
-        family_no.setText(String.valueOf(families_count));
-
-    }
-
-    /* This function runs once the family count has been read from the database.*/
-    public void readFamilyNum(){
-        // Add value event listener to find the family number
-        ValueEventListener familyListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
-                families_count = dataSnapshot.getChildrenCount();
-                Log.e("DEBUG", String.valueOf(families_count));
-                prepopulateFamilyNo();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Family failed, log a message
-                Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        mDatabase.addValueEventListener(familyListener);
-    }
-
     /* This function runs if the back button is pressed.
     * If it is an initial visit, this button will bring the user back to the home screen.  If it
     * is a follow up visit, this button will bring the user back to the family screen.*/
     public void openContinue(View v){
-        if (isInitVisit){
+        if (visitNum.equals("1")){
             startActivity(new Intent(basicData.this, home.class));
         }
         else{
@@ -484,152 +420,43 @@ public class basicData extends BaseActivity {
         }
     }
 
+    public void start(){
+        Intent intentDetails = new Intent(basicData.this, animalsHome.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("visitNum", visitNum);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
+    }
+
+
+
     /* This function runs if the forward button is pressed.
     * This will submit the basic data to the database.  It will create a new family if it is the
     * initial visit, or create a new visit and document changes made.*/
-    public void openAnimals0(View v) {
+    public void openAnimalsHome(View v) {
         Map<String, String> uploads = new HashMap<String, String>();
 
         for (String uri : uris){
             String uploadId = mDatabase.push().getKey();
-            //creating the upload object to store uploaded image details
             uploads.put(uploadId, uri);
-            //adding an upload to firebase database
         }
 
-        // If it is a new visit- Set up new family
-        if (isInitVisit) {
-            // Get id of family
-            Double id = Double.parseDouble(family_no.getText().toString());
-            // Create new instance of BasicData
-            BasicData bdata = new BasicData(family_name.getText().toString(), family_comm.getText().toString(), family_address.getText().toString(), family_phone.getText().toString(), uploads);
-            // Get values of spinner
-            String day = spinnerDay.getSelectedItem().toString();
-            String month = spinnerMonth.getSelectedItem().toString();
-            String year = spinnerYear.getSelectedItem().toString();
-            // Make changes map
-            Map<String, OldNewPair> changes = new HashMap<String, OldNewPair>();
-            // Create new instance of Date_Class
-            Date_Class date = new Date_Class(month, day, year, changes);
-            // Make visits map
-            Map<String, Date_Class> visits = new HashMap<String, Date_Class>();
-            visits.put("visit_1", date);
-            //Make CurrentVisit object
-            CurrentVisit curr_visit = new CurrentVisit(new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()), new Structure(new HashMap<String, StructureDesc>(), new HashMap<String, StructureDesc>(), false, "", "", null), new Recycle(false, "", "", "", null));
+        // Create new instance of BasicData
+        BasicData bdata = new BasicData(family_name.getText().toString(), family_comm.getText().toString(), family_address.getText().toString(), family_phone.getText().toString(), uploads);
+        // Get values of spinner
+        String day = spinnerDay.getSelectedItem().toString();
+        String month = spinnerMonth.getSelectedItem().toString();
+        String year = spinnerYear.getSelectedItem().toString();
+        // Create new instance of Date_Class
+        Date_Class date = new Date_Class(month, day, year);
+        // Make Visit object
+//        Visit visit = new Visit(bdata, new Animal(new HashMap<String, AnimalDesc>(), new HashMap<String, AnimalDesc>()), new Structure(new HashMap<String, StructureDesc>(), new HashMap<String, StructureDesc>(), false, "", "", null), new Recycle(false, "", "", "", null), date);
+        mDatabase.child("visits").child("visit"+visitNum).child("basicData").setValue(bdata);
+        mDatabase.child("visits").child("visit"+visitNum).child("date").setValue(date);
+        mDatabase.child("name").setValue(family_name.getText().toString());
+        start();
 
-            // Create new instance of family
-            Family fam = new Family(id, bdata, visits, curr_visit);
-            // Send family info to database
-            mDatabase.child(family_no.getText().toString()).setValue(fam);
-        }
-        // Make changes to old information
-        else if (!firstPass) {
-
-            String visitID = "visit_" + visit_num;
-            Date_Class existing_date = family.visits.get(visitID);
-            // Make map of changes
-            // Get values of spinner
-            String day = spinnerDay.getSelectedItem().toString();
-            String month = spinnerMonth.getSelectedItem().toString();
-            String year = spinnerYear.getSelectedItem().toString();
-            // If family name changes
-            if (!family_name.getText().toString().equals(family.basic_data.name)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.name, family_name.getText().toString());
-                existing_date.changes.put("basic_data-name", new_pair);
-                family.basic_data.name = family_name.getText().toString();
-            }
-            // If family address changes
-            if (!family_address.getText().toString().equals(family.basic_data.address)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.address, family_address.getText().toString());
-                existing_date.changes.put("basic_data-address", new_pair);
-                family.basic_data.address = family_address.getText().toString();
-            }
-            // If family community changes
-            if (!family_comm.getText().toString().equals(family.basic_data.community)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.community, family_comm.getText().toString());
-                existing_date.changes.put("basic_data-community", new_pair);
-                family.basic_data.community = family_comm.getText().toString();
-            }
-            // If family phone changes
-            if (!family_phone.getText().toString().equals(family.basic_data.phone_number)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.phone_number, family_phone.getText().toString());
-                existing_date.changes.put("basic_data-phone", new_pair);
-                family.basic_data.phone_number = family_phone.getText().toString();
-            }
-            // Create new instance of Date_Class
-            //Date_Class date = new Date_Class(month, day, year, exis);
-            family.visits.put(visitID, existing_date);
-            if(uploads != null && family.basic_data.images != null){
-                family.basic_data.images.putAll(uploads);
-            }
-            else if(uploads != null){
-                family.basic_data.images = uploads;
-            }
-            mDatabase.setValue(family);
-        } else {
-
-            // Send family info to database
-            // Record new date/visit
-            visit_num = visit_num + 1;
-            String visitID = "visit_" + visit_num;
-            // Make map of changes
-            Map<String, OldNewPair> changes = new HashMap<String, OldNewPair>();
-            // Get values of spinner
-            String day = spinnerDay.getSelectedItem().toString();
-            String month = spinnerMonth.getSelectedItem().toString();
-            String year = spinnerYear.getSelectedItem().toString();
-            // If family name changes
-            if (!family_name.getText().toString().equals(family.basic_data.name)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.name, family_name.getText().toString());
-                changes.put("basic_data-name", new_pair);
-                family.basic_data.name = family_name.getText().toString();
-            }
-            // If family address changes
-            if (!family_address.getText().toString().equals(family.basic_data.address)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.address, family_address.getText().toString());
-                changes.put("basic_data-address", new_pair);
-                family.basic_data.address = family_address.getText().toString();
-            }
-            // If family community changes
-            if (!family_comm.getText().toString().equals(family.basic_data.community)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.community, family_comm.getText().toString());
-                changes.put("basic_data-community", new_pair);
-                family.basic_data.community = family_comm.getText().toString();
-            }
-            // If family phone changes
-            if (!family_phone.getText().toString().equals(family.basic_data.phone_number)) {
-                OldNewPair new_pair = new OldNewPair(family.basic_data.phone_number, family_phone.getText().toString());
-                changes.put("basic_data-phone", new_pair);
-                family.basic_data.phone_number = family_phone.getText().toString();
-            }
-            // Create new instance of Date_Class
-            Date_Class date = new Date_Class(month, day, year, changes);
-            family.visits.put(visitID, date);
-            if(uploads != null && family.basic_data.images != null){
-                family.basic_data.images.putAll(uploads);
-            }
-            else if(uploads != null){
-                family.basic_data.images = uploads;
-            }
-            mDatabase.setValue(family);
-        }
-
-        // Send new bundle to Animals0
-
-        // Pass the id of the family selected to the new activity
-        // Pass false to initial visit flag
-        // Pass true to firstPass
-        Intent intentDetails = new Intent(basicData.this, animals0.class);
-        Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        if (isInitVisit) {
-            bundle.putInt("family_no", (int) families_count);
-        } else {
-            bundle.putInt("family_no", family.id.intValue());
-        }
-        //bundle.putBoolean("firstPass", true);
-        intentDetails.putExtras(bundle);
-        startActivity(intentDetails);
     }
 
 //    private static final int REQUEST_IMAGE_CAPTURE = 1;

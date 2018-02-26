@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyectotiti.animals0">
+    tools:context="com.example.proyectotiti.animalsHome">
 
     <ImageView
         android:id="@+id/logo"
@@ -135,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@android:drawable/ic_menu_edit"
-                    android:onClick="openAnimals2"
+                    android:onClick="openAnimalsWild"
                     tools:ignore="ContentDescription"/>
 
                 <ImageButton
@@ -192,7 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@android:drawable/ic_menu_edit"
-                    android:onClick="openAnimals4"
+                    android:onClick="openAnimalsDomestic"
                     tools:ignore="ContentDescription"/>
 
                 <ImageButton

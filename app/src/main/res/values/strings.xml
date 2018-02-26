@@ -78,4 +78,5 @@
         <item>2001</item>
         <item>2000</item>
     </string-array>
+    <string name="title_activity_view_visits">viewVisits</string>
 </resources>

@@ -9,8 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.proyectotiti.models.Animal;
-import com.example.proyectotiti.models.AnimalDesc;
 import com.example.proyectotiti.models.Structure;
 import com.example.proyectotiti.models.StructureDesc;
 import com.google.firebase.database.DataSnapshot;
@@ -197,7 +195,7 @@ public class madera0 extends AppCompatActivity {
     }
     public void openAnimals0(View v){
 
-        Intent intentDetails = new Intent(madera0.this, animals0.class);
+        Intent intentDetails = new Intent(madera0.this, animalsHome.class);
         Bundle bundle = new Bundle();
         bundle.putLong("visit_num", visit_num);
         bundle.putInt("family_no", family_no);

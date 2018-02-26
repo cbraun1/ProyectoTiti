@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.proyectotiti.models.AnimalDesc;
-import com.example.proyectotiti.models.OldNewPair;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,10 +38,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class animals4 extends AppCompatActivity {
+public class animalsDomestic extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
-    private DatabaseReference visitsDatabase;
     private StorageReference storageReference;
 
     private ImageButton mImageButton;
@@ -52,17 +50,15 @@ public class animals4 extends AppCompatActivity {
     private LinearLayout mainLinearLayout;
     private Map<String, String> images;
 
-    private EditText animal_name;
-    private EditText animal_marking;
-    private EditText animal_type;
+    private EditText animalName;
+    private EditText animalMarking;
+    private EditText animalType;
 
-    private Integer family_no;
-    private Integer animal_no;
-    private Long visit_num;
+    private String familyNum;
+    private String animalNum;
+    private String visitNum;
 
-    private long animals_count;
-
-    private boolean new_animal = false;
+    private long animalsCount;
 
     private AnimalDesc animal;
 
@@ -71,18 +67,18 @@ public class animals4 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_animals4);
+        setContentView(R.layout.activity_animals_domestic);
 
         //Views
-        animal_name = (EditText)findViewById(R.id.editTextAnimal);
-        animal_marking = (EditText)findViewById(R.id.editTextMarking);
-        animal_type = (EditText)findViewById(R.id.editTextType);
+        animalName = (EditText)findViewById(R.id.editTextAnimal);
+        animalMarking = (EditText)findViewById(R.id.editTextMarking);
+        animalType = (EditText)findViewById(R.id.editTextType);
 
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        animal_no = extrasBundle.getInt("animal_no");
-        family_no = extrasBundle.getInt("family_no");
-        visit_num = extrasBundle.getLong("visit_num");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
+        animalNum = extrasBundle.getString("animalNum");
 
         mainLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
         mImageButton = (ImageButton)findViewById(R.id.imageButton);
@@ -96,15 +92,13 @@ public class animals4 extends AppCompatActivity {
             }
         });
 
-        if (animal_no == -1){
-            new_animal = true;
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("animals").child("domestic");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("animals").child("domestic");
+
+
+        if (animalNum.equals("-1")){
             getAnimalNumber();
         }
         else {
-            String visitID = "visit_" + visit_num;
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("animals").child("domestic");
-            visitsDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("visits").child(visitID).child("changes");
             readFromDB();
         }
     }
@@ -179,7 +173,7 @@ public class animals4 extends AppCompatActivity {
                             uris.add(taskSnapshot.getDownloadUrl().toString());
 
                             // Display new image
-                            ImageView image = new ImageView(animals4.this);
+                            ImageView image = new ImageView(animalsDomestic.this);
                             Picasso.with(image.getContext()).load(taskSnapshot.getDownloadUrl().toString()).into(image);
                             mainLinearLayout.addView(image);
 
@@ -203,9 +197,9 @@ public class animals4 extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("DEBUG", String.valueOf(dataSnapshot));
-                animals_count = dataSnapshot.getChildrenCount();
-                Log.e("DEBUG", String.valueOf(animals_count));
-                animal_no = (int)animals_count + 1;
+                animalsCount = dataSnapshot.getChildrenCount();
+                Log.e("DEBUG", String.valueOf(animalsCount));
+                animalNum = String.valueOf((int)animalsCount + 1);
             }
 
             @Override
@@ -233,16 +227,15 @@ public class animals4 extends AppCompatActivity {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        String id = "a_" + animal_no.toString();
-        mDatabase.child(id).addValueEventListener(aListener);
+        mDatabase.child("a_"+animalNum).addValueEventListener(aListener);
     }
 
     public void prepopulate(AnimalDesc post){
         animal = post;
         // Set all the editTexts to original data
-        animal_marking.setText(String.valueOf(animal.marking));
-        animal_name.setText(animal.name);
-        animal_type.setText(animal.type);
+        animalMarking.setText(String.valueOf(animal.marking));
+        animalName.setText(animal.name);
+        animalType.setText(animal.type);
         Map<String, String> image_object = animal.images;
         images = animal.images;
         Iterator it = null;
@@ -254,7 +247,7 @@ public class animals4 extends AppCompatActivity {
 
             while(it.hasNext()){
                 Map.Entry pair = (Map.Entry)it.next();
-                ImageView image = new ImageView(animals4.this);
+                ImageView image = new ImageView(animalsDomestic.this);
                 Picasso.with(image.getContext()).load(pair.getValue().toString()).into(image);
                 mainLinearLayout.addView(image);
             }
@@ -278,37 +271,20 @@ public class animals4 extends AppCompatActivity {
         else{
             images = uploads;
         }
-        String id = "a_" + animal_no.toString();
-        if(!new_animal){
-            if (!animal_type.getText().toString().equals(animal.type)){
-                OldNewPair new_pair = new OldNewPair(animal.type, animal_type.getText().toString());
-                visitsDatabase.child("curr_visit-animals-domestic-"+id+"-type").setValue(new_pair);
-            }
-            if (!animal_marking.getText().toString().equals(animal.marking)){
-                OldNewPair new_pair = new OldNewPair(animal.marking, animal_marking.getText().toString());
-                visitsDatabase.child("curr_visit-animals-domestic-"+id+"-marking").setValue(new_pair);
-            }
+        String id = "a_" + animalNum;
 
-            if (!animal_name.getText().toString().equals(animal.name)){
-                OldNewPair new_pair = new OldNewPair(animal.name, animal_name.getText().toString());
-                visitsDatabase.child("curr_visit-animals-domestic-"+id+"-name").setValue(new_pair);
-            }
-        }
-        AnimalDesc new_animal = new AnimalDesc(animal_type.getText().toString(), animal_marking.getText().toString(), animal_name.getText().toString(), true, images);
+        AnimalDesc new_animal = new AnimalDesc(animalType.getText().toString(), animalMarking.getText().toString(), animalName.getText().toString(), true, images);
         mDatabase.child(id).setValue(new_animal);
-        openAnimals0(v);
+        openAnimalsHome(v);
     }
 
-    public void openAnimals0(View v){
-        Intent intentDetails = new Intent(animals4.this, animals0.class);
+    public void openAnimalsHome(View v){
+        Intent intentDetails = new Intent(animalsDomestic.this, animalsHome.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
 
-    public void openAnimals3(View v){
-        startActivity(new Intent(animals4.this, animals3.class));
-    }
 }

@@ -14,28 +14,16 @@ import java.util.Map;
 
 public class Family {
 
-    public Double id;
-    public BasicData basic_data;
-    public Map<String, Date_Class> visits;
-    public CurrentVisit curr_visit;
+    public Map<String, Visit> visits;
+    public String name;
 
     public Family() {
         // Default constructor required for calls to DataSnapshot.getValue(Family.class)
     }
 
-    public Family(Double id, BasicData basicData, Map<String, Date_Class> visits, CurrentVisit curr_visit) {
-        this.id = id;
-        this.basic_data = basicData;
+    public Family(Map<String, Visit> visits, String name) {
         this.visits = visits;
-        this.curr_visit = curr_visit;
-    }
-
-    public BasicData getBasic_data() {
-        return basic_data;
-    }
-
-    public void setBasic_data(BasicData basic_data) {
-        this.basic_data = basic_data;
+        this.name = name;
     }
 
 }

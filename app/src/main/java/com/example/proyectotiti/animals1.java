@@ -21,7 +21,7 @@ public class animals1 extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 if(radioButtonSi.isChecked()){
-                    startActivity(new Intent(animals1.this, animals2.class));
+                    startActivity(new Intent(animals1.this, animalsWild.class));
                 }
                 else
                 {
@@ -35,7 +35,7 @@ public class animals1 extends AppCompatActivity {
     }
 
     public void openAnimals0(View v){
-        startActivity(new Intent(animals1.this, animals0.class));
+        startActivity(new Intent(animals1.this, animalsHome.class));
     }
 
 }

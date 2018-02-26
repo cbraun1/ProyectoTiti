@@ -54,7 +54,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:onClick="openBasicData"
+        android:onClick="openViewVisits"
         android:text="SIGUENTE"
         android:textColorLink="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"

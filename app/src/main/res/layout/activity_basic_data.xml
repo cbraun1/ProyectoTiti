@@ -77,7 +77,7 @@
     <!--</ScrollView>-->
 
     <ScrollView
-        android:id="@+id/scrollView5"
+        android:id="@+id/basicDataScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/button2"
@@ -204,6 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="TODO"
                     app:srcCompat="@android:drawable/menuitem_background" />
 
                 <!--<EditText-->
@@ -312,6 +313,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="SIGUENTE"
-        android:onClick="openAnimals0"/>
+        android:onClick="openAnimalsHome"/>
 
 </RelativeLayout>
