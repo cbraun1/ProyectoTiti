@@ -11,15 +11,17 @@ public class Animal {
 
     public Map<String, AnimalDesc> wild;
     public Map<String, AnimalDesc> domestic;
+    public boolean committed;
 
 
     public Animal() {
         // Default constructor required for calls to DataSnapshot.getValue(Animal.class)
     }
 
-    public Animal(Map<String, AnimalDesc> wild, Map<String, AnimalDesc> domestic) {
+    public Animal(Map<String, AnimalDesc> wild, Map<String, AnimalDesc> domestic, boolean committed) {
         this.wild = wild;
         this.domestic = domestic;
+        this.committed = committed;
 
     }
 }

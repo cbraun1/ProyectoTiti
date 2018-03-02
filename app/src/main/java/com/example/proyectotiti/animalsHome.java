@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import com.example.proyectotiti.models.Animal;
 import com.example.proyectotiti.models.AnimalDesc;
+import com.example.proyectotiti.models.Visit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ public class animalsHome extends BaseActivity {
 
     private RadioGroup wildRdGp;
     private RadioGroup domesticRdGp;
+    private Class nextField;
 
     /* This function runs upon the creation of the animalsHome screen.
     * If it is not an initial visit, it will prompt the app to read from the database
@@ -55,7 +57,6 @@ public class animalsHome extends BaseActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits");
 
         readFromDB();
-
         wildLinearLayout.addView(wildRdGp);
         domesticLinearLayout.addView(domesticRdGp);
 
@@ -66,13 +67,26 @@ public class animalsHome extends BaseActivity {
 
 
         // Add value event listener to the list of families
-        ValueEventListener bdListener = new ValueEventListener() {
+        ValueEventListener visitListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e(TAG, String.valueOf(dataSnapshot));
-                Animal post = dataSnapshot.getValue(Animal.class);
+                Visit post = dataSnapshot.getValue(Visit.class);
                 if(post != null){
-                    prepopulate(post);
+                    prepopulate(post.animals);
+                    if(post.structures.committed){
+                        nextField = madera0.class;
+                    }
+                    else if(post.recycle.committed){
+                        nextField = recycle1.class;
+                    }
+                    else if(post.conservation.committed){
+                        nextField = conservaion0.class;
+                    }
+                    else{
+                        nextField = visitOverview.class;
+                    }
+
                 }
             }
 
@@ -82,7 +96,7 @@ public class animalsHome extends BaseActivity {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.child("visit"+visitNum).child("animals").addValueEventListener(bdListener);
+        mDatabase.child("visit"+visitNum).addValueEventListener(visitListener);
 
     }
 
@@ -172,14 +186,15 @@ public class animalsHome extends BaseActivity {
         startActivity(intentDetails);
     }
 
-    public void openMadera0(View v){
+    public void openNextField(View v){
 
-        Intent intentDetails = new Intent(animalsHome.this, madera0.class);
+        Intent intentDetails = new Intent(animalsHome.this, nextField);
         Bundle bundle = new Bundle();
         bundle.putString("familyNum", familyNum);
         bundle.putString("visitNum", visitNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
+
     }
 
     public void openAnimalsWild(View v){

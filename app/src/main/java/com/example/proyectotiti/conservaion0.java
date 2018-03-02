@@ -5,10 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 
-import com.example.proyectotiti.models.OldNewPair;
-import com.example.proyectotiti.models.Recycle;
 import com.example.proyectotiti.models.Visit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,28 +13,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class recycle3 extends AppCompatActivity {
+public class conservaion0 extends AppCompatActivity {
 
-    private static final String TAG = "recycle3";
-
+    private static final String TAG = "conservaion0";
 
     private DatabaseReference mDatabase;
-    private DatabaseReference visitsDatabase;
+
 
     private String familyNum;
     private String visitNum;
 
-    private EditText waste_man;
-
-    private Recycle recycle;
     private Class nextField;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycle3);
+        setContentView(R.layout.activity_conservaion0);
 
         // Get current Info
         Intent intentExtras = getIntent();
@@ -45,16 +37,14 @@ public class recycle3 extends AppCompatActivity {
         familyNum = extrasBundle.getString("familyNum");
         visitNum = extrasBundle.getString("visitNum");
 
-        // Views
-        waste_man = (EditText) findViewById(R.id.editText2);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
-//        if(!visitNum.equals("1")){
-//            readFromDB();
-//        }
+        readFromDB();
     }
 
-    public void readFromDB(){
+    public void readFromDB() {
+
+
         // Add value event listener to the list of families
         ValueEventListener visitListener = new ValueEventListener() {
             @Override
@@ -62,12 +52,17 @@ public class recycle3 extends AppCompatActivity {
                 Log.e(TAG, String.valueOf(dataSnapshot));
                 Visit post = dataSnapshot.getValue(Visit.class);
                 if(post != null){
-                    prepopulate(post.recycle);
-                    if(post.conservation.committed){
-                        nextField = conservaion0.class;
+                    if(post.recycle.committed){
+                        nextField = recycle1.class;
+                    }
+                    else if(post.structures.committed){
+                        nextField = madera0.class;
+                    }
+                    else if(post.animals.committed){
+                        nextField = animalsHome.class;
                     }
                     else{
-                        nextField = visitOverview.class;
+                        nextField = basicData.class;
                     }
 
                 }
@@ -79,38 +74,30 @@ public class recycle3 extends AppCompatActivity {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(visitListener);
+        mDatabase.child("visit"+visitNum).addValueEventListener(visitListener);
 
     }
 
-    public void prepopulate(Recycle post){
-        recycle = post;
-        waste_man.setText(recycle.waste_man);
+    public void openLastField(View v){
 
-    }
-
-    public void submitRecycle(View v){
-
-        mDatabase.child("waste_man").setValue(waste_man.getText().toString());
-
-        openNextField(v);
-    }
-
-    public void openRecycle1(View v){
-
-        Intent intentDetails = new Intent(recycle3.this, recycle1.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("visitNum", visitNum);
-        bundle.putString("familyNum", familyNum);
-        intentDetails.putExtras(bundle);
-        startActivity(intentDetails);
-    }
-    public void openNextField(View v){
-            Intent intentDetails = new Intent(recycle3.this, nextField);
+            Intent intentDetails = new Intent(conservaion0.this, nextField);
             Bundle bundle = new Bundle();
             bundle.putString("familyNum", familyNum);
             bundle.putString("visitNum", visitNum);
             intentDetails.putExtras(bundle);
             startActivity(intentDetails);
+
+
+    }
+
+    public void openConservacion1(View v){
+        // Pass the id of the family selected to the new activity
+        // Pass false to initial visit flag
+        Intent intentDetails = new Intent(conservaion0.this, conservacion1.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("visitNum", visitNum);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
     }
 }

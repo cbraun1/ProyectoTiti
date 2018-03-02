@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:onClick="openAnimals0"
+            android:onClick="openLastField"
             android:text="ANTERIOR"
             android:textColorLink="@color/colorPrimaryDark" />
 

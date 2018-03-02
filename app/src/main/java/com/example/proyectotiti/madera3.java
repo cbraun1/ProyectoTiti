@@ -25,13 +25,11 @@ public class madera3 extends AppCompatActivity {
     private EditText structure_size;
     private EditText structure_function;
 
-    private Integer family_no;
-    private Integer structure_no;
-    private Long visit_num;
+    private String familyNum;
+    private String structureNum;
+    private String visitNum;
 
-    private long structures_count;
-
-    private boolean new_structure = false;
+    private long structuresCount;
 
     private StructureDesc structure;
 
@@ -48,19 +46,17 @@ public class madera3 extends AppCompatActivity {
 
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        structure_no = extrasBundle.getInt("structure_no");
-        family_no = extrasBundle.getInt("family_no");
-        visit_num = extrasBundle.getLong("visit_num");
+        structureNum = extrasBundle.getString("structureNum");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
 
-        if (structure_no == -1){
-            new_structure = true;
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("structures").child("fence");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits");
+
+
+        if (structureNum.equals("-1")){
             getStructureNumber();
         }
         else {
-            String visitID = "visit_" + visit_num;
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("structures").child("fence");
-            visitsDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("visits").child(visitID).child("changes");
             readFromDB();
         }
     }
@@ -72,9 +68,9 @@ public class madera3 extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("DEBUG", String.valueOf(dataSnapshot));
-                structures_count = dataSnapshot.getChildrenCount();
-                Log.e("DEBUG", String.valueOf(structures_count));
-                structure_no = (int)structures_count + 1;
+                structuresCount = dataSnapshot.getChildrenCount();
+                Log.e("DEBUG", String.valueOf(structuresCount));
+                structureNum = String.valueOf((int)structuresCount + 1);
             }
 
             @Override
@@ -83,7 +79,7 @@ public class madera3 extends AppCompatActivity {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(structureListener);
+        mDatabase.child("visit"+visitNum).child("structures").child("fence").addValueEventListener(structureListener);
     }
 
     public void readFromDB(){
@@ -102,8 +98,7 @@ public class madera3 extends AppCompatActivity {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        String id = "s_" + structure_no.toString();
-        mDatabase.child(id).addValueEventListener(sListener);
+        mDatabase.child("visit"+visitNum).child("structures").child("fence").child("s_"+structureNum).addListenerForSingleValueEvent(sListener);
     }
 
     public void prepopulate(StructureDesc post){
@@ -117,28 +112,8 @@ public class madera3 extends AppCompatActivity {
     }
 
     public void submitStructure(View v){
-        String id = "s_" + structure_no.toString();
-        if(!new_structure){
-            if (!structure_function.getText().toString().equals(structure.function)){
-                OldNewPair new_pair = new OldNewPair(structure.function, structure_type.getText().toString());
-                visitsDatabase.child("curr_visit-structures-fence-"+id+"-function").setValue(new_pair);
-            }
-            if (!structure_type.getText().toString().equals(structure.type)){
-                OldNewPair new_pair = new OldNewPair(structure.type, structure_type.getText().toString());
-                visitsDatabase.child("curr_visit-structures-fence-"+id+"-type").setValue(new_pair);
-            }
-
-            if (!structure_name.getText().toString().equals(structure.name)){
-                OldNewPair new_pair = new OldNewPair(structure.name, structure_name.getText().toString());
-                visitsDatabase.child("curr_visit-structures-fence-"+id+"-name").setValue(new_pair);
-            }
-            if (!structure_size.getText().toString().equals(structure.size)){
-                OldNewPair new_pair = new OldNewPair(structure.size, structure_size.getText().toString());
-                visitsDatabase.child("curr_visit-structures-fence-"+id+"-size").setValue(new_pair);
-            }
-        }
         StructureDesc new_structure = new StructureDesc(structure_type.getText().toString(), structure_function.getText().toString(), structure_name.getText().toString(), true, structure_size.getText().toString());
-        mDatabase.child(id).setValue(new_structure);
+        mDatabase.child("visit"+visitNum).child("structures").child("fence").child("s_"+structureNum).setValue(new_structure);
         openMadera0(v);
     }
 
@@ -146,8 +121,8 @@ public class madera3 extends AppCompatActivity {
 
         Intent intentDetails = new Intent(madera3.this, madera0.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }

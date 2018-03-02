@@ -92,7 +92,7 @@ public class animalsDomestic extends AppCompatActivity {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("animals").child("domestic");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits");
 
 
         if (animalNum.equals("-1")){
@@ -208,7 +208,7 @@ public class animalsDomestic extends AppCompatActivity {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(animalListener);
+        mDatabase.child("visit"+visitNum).child("animals").child("domestic").addValueEventListener(animalListener);
     }
 
     public void readFromDB(){
@@ -227,7 +227,7 @@ public class animalsDomestic extends AppCompatActivity {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.child("a_"+animalNum).addValueEventListener(aListener);
+        mDatabase.child("visit"+visitNum).child("animals").child("domestic").child("a_"+animalNum).addListenerForSingleValueEvent(aListener);
     }
 
     public void prepopulate(AnimalDesc post){
@@ -274,7 +274,7 @@ public class animalsDomestic extends AppCompatActivity {
         String id = "a_" + animalNum;
 
         AnimalDesc new_animal = new AnimalDesc(animalType.getText().toString(), animalMarking.getText().toString(), animalName.getText().toString(), true, images);
-        mDatabase.child(id).setValue(new_animal);
+        mDatabase.child("visit"+visitNum).child("animals").child("domestic").child(id).setValue(new_animal);
         openAnimalsHome(v);
     }
 

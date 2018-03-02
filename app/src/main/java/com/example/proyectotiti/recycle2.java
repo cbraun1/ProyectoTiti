@@ -21,8 +21,8 @@ public class recycle2 extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference visitsDatabase;
 
-    private Integer family_no;
-    private Long visit_num;
+    private String familyNum;
+    private String visitNum;
 
     private EditText recycle_items;
     private EditText recycle_deliver;
@@ -37,18 +37,17 @@ public class recycle2 extends AppCompatActivity {
         // Get current Info
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        //firstPass = extrasBundle.getBoolean("firstPass");
-        family_no = extrasBundle.getInt("family_no");
-        visit_num = extrasBundle.getLong("visit_num");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
 
         // Views
         recycle_items = (EditText) findViewById(R.id.editTextRecycled);
         recycle_deliver = (EditText) findViewById(R.id.editTextRecyclingQ3);
 
-        String visitID = "visit_" + visit_num;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("recycle");
-        visitsDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("visits").child(visitID).child("changes");
-        readFromDB();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("recycle");
+        if(!visitNum.equals("1")){
+            readFromDB();
+        }
     }
 
     public void readFromDB(){
@@ -78,37 +77,26 @@ public class recycle2 extends AppCompatActivity {
     }
 
     public void submitRecycle(View v){
-        if (!recycle_items.getText().toString().equals(recycle.recycle_items) && visit_num != 0){
-            OldNewPair new_pair = new OldNewPair(recycle.recycle_items, recycle_items.getText().toString());
-            visitsDatabase.child("curr_visit-recycle-recycle_items").setValue(new_pair);
-        }
         mDatabase.child("recycle_items").setValue(recycle_items.getText().toString());
-
-        if (!recycle_deliver.getText().toString().equals(recycle.recycle_deliver) && visit_num != 0){
-            OldNewPair new_pair = new OldNewPair(recycle.recycle_deliver, recycle_deliver.getText().toString());
-            visitsDatabase.child("curr_visit-recycle-recycle_deliver").setValue(new_pair);
-        }
         mDatabase.child("recycle_deliver").setValue(recycle_deliver.getText().toString());
 
-        openRevise(v);
+        openConservacion0(v);
     }
 
     public void openRecycle1(View v){
 
         Intent intentDetails = new Intent(recycle2.this, recycle1.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
-    public void openRevise(View v){
-        Intent intentDetails = new Intent(recycle2.this, revise.class);
+    public void openConservacion0(View v){
+        Intent intentDetails = new Intent(recycle2.this, conservaion0.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }

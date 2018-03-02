@@ -19,7 +19,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DATOS BASICOS"
+        android:text="DATOS BÁSICOS"
         android:textSize="18sp"
         android:layout_below="@+id/logo"
         android:paddingTop="0dp"
@@ -313,6 +313,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="SIGUENTE"
-        android:onClick="openAnimalsHome"/>
+        android:onClick="submitBasicData"/>
 
 </RelativeLayout>

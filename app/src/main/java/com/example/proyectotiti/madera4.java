@@ -45,7 +45,6 @@ import java.util.Map;
 public class madera4 extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
-    private DatabaseReference visitsDatabase;
     private StorageReference storageReference;
 
     private ImageButton mImageButton;
@@ -55,8 +54,8 @@ public class madera4 extends AppCompatActivity {
     private LinearLayout mainLinearLayout;
     private Map<String, String> images;
 
-    private Integer family_no;
-    private Long visit_num;
+    private String familyNum;
+    private String visitNum;
 
     private RadioButton radioButtonSi;
     private RadioButton radioButtonNo;
@@ -73,9 +72,8 @@ public class madera4 extends AppCompatActivity {
         // Get current Info
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        //firstPass = extrasBundle.getBoolean("firstPass");
-        family_no = extrasBundle.getInt("family_no");
-        visit_num = extrasBundle.getLong("visit_num");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
 
         mainLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
         mImageButton = (ImageButton)findViewById(R.id.imageButtonCooking);
@@ -93,10 +91,10 @@ public class madera4 extends AppCompatActivity {
         radioButtonSi = (RadioButton) findViewById(R.id.radioButtonSi);
         radioButtonNo = (RadioButton) findViewById(R.id.radioButtonNo);
 
-        String visitID = "visit_" + visit_num;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("structures");
-        visitsDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("visits").child(visitID).child("changes");
-        readFromDB();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("structures");
+        if (!visitNum.equals("1")) {
+            readFromDB();
+        }
 
     }
 
@@ -251,19 +249,11 @@ public class madera4 extends AppCompatActivity {
         }
         mDatabase.child("images").setValue(images);
         if(radioButtonSi.isChecked()){
-            if (!structure.cookWithWoodCoal.equals(true) && visit_num != 0){
-                OldNewPair new_pair = new OldNewPair("false", "true");
-                visitsDatabase.child("curr_visit-structures-cookWithWoodCoal").setValue(new_pair);
-            }
             mDatabase.child("cookWithWoodCoal").setValue(true);
             openMadera5(v);
         }
         else {
             if(radioButtonNo.isChecked()) {
-                if (!structure.cookWithWoodCoal.equals(false) && visit_num != 0){
-                    OldNewPair new_pair = new OldNewPair("true", "false");
-                    visitsDatabase.child("curr_visit-structures-cookWithWoodCoal").setValue(new_pair);
-                }
                 mDatabase.child("cookWithWoodCoal").setValue(false);
                 openRecycle1(v);
             }
@@ -273,9 +263,8 @@ public class madera4 extends AppCompatActivity {
     public void openMadera0(View v){
         Intent intentDetails = new Intent(madera4.this, madera0.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
@@ -283,18 +272,16 @@ public class madera4 extends AppCompatActivity {
 
         Intent intentDetails = new Intent(madera4.this, madera5.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
     public void openRecycle1(View v){
         Intent intentDetails = new Intent(madera4.this, recycle1.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }

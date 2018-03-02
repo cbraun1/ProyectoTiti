@@ -36,6 +36,7 @@ public class home extends BaseActivity {
                 Log.e(TAG, String.valueOf(families_count));
                 families_count = families_count + 1;
                 newFamilyNum = String.valueOf(families_count);
+
                 // Pass the id of the family selected to the new activity
                 Intent intentDetails = new Intent(home.this, basicData.class);
                 Bundle bundle = new Bundle();

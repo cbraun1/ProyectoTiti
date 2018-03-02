@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.example.proyectotiti.models.Structure;
 import com.example.proyectotiti.models.StructureDesc;
+import com.example.proyectotiti.models.Visit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,12 +24,14 @@ public class madera0 extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
-    private Integer family_no;
-    //private Boolean firstPass;
-    private Long visit_num;
+    private String familyNum;
+    private String visitNum;
 
     private RadioGroup conRdGp;
     private RadioGroup fenceRdGp;
+
+    private Class nextField;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,9 @@ public class madera0 extends AppCompatActivity {
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
         //firstPass = extrasBundle.getBoolean("firstPass");
-        family_no = extrasBundle.getInt("family_no");
-        visit_num = extrasBundle.getLong("visit_num");
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("structures");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
 
         readFromDB();
 
@@ -64,9 +67,15 @@ public class madera0 extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("DEBUG", String.valueOf(dataSnapshot));
-                Structure post = dataSnapshot.getValue(Structure.class);
+                Visit post = dataSnapshot.getValue(Visit.class);
                 if(post != null){
-                    prepopulate(post);
+                    prepopulate(post.structures);
+                    if(post.animals.committed){
+                        nextField = animalsHome.class;
+                    }
+                    else{
+                        nextField= basicData.class;
+                    }
                 }
             }
 
@@ -107,7 +116,7 @@ public class madera0 extends AppCompatActivity {
 
     // Add new animal as a radio button with the text as the animal name and the id as the id
     public void addConRadioButton(String key, StructureDesc value) {
-        if(value.active == true){
+        if(value.active){
             RadioButton rdbtn = new RadioButton(this);
             String[] s = key.split("_");
             int id = Integer.valueOf(s[1]);
@@ -119,7 +128,7 @@ public class madera0 extends AppCompatActivity {
 
     // Add new animal as a radio button with the text as the animal name and the id as the id
     public void addFenceRadioButton(String key, StructureDesc value) {
-        if(value.active == true){
+        if(value.active){
             RadioButton rdbtn = new RadioButton(this);
             String[] s = key.split("_");
             int id = Integer.valueOf(s[1]);
@@ -133,7 +142,7 @@ public class madera0 extends AppCompatActivity {
         int selectedId = conRdGp.getCheckedRadioButtonId();
         if(selectedId != -1){
             String id = "s_" + selectedId;
-            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("structures").child("construction").child(id);
+            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("curr_visit").child("structures").child("construction").child(id);
             dDatabase.child("active").setValue(false);
             conRdGp.removeAllViews();
             fenceRdGp.removeAllViews();
@@ -145,7 +154,7 @@ public class madera0 extends AppCompatActivity {
         int selectedId = fenceRdGp.getCheckedRadioButtonId();
         if(selectedId != -1){
             String id = "s_" + selectedId;
-            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("structures").child("fence").child(id);
+            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("curr_visit").child("structures").child("fence").child(id);
             dDatabase.child("active").setValue(false);
             conRdGp.removeAllViews();
             fenceRdGp.removeAllViews();
@@ -157,50 +166,46 @@ public class madera0 extends AppCompatActivity {
 
         Intent intentDetails = new Intent(madera0.this, madera4.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
 
     public void openMadera2(View v){
 
-        int selectedId = conRdGp.getCheckedRadioButtonId();
+        String selectedId = String.valueOf(conRdGp.getCheckedRadioButtonId());
         Log.e("DEBUG", String.valueOf(selectedId));
-        Log.e("DEBUG", String.valueOf(visit_num));
-        Log.e("DEBUG", String.valueOf(family_no));
 
         Intent intentDetails = new Intent(madera0.this, madera2.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        bundle.putInt("structure_no", selectedId);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("structureNum", selectedId);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
     public void openMadera3(View v){
-        int selectedId = fenceRdGp.getCheckedRadioButtonId();
+        String selectedId = String.valueOf(fenceRdGp.getCheckedRadioButtonId());
         Log.e("DEBUG", String.valueOf(selectedId));
-        Log.e("DEBUG", String.valueOf(visit_num));
-        Log.e("DEBUG", String.valueOf(family_no));
 
         Intent intentDetails = new Intent(madera0.this, madera3.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        bundle.putInt("structure_no", selectedId);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("structureNum", selectedId);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
-    public void openAnimals0(View v){
+    public void openLastField(View v){
 
-        Intent intentDetails = new Intent(madera0.this, animalsHome.class);
-        Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
-        intentDetails.putExtras(bundle);
-        startActivity(intentDetails);
+
+            Intent intentDetails = new Intent(madera0.this, nextField);
+            Bundle bundle = new Bundle();
+            bundle.putString("familyNum", familyNum);
+            bundle.putString("visitNum", visitNum);
+            intentDetails.putExtras(bundle);
+            startActivity(intentDetails);
+
     }
 }

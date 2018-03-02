@@ -15,21 +15,12 @@
         android:paddingTop="0dp"
         tools:ignore="ContentDescription"/>
 
-    <TextView
-        android:id="@+id/numberTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3 de 5"
-        android:textSize="18sp"
-        android:layout_below="@+id/logo"
-        android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/numberTotal"
+        android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
         android:paddingTop="0dp"
         android:text="ANIMALES"

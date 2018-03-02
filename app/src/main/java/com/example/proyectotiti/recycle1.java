@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Recycle;
 import com.example.proyectotiti.models.Structure;
+import com.example.proyectotiti.models.Visit;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +45,6 @@ import java.util.Map;
 public class recycle1 extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
-    private DatabaseReference visitsDatabase;
     private StorageReference storageReference;
 
     private ImageButton mImageButton;
@@ -54,13 +54,15 @@ public class recycle1 extends AppCompatActivity {
     private LinearLayout mainLinearLayout;
     private Map<String, String> images;
 
-    private Integer family_no;
-    private Long visit_num;
+    private String familyNum;
+    private String visitNum;
 
     private RadioButton radioButtonSi;
     private RadioButton radioButtonNo;
 
     private Recycle recycle;
+
+    private Class nextField;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -74,8 +76,8 @@ public class recycle1 extends AppCompatActivity {
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
         //firstPass = extrasBundle.getBoolean("firstPass");
-        family_no = extrasBundle.getInt("family_no");
-        visit_num = extrasBundle.getLong("visit_num");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
 
         // Views
         radioButtonSi = (RadioButton) findViewById(R.id.radioButtonSi);
@@ -93,10 +95,11 @@ public class recycle1 extends AppCompatActivity {
             }
         });
 
-        String visitID = "visit_" + visit_num;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("recycle");
-        visitsDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("visits").child(visitID).child("changes");
-        readFromDB();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
+//        if (!visitNum.equals("1")){
+            readFromDB();
+//        }
+
 
     }
 
@@ -190,12 +193,23 @@ public class recycle1 extends AppCompatActivity {
 
     public void readFromDB(){
         // Add value event listener to the list of families
-        ValueEventListener rListener = new ValueEventListener() {
+        ValueEventListener bdListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("DEBUG", String.valueOf(dataSnapshot));
-                Recycle post = dataSnapshot.getValue(Recycle.class);
-                prepopulate(post);
+                Visit post = dataSnapshot.getValue(Visit.class);
+                if(post != null){
+                    prepopulate(post.recycle);
+                    if(post.structures.committed){
+                        nextField = madera0.class;
+                    }
+                    else if(post.animals.committed){
+                        nextField = animalsHome.class;
+                    }
+                    else{
+                        nextField= basicData.class;
+                    }
+                }
             }
 
             @Override
@@ -204,7 +218,7 @@ public class recycle1 extends AppCompatActivity {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(rListener);
+        mDatabase.addValueEventListener(bdListener);
     }
 
     public void prepopulate(Recycle post){
@@ -253,50 +267,40 @@ public class recycle1 extends AppCompatActivity {
         }
         mDatabase.child("images").setValue(images);
         if(radioButtonSi.isChecked()){
-            if (!recycle.doRecycle.equals(true) && visit_num != 0){
-                OldNewPair new_pair = new OldNewPair("false", "true");
-                visitsDatabase.child("curr_visit-recycle-doRecycle").setValue(new_pair);
-            }
             mDatabase.child("doRecycle").setValue(true);
             openRecycle2(v);
         }
         else {
             if(radioButtonNo.isChecked()) {
-                if (!recycle.doRecycle.equals(false)){
-                    OldNewPair new_pair = new OldNewPair("true", "false");
-                    visitsDatabase.child("curr_visit-recycle-doRecycle").setValue(new_pair);
-                }
                 mDatabase.child("doRecycle").setValue(false);
                 openRecycle3(v);
             }
         }
     }
 
-    public void openMadera0(View v){
-        Intent intentDetails = new Intent(recycle1.this, madera0.class);
+    public void openLastField(View v){
+        Intent intentDetails = new Intent(recycle1.this, nextField);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("visitNum", visitNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
+
     }
     public void openRecycle2(View v){
 
         Intent intentDetails = new Intent(recycle1.this, recycle2.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
     public void openRecycle3(View v){
         Intent intentDetails = new Intent(recycle1.this, recycle3.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }}

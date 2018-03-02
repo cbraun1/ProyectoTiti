@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 
 import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Structure;
+import com.example.proyectotiti.models.Visit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +22,15 @@ public class madera5 extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference visitsDatabase;
 
-    private Integer family_no;
-    private Long visit_num;
+    private String familyNum;
+    private String visitNum;
 
     private EditText stove_freq;
     private EditText stove_type;
 
     private Structure structure;
+
+    private Class nextField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +40,39 @@ public class madera5 extends AppCompatActivity {
         // Get current Info
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        //firstPass = extrasBundle.getBoolean("firstPass");
-        family_no = extrasBundle.getInt("family_no");
-        visit_num = extrasBundle.getLong("visit_num");
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
 
         // Views
         stove_freq = (EditText) findViewById(R.id.editTextFreq);
         stove_type = (EditText) findViewById(R.id.editTextStoveType);
 
-        String visitID = "visit_" + visit_num;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("curr_visit").child("structures");
-        visitsDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(String.valueOf(family_no)).child("visits").child(visitID).child("changes");
-        readFromDB();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
+//        if (!visitNum.equals("1")){
+            readFromDB();
+//        }
     }
 
-    public void readFromDB(){
+    public void readFromDB() {
+
         // Add value event listener to the list of families
-        ValueEventListener sListener = new ValueEventListener() {
+        ValueEventListener bdListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("DEBUG", String.valueOf(dataSnapshot));
-                Structure post = dataSnapshot.getValue(Structure.class);
-                prepopulate(post);
+                Visit post = dataSnapshot.getValue(Visit.class);
+                if(post != null){
+                    prepopulate(post.structures);
+                    if(post.recycle.committed){
+                        nextField = recycle1.class;
+                    }
+                    else if(post.conservation.committed){
+                        nextField = conservaion0.class;
+                    }
+                    else{
+                        nextField = visitOverview.class;
+                    }
+                }
             }
 
             @Override
@@ -67,7 +81,8 @@ public class madera5 extends AppCompatActivity {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(sListener);
+        mDatabase.addValueEventListener(bdListener);
+
     }
 
     public void prepopulate(Structure post){
@@ -78,38 +93,29 @@ public class madera5 extends AppCompatActivity {
     }
 
     public void submitStructure(View v){
-        if (!stove_freq.getText().toString().equals(structure.stove_freq) && visit_num != 0){
-            OldNewPair new_pair = new OldNewPair(structure.stove_freq, stove_freq.getText().toString());
-            visitsDatabase.child("curr_visit-structures-stove_freq").setValue(new_pair);
-        }
         mDatabase.child("stove_freq").setValue(stove_freq.getText().toString());
-
-        if (!stove_type.getText().toString().equals(structure.stove_type) && visit_num != 0){
-            OldNewPair new_pair = new OldNewPair(structure.stove_type, stove_type.getText().toString());
-            visitsDatabase.child("curr_visit-structures-stove_type").setValue(new_pair);
-        }
         mDatabase.child("stove_type").setValue(stove_type.getText().toString());
 
-        openRecycle1(v);
+        openNextField(v);
     }
 
     public void openMadera4(View v){
         Intent intentDetails = new Intent(madera5.this, madera4.class);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
+        bundle.putString("visitNum", visitNum);
+        bundle.putString("familyNum", familyNum);
         //bundle.putBoolean("firstPass", true);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
 
-    public void openRecycle1(View v){
-        Intent intentDetails = new Intent(madera5.this, recycle1.class);
+    public void openNextField(View v){
+        Intent intentDetails = new Intent(madera5.this, nextField);
         Bundle bundle = new Bundle();
-        bundle.putLong("visit_num", visit_num);
-        bundle.putInt("family_no", family_no);
-        //bundle.putBoolean("firstPass", true);
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("visitNum", visitNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
+
     }
 }

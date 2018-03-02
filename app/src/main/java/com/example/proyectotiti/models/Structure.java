@@ -18,17 +18,19 @@ public class Structure {
     public String stove_freq;
     public String stove_type;
     public Map<String, String> images;
+    public boolean committed;
 
     public Structure() {
         // Default constructor required for calls to DataSnapshot.getValue(Structure.class)
     }
 
-    public Structure(Map<String, StructureDesc> construction, Map<String, StructureDesc> fence, Boolean cookWithWoodCoal, String stove_freq, String stove_type, Map<String,String> images) {
+    public Structure(Map<String, StructureDesc> construction, Map<String, StructureDesc> fence, Boolean cookWithWoodCoal, String stove_freq, String stove_type, Map<String,String> images, boolean committed) {
         this.construction = construction;
         this.fence = fence;
         this.cookWithWoodCoal = cookWithWoodCoal;
         this.stove_freq = stove_freq;
         this.stove_type = stove_type;
         this.images = images;
+        this.committed = committed;
     }
 }

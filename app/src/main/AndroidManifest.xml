@@ -50,18 +50,12 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".basicData"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".animalsHome"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".animals1"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".animalsWild"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".animals3"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".madera0"
@@ -107,6 +101,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".displayImages" />
         <activity android:name=".viewVisits" />
+        <activity android:name=".visitOverview" />
+        <activity android:name=".conservaion0" />
+        <activity android:name=".conservacion1" />
+        <activity android:name=".commitments"></activity>
     </application>
 
 </manifest>

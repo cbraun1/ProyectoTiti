@@ -15,15 +15,6 @@
         app:srcCompat="@mipmap/proyectotiti"
         tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/numberTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"
-        android:text="5 de 5"
-        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/title"
@@ -31,7 +22,7 @@
         android:layout_height="24dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/numberTotal"
+        android:layout_below="@+id/logo"
         android:paddingTop="0dp"
         android:text="ANIMALES"
         android:textSize="18sp" />

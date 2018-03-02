@@ -81,6 +81,11 @@ public class basicData extends BaseActivity {
     private Family family;
     private long families_count;
 
+    private boolean animals;
+    private boolean structures;
+    private boolean recycle;
+    private boolean conservation;
+
 
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -387,6 +392,13 @@ public class basicData extends BaseActivity {
         family_address.setText(visit.basicData.address);
         family_comm.setText(visit.basicData.community);
 
+        // Information on which fields the family has committed to
+        animals = visit.animals.committed;
+        structures = visit.structures.committed;
+        recycle = visit.recycle.committed;
+        conservation = visit.conservation.committed;
+
+
         Map<String, String> image_object = visit.basicData.images;
 
         // Display all saved images
@@ -420,8 +432,37 @@ public class basicData extends BaseActivity {
         }
     }
 
-    public void start(){
-        Intent intentDetails = new Intent(basicData.this, animalsHome.class);
+    public void openCommitments(){
+        Intent intentDetails = new Intent(basicData.this, commitments.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("visitNum", visitNum);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
+    }
+
+    public void openNextActivity(){
+        Intent intentDetails;
+        if (animals){
+            intentDetails = new Intent(basicData.this, animalsHome.class);
+
+        }
+        else if (structures){
+            intentDetails = new Intent(basicData.this, madera0.class);
+
+        }
+        else if(recycle){
+            intentDetails = new Intent(basicData.this, recycle1.class);
+
+        }
+        else if(conservation){
+            intentDetails = new Intent(basicData.this, conservaion0.class);
+
+        }
+        else{
+            intentDetails = new Intent(basicData.this, visitOverview.class);
+
+        }
         Bundle bundle = new Bundle();
         bundle.putString("familyNum", familyNum);
         bundle.putString("visitNum", visitNum);
@@ -434,7 +475,7 @@ public class basicData extends BaseActivity {
     /* This function runs if the forward button is pressed.
     * This will submit the basic data to the database.  It will create a new family if it is the
     * initial visit, or create a new visit and document changes made.*/
-    public void openAnimalsHome(View v) {
+    public void submitBasicData(View v) {
         Map<String, String> uploads = new HashMap<String, String>();
 
         for (String uri : uris){
@@ -455,7 +496,14 @@ public class basicData extends BaseActivity {
         mDatabase.child("visits").child("visit"+visitNum).child("basicData").setValue(bdata);
         mDatabase.child("visits").child("visit"+visitNum).child("date").setValue(date);
         mDatabase.child("name").setValue(family_name.getText().toString());
-        start();
+        mDatabase.child("visits").child("visit"+visitNum).child("user").setValue(getUid());
+
+        if(visitNum.equals("1")){
+            openCommitments();
+        }
+        else{
+            openNextActivity();
+        }
 
     }
 
