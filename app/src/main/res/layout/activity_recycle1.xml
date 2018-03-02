@@ -150,8 +150,8 @@
                 android:id="@+id/textViewMaderaQ"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.40"
-                android:paddingTop="0dp"
+                android:layout_weight=""
+                android:paddingTop="15dp"
                 android:text="Fotos/Videos del estado actual"
                 android:textColor="#000000"
                 android:textSize="16sp"
@@ -163,12 +163,7 @@
                 app:srcCompat="@android:drawable/ic_menu_camera"
                 tools:ignore="ContentDescription"/>
 
-            <EditText
-                android:id="@+id/editTextMaderaPics"
-                android:layout_width="162dp"
-                android:layout_height="wrap_content"
-                android:ems="10"/>
-                <!--android:inputType="textPersonName" />-->
+            <!--android:inputType="textPersonName" />-->
 
 
         </LinearLayout>
