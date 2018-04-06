@@ -17,17 +17,19 @@ public class BasicData {
     public String address;
     public String phone_number;
     public Map<String, String> images;
+    public String gps_coords;
 
     public BasicData() {
         // Default constructor required for calls to DataSnapshot.getValue(BasicData.class)
     }
 
-    public BasicData(String name, String community, String address, String phone_number, Map<String, String> images) {
+    public BasicData(String name, String community, String address, String phone_number, Map<String, String> images, String gps_coords) {
         this.name = name;
         this.community = community;
         this.phone_number = phone_number;
         this.address = address;
         this.images = images;
+        this.gps_coords = gps_coords;
     }
 
 }

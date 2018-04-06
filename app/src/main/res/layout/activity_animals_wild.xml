@@ -168,18 +168,22 @@
                     android:id="@+id/textViewWildAnimalsQ4"
                     android:layout_width="112dp"
                     android:layout_height="32dp"
-                    android:layout_weight=""
                     android:paddingTop="0dp"
                     android:text="¿De que tipo?"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="normal" />
-                <EditText
-                    android:id="@+id/editTextType"
+
+                <Spinner
+                    android:id="@+id/spinnerType"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:layout_height="wrap_content" />
+                <!--<EditText-->
+                    <!--android:id="@+id/editTextType"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:ems="10"-->
+                    <!--android:inputType="textPersonName" />-->
 
                 <!--<Spinner-->
                     <!--android:id="@+id/spinnerWildAnimals"-->
@@ -252,6 +256,30 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.24"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.40"
+                    android:textSize="16sp"
+                    android:text="Obediente" />
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTextCompliance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
 
 
         </LinearLayout>

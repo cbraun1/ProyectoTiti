@@ -1,11 +1,7 @@
 package com.example.proyectotiti.models;
 
-import java.util.Map;
-
 /** Date_Class class
- * This class contains the date and changes for each visit.
- * <String, OldNewPair>: String is the path that was changed.  OldNewPair is the old and new
- * values given.
+ * This class contains the date for each visit.
  */
 
 public class Date_Class {

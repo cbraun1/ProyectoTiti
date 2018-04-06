@@ -1,30 +1,38 @@
 package com.example.proyectotiti;
 
+import android.*;
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proyectotiti.models.Animal;
-import com.example.proyectotiti.models.AnimalDesc;
 import com.example.proyectotiti.models.BasicData;
 import com.example.proyectotiti.models.Date_Class;
 import com.example.proyectotiti.models.Family;
-import com.example.proyectotiti.models.Recycle;
-import com.example.proyectotiti.models.Structure;
-import com.example.proyectotiti.models.StructureDesc;
 import com.example.proyectotiti.models.Visit;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,32 +68,33 @@ public class basicData extends BaseActivity {
     private EditText family_comm;
     private LinearLayout mainLinearLayout;
     private ImageButton mImageButton;
+    //private Button gpsButton;
+    private TextView gpsCoords;
 
     // Declare database and storage reference
     private DatabaseReference mDatabase;
     private StorageReference storageReference;
+
+    private LocationManager locationMan;
+    private LocationListener locationListener;
+    private String mprovider;
 
     // Passed variables
     private String familyNum;
     private String visitNum;
 
     private Uri photoURI;
-    private Map<String, String> images;
-    private ArrayList<String> uris = new ArrayList<String>() {};
-
+    private ArrayList<String> uris = new ArrayList<String>() {
+    };
 
     private Spinner spinnerDay;
     private Spinner spinnerMonth;
     private Spinner spinnerYear;
 
-    private Family family;
-    private long families_count;
-
     private boolean animals;
     private boolean structures;
     private boolean recycle;
     private boolean conservation;
-
 
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -100,14 +109,59 @@ public class basicData extends BaseActivity {
         setContentView(R.layout.activity_basic_data);
 
         // Views
-        family_no = (EditText)findViewById(R.id.editTextNoRegistro);
-        family_name = (EditText)findViewById(R.id.editTextNombre);
-        family_phone = (EditText)findViewById(R.id.editTextTelefono);
-        family_address = (EditText)findViewById(R.id.editTextDirrecion);
-        family_comm = (EditText)findViewById(R.id.editTextComunidad);
+        family_no = (EditText) findViewById(R.id.editTextNoRegistro);
+        family_name = (EditText) findViewById(R.id.editTextNombre);
+        family_phone = (EditText) findViewById(R.id.editTextTelefono);
+        family_address = (EditText) findViewById(R.id.editTextDirrecion);
+        family_comm = (EditText) findViewById(R.id.editTextComunidad);
+
+        //gpsButton = (Button) findViewById(R.id.gpsButton);
+        gpsCoords = (TextView) findViewById(R.id.gpsCoordsTextView);
+
+        locationMan = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.e(TAG, "in");
+                gpsCoords.append(location.getLatitude() + "," + location.getLongitude());
+                Log.e(TAG, String.valueOf(location.getLatitude()));
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        };
+        Criteria crit = new Criteria();
+
+
+        mprovider = locationMan.getBestProvider(crit, false);
+        Log.e(TAG, mprovider);
+
+        if (mprovider != null && !mprovider.equals("")) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            Location location = locationMan.getLastKnownLocation(mprovider);
+            locationMan.requestLocationUpdates(mprovider, 15, 1, locationListener);
+
+            if (location == null)
+                Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
+        }
+
+        //startLocationServices();
 
         mainLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
-        mImageButton = (ImageButton)findViewById(R.id.imageButton);
+        mImageButton = (ImageButton) findViewById(R.id.imageButton);
         storageReference = FirebaseStorage.getInstance().getReference();
 
         // When the photo button is pressed, app will switch to android camera
@@ -125,19 +179,86 @@ public class basicData extends BaseActivity {
         Bundle extrasBundle = intentExtras.getExtras();
         familyNum = extrasBundle.getString("familyNum");
         visitNum = extrasBundle.getString("visitNum");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum);
 
-
-        if (!visitNum.equals("1")){
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum);
+        if (!visitNum.equals("1")) {
             readFromDB();
-        }
-        else {
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum);
-            Log.e(TAG, familyNum);
+        } else {
             family_no.setText(familyNum);
         }
     }
 
+
+    private void startLocationServices() {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Log.e(TAG, "in check perms");
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+                }, 10);
+                return;
+            } else {
+                Log.e(TAG, "or here");
+                //configureGPSButton();
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 10:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    Log.e(TAG, "on result");
+                //configureGPSButton();
+
+                return;
+
+        }
+    }
+
+//    private void configureGPSButton() {
+//        //gpsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                locationMan = (LocationManager) getSystemService(LOCATION_SERVICE);
+//                locationListener = new LocationListener() {
+//                    @Override
+//                    public void onLocationChanged(Location location) {
+//                        Log.e(TAG, "in");
+//                        gpsCoords.append(location.getLatitude() + "," + location.getLongitude());
+//                        Log.e(TAG, String.valueOf(location.getLatitude()));
+//                    }
+//
+//                    @Override
+//                    public void onStatusChanged(String s, int i, Bundle bundle) {
+//                    }
+//
+//                    @Override
+//                    public void onProviderEnabled(String s) {
+//                    }
+//
+//                    @Override
+//                    public void onProviderDisabled(String s) {
+//                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                        startActivity(intent);
+//                    }
+//                };
+//                Log.e(TAG, "clicked");
+//                try{
+//                    locationMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10,0,locationListener);
+//                } catch (SecurityException e){
+//                    Log.e(TAG, String.valueOf(e));
+//                }
+//            }
+//        });
+//    }
+
+    // IMAGE CAPABILITY
     /* This function runs upon the pressing of the camera button.
     * It will set up a new photo file and put the new photo into there.*/
     private void dispatchTakePictureIntent() {
@@ -172,91 +293,8 @@ public class basicData extends BaseActivity {
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        //mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-
-    /* This function runs upon completing taking a photo.
-    * It will upload the file to storage and add the uri to an array.*/
-//    public class Location extends AppCompatActivity {
-//        LocationManager locationManager;
-//        Context mContext;
-//        @Override
-//        protected void onCreate(Bundle savedInstanceState) {
-//            super.onCreate(savedInstanceState);
-//            /* setContentView(R.layout.activity_location); we don't have a location activity; do we want one?*/
-//            mContext=this;
-//            locationManager=(LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListenerGPS);
-//            isLocationEnabled();
-//
-//        }
-//
-//        LocationListener locationListenerGPS=new LocationListener() {
-//            @Override
-//            public void onLocationChanged(android.location.Location location) {
-//                double latitude=location.getLatitude();
-//                double longitude=location.getLongitude();
-//                String msg="New Latitude: "+latitude + "New Longitude: "+longitude;
-//                Toast.makeText(mContext,msg,Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//
-//            }
-//        };
-//
-//
-//        protected void onResume(){
-//            super.onResume();
-//            isLocationEnabled();
-//        }
-//
-//        private void isLocationEnabled() {
-//
-//            if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-//                AlertDialog.Builder alertDialog=new AlertDialog.Builder(mContext);
-//                alertDialog.setTitle("Enable Location");
-//                alertDialog.setMessage("Your locations setting is not enabled. Please enabled it in settings menu.");
-//                alertDialog.setPositiveButton("Location Settings", new DialogInterface.OnClickListener().OnClickListener(){
-//                    public void onClick(DialogInterface dialog, int which){
-//                        Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                        startActivity(intent);
-//                    }
-//                };
-//                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-//                    public void onClick(DialogInterface dialog, int which){
-//                        dialog.cancel();
-//                    }
-//                });
-//                AlertDialog alert=alertDialog.create();
-//                alert.show();
-//            }
-//            else{
-//                AlertDialog.Builder alertDialog=new AlertDialog.Builder(mContext);
-//                alertDialog.setTitle("Confirm Location");
-//                alertDialog.setMessage("Your Location is enabled, please enjoy");
-//                alertDialog.setNegativeButton("Back to interface",new DialogInterface.OnClickListener(){
-//                    public void onClick(DialogInterface dialog, int which){
-//                        dialog.cancel();
-//                    }
-//                });
-//                AlertDialog alert=alertDialog.create();
-//                alert.show();
-//            }
-//        }
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -456,7 +494,7 @@ public class basicData extends BaseActivity {
 
         }
         else if(conservation){
-            intentDetails = new Intent(basicData.this, conservaion0.class);
+            intentDetails = new Intent(basicData.this, conservacion1.class);
 
         }
         else{
@@ -484,7 +522,7 @@ public class basicData extends BaseActivity {
         }
 
         // Create new instance of BasicData
-        BasicData bdata = new BasicData(family_name.getText().toString(), family_comm.getText().toString(), family_address.getText().toString(), family_phone.getText().toString(), uploads);
+        BasicData bdata = new BasicData(family_name.getText().toString(), family_comm.getText().toString(), family_address.getText().toString(), family_phone.getText().toString(), uploads, gpsCoords.getText().toString());
         // Get values of spinner
         String day = spinnerDay.getSelectedItem().toString();
         String month = spinnerMonth.getSelectedItem().toString();
@@ -496,7 +534,8 @@ public class basicData extends BaseActivity {
         mDatabase.child("visits").child("visit"+visitNum).child("basicData").setValue(bdata);
         mDatabase.child("visits").child("visit"+visitNum).child("date").setValue(date);
         mDatabase.child("name").setValue(family_name.getText().toString());
-        mDatabase.child("visits").child("visit"+visitNum).child("user").setValue(getUid());
+        mDatabase.child("id").setValue(familyNum);
+        mDatabase.child("visits").child("visit"+visitNum).child("userID").setValue(getUid());
 
         if(visitNum.equals("1")){
             openCommitments();
@@ -507,85 +546,4 @@ public class basicData extends BaseActivity {
 
     }
 
-//    private static final int REQUEST_IMAGE_CAPTURE = 1;
-//
-//    public void dispatchTakePictureIntent(View v) {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        }
-//    }
-    /*
-    static final int REQUEST_VIDEO_CAPTURE = 1;
-
-    private void dispatchTakeVideoIntent() {
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-        }
-    }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //mImageView.setImageBitmap(imageBitmap);
-        }
-    }
-
-    private static final int TWO_MINUTES = 1000 * 60 * 2;
-
-    /** Determines whether one Location reading is better than the current Location fix
-     * @param location  The new Location that you want to evaluate
-     * @param currentBestLocation  The current Location fix, to which you want to compare the new one
-
-    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
-        if (currentBestLocation == null) {
-            // A new location is always better than no location
-            return true;
-        }
-
-        // Check whether the new location fix is newer or older
-        long timeDelta = location.getTime() - currentBestLocation.getTime();
-        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
-        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
-        boolean isNewer = timeDelta > 0;
-
-        // If it's been more than two minutes since the current location, use the new location
-        // because the user has likely moved
-        if (isSignificantlyNewer) {
-            return true;
-            // If the new location is more than two minutes older, it must be worse
-        } else if (isSignificantlyOlder) {
-            return false;
-        }
-
-        // Check whether the new location fix is more or less accurate
-        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
-        boolean isLessAccurate = accuracyDelta > 0;
-        boolean isMoreAccurate = accuracyDelta < 0;
-        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-        // Check if the old and new location are from the same provider
-        boolean isFromSameProvider = isSameProvider(location.getProvider(),
-                currentBestLocation.getProvider());
-
-        // Determine location quality using a combination of timeliness and accuracy
-        if (isMoreAccurate) {
-            return true;
-        } else if (isNewer && !isLessAccurate) {
-            return true;
-        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-            return true;
-        }
-        return false;
-    }
-
-    /** Checks whether two providers are the same
-    private boolean isSameProvider(String provider1, String provider2) {
-        if (provider1 == null) {
-            return provider2 == null;
-        }
-        return provider1.equals(provider2);
-    }
-    */
 }

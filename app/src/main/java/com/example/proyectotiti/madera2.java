@@ -1,15 +1,12 @@
 package com.example.proyectotiti;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.proyectotiti.models.AnimalDesc;
-import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.StructureDesc;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -115,7 +112,7 @@ public class madera2 extends AppCompatActivity {
     }
 
     public void submitStructure(View v){
-        StructureDesc new_structure = new StructureDesc(structure_type.getText().toString(), structure_function.getText().toString(), structure_name.getText().toString(), true, structure_size.getText().toString());
+        StructureDesc new_structure = new StructureDesc(structure_type.getText().toString(), structure_function.getText().toString(), structure_name.getText().toString(), true, structure_size.getText().toString(), true, "");
         mDatabase.child("visit"+visitNum).child("structures").child("construction").child("s_"+structureNum).setValue(new_structure);
         openMadera0(v);
     }

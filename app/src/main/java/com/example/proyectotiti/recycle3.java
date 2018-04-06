@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Recycle;
 import com.example.proyectotiti.models.Visit;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +49,7 @@ public class recycle3 extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
 //        if(!visitNum.equals("1")){
-//            readFromDB();
+            readFromDB();
 //        }
     }
 
@@ -62,9 +61,12 @@ public class recycle3 extends AppCompatActivity {
                 Log.e(TAG, String.valueOf(dataSnapshot));
                 Visit post = dataSnapshot.getValue(Visit.class);
                 if(post != null){
-                    prepopulate(post.recycle);
+                    if(post.recycle.waste_man != null){
+                        prepopulate(post.recycle);
+
+                    }
                     if(post.conservation.committed){
-                        nextField = conservaion0.class;
+                        nextField = conservacion1.class;
                     }
                     else{
                         nextField = visitOverview.class;
@@ -91,7 +93,7 @@ public class recycle3 extends AppCompatActivity {
 
     public void submitRecycle(View v){
 
-        mDatabase.child("waste_man").setValue(waste_man.getText().toString());
+        mDatabase.child("recycle").child("waste_man").setValue(waste_man.getText().toString());
 
         openNextField(v);
     }

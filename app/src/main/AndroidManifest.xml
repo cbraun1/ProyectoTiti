@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,7 +17,6 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- To get location info -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".models.ProyectoTiti"
@@ -71,7 +69,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".madera4"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".recycle1"
             android:windowSoftInputMode="adjustResize" />
@@ -80,9 +78,6 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".recycle3"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".benefits"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".revise"
@@ -102,7 +97,7 @@
         <activity android:name=".displayImages" />
         <activity android:name=".viewVisits" />
         <activity android:name=".visitOverview" />
-        <activity android:name=".conservaion0" />
+        <activity android:name=".conservacion0" />
         <activity android:name=".conservacion1" />
         <activity android:name=".commitments"></activity>
     </application>

@@ -10,16 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
-import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Recycle;
-import com.example.proyectotiti.models.Structure;
 import com.example.proyectotiti.models.Visit;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,6 +55,8 @@ public class recycle1 extends AppCompatActivity {
     private String familyNum;
     private String visitNum;
 
+    private Switch compliant_switch;
+
     private RadioButton radioButtonSi;
     private RadioButton radioButtonNo;
 
@@ -71,6 +71,8 @@ public class recycle1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle1);
+
+        compliant_switch = (Switch) findViewById(R.id.switch1);
 
         // Get current Info
         Intent intentExtras = getIntent();
@@ -199,7 +201,9 @@ public class recycle1 extends AppCompatActivity {
                 Log.e("DEBUG", String.valueOf(dataSnapshot));
                 Visit post = dataSnapshot.getValue(Visit.class);
                 if(post != null){
-                    prepopulate(post.recycle);
+                    if (!visitNum.equals("1")){
+                        prepopulate(post.recycle);
+                    }
                     if(post.structures.committed){
                         nextField = madera0.class;
                     }
@@ -222,6 +226,8 @@ public class recycle1 extends AppCompatActivity {
     }
 
     public void prepopulate(Recycle post){
+        // Set compliance switch
+        compliant_switch.setChecked(post.compliant);
         recycle = post;
         if(post.doRecycle){
             radioButtonSi.setChecked(true);
@@ -265,14 +271,15 @@ public class recycle1 extends AppCompatActivity {
         else{
             images = uploads;
         }
+        mDatabase.child("recycle").child("compliant").setValue(compliant_switch.isChecked());
         mDatabase.child("images").setValue(images);
         if(radioButtonSi.isChecked()){
-            mDatabase.child("doRecycle").setValue(true);
+            mDatabase.child("recycle").child("doRecycle").setValue(true);
             openRecycle2(v);
         }
         else {
             if(radioButtonNo.isChecked()) {
-                mDatabase.child("doRecycle").setValue(false);
+                mDatabase.child("recycle").child("doRecycle").setValue(false);
                 openRecycle3(v);
             }
         }

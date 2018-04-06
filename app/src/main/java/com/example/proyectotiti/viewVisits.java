@@ -77,9 +77,9 @@ public class viewVisits extends AppCompatActivity {
 
     public void addVisit(String id, Visit visit){
         Button button = new Button(this);
-        button.setText(id);
         Integer visitId = Integer.parseInt(id.substring(5));
         button.setId(visitId);
+        button.setText("visitar "+visitId);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startVisitOverview(v);
@@ -131,5 +131,10 @@ public class viewVisits extends AppCompatActivity {
         // Get next visit number
         getNewVisitNumber();
 
+    }
+
+    public void openHome(View v){
+        Intent intentDetails = new Intent(viewVisits.this, home.class);
+        startActivity(intentDetails);
     }
 }

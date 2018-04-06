@@ -1,8 +1,6 @@
 package com.example.proyectotiti.models;
 
 import android.app.Application;
-
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**

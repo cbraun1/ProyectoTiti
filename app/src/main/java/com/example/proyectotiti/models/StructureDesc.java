@@ -18,18 +18,22 @@ public class StructureDesc {
     public String name;
     public Boolean active;
     public String size;
+    public Boolean compliant;
+    public String compliant_desc;
 
 
     public StructureDesc() {
         // Default constructor required for calls to DataSnapshot.getValue(StructureDesc.class)
     }
 
-    public StructureDesc(String type, String function, String name, Boolean active, String size) {
+    public StructureDesc(String type, String function, String name, Boolean active, String size, Boolean compliant,String compliant_desc) {
         this.type = type;
         this.function = function;
         this.name = name;
         this.active = active;
         this.size = size;
+        this.compliant = compliant;
+        this.compliant_desc = compliant_desc;
 
     }
 }

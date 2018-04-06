@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 import com.example.proyectotiti.models.Structure;
 import com.example.proyectotiti.models.StructureDesc;
@@ -27,6 +28,8 @@ public class madera0 extends AppCompatActivity {
     private String familyNum;
     private String visitNum;
 
+    private Switch compliant_switch;
+
     private RadioGroup conRdGp;
     private RadioGroup fenceRdGp;
 
@@ -37,6 +40,8 @@ public class madera0 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madera0);
+
+        compliant_switch = (Switch) findViewById(R.id.switch1);
 
         // Set up Radio Button Gorups with Linear Layout
         LinearLayout conLinearLayout = (LinearLayout) findViewById(R.id.linear_con);
@@ -90,6 +95,8 @@ public class madera0 extends AppCompatActivity {
     }
 
     public void prepopulate(Structure structure){
+        // Set compliance switch
+        compliant_switch.setChecked(structure.compliant);
         // Iterate through wild animals and prepopulate
         if(structure.construction != null){
             Log.e("DEBUG", String.valueOf(structure.construction));
@@ -163,7 +170,7 @@ public class madera0 extends AppCompatActivity {
     }
 
     public void openMadera4(View v){
-
+        mDatabase.child("structures").child("compliant").setValue(compliant_switch.isChecked());
         Intent intentDetails = new Intent(madera0.this, madera4.class);
         Bundle bundle = new Bundle();
         bundle.putString("visitNum", visitNum);

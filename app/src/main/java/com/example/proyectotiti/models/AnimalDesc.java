@@ -8,6 +8,9 @@ import java.util.Map;
  * Marking (String): describes the animal
  * Name (String): name that will be used to differentiate
  * Active (Boolean): true if the animal is alive/still around, false if not
+ * Inactive_desc (String): description of why an animal was deactivated
+ * Compliant (Boolean): true if the animal is compliant with the rules of the user
+ * Compliant_desc (String): description of why an animal is/is not compliant
  */
 
 public class AnimalDesc {
@@ -16,19 +19,24 @@ public class AnimalDesc {
     public String marking;
     public String name;
     public Boolean active;
+    public String inactive_desc;
     public Map<String, String> images;
-
+    public Boolean compliant;
+    public String compliant_desc;
 
     public AnimalDesc() {
         // Default constructor required for calls to DataSnapshot.getValue(AnimalDesc.class)
     }
 
-    public AnimalDesc(String type, String marking, String name, Boolean active, Map<String, String> images) {
+    public AnimalDesc(String type, String marking, String name, Boolean active, String inactive_desc, Map<String, String> images, Boolean compliant,String compliant_desc) {
         this.type = type;
         this.marking = marking;
         this.name = name;
         this.active = active;
+        this.inactive_desc = inactive_desc;
         this.images = images;
+        this.compliant = compliant;
+        this.compliant_desc = compliant_desc;
 
     }
 }

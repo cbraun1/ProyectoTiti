@@ -15,15 +15,6 @@
         android:paddingTop="0dp"
         tools:ignore="ContentDescription"/>
 
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1 de 3"
-        android:textSize="18sp"
-        android:layout_below="@+id/logo"
-        android:paddingTop="0dp"
-        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/title"
@@ -31,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="RECICLAR"
         android:textSize="18sp"
-        android:layout_below="@+id/number"
+        android:layout_below="@+id/logo"
         android:paddingTop="0dp"
         android:layout_centerHorizontal="true"/>
 
@@ -104,6 +95,14 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/title">
 
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.40"
+            android:textSize="16sp"
+            android:text="Obediente" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -150,7 +149,6 @@
                 android:id="@+id/textViewMaderaQ"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=""
                 android:paddingTop="15dp"
                 android:text="Fotos/Videos del estado actual"
                 android:textColor="#000000"

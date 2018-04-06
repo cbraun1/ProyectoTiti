@@ -10,10 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.proyectotiti.models.AnimalDesc;
@@ -36,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class animalsWild extends AppCompatActivity {
@@ -53,7 +57,11 @@ public class animalsWild extends AppCompatActivity {
 
     private EditText animalName;
     private EditText animalMarking;
-    private EditText animalType;
+    private Switch animalCompliant;
+    private EditText animalCompliantText;
+    //private EditText animalType;
+    private Spinner typeSpinner;
+
 
     private String familyNum;
     private String animalNum;
@@ -73,7 +81,9 @@ public class animalsWild extends AppCompatActivity {
         //Views
         animalName = (EditText)findViewById(R.id.editTextAnimal);
         animalMarking = (EditText)findViewById(R.id.editTextMarking);
-        animalType = (EditText)findViewById(R.id.editTextType);
+        animalCompliant = (Switch)findViewById(R.id.switch1);
+        animalCompliantText = (EditText)findViewById(R.id.editTextCompliance);
+        typeSpinner = (Spinner) findViewById(R.id.spinnerType);
 
         // Get current Info
         Intent intentExtras = getIntent();
@@ -94,6 +104,7 @@ public class animalsWild extends AppCompatActivity {
             }
         });
 
+        setUpTypeSpinner();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits");
 
 
@@ -103,6 +114,34 @@ public class animalsWild extends AppCompatActivity {
         else {
             readFromDB();
         }
+    }
+
+    private void setUpTypeSpinner() {
+        DatabaseReference tDatabase = FirebaseDatabase.getInstance().getReference().child("animal_types");
+        tDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Is better to use a List, because you don't know the size
+                // of the iterator returned by dataSnapshot.getChildren() to
+                // initialize the array
+                final List<String> types = new ArrayList<String>();
+
+                for (DataSnapshot typeSnapshot: dataSnapshot.getChildren()) {
+                    String typeName = typeSnapshot.getValue(String.class);
+                    types.add(typeName);
+                }
+
+                ArrayAdapter<String> typesAdapter = new ArrayAdapter<String>(animalsWild.this, android.R.layout.simple_spinner_item, types);
+                typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                typeSpinner.setAdapter(typesAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     /* This function runs upon the pressing of the camera button.
@@ -239,7 +278,13 @@ public class animalsWild extends AppCompatActivity {
         // Set all the editTexts to original data
         animalMarking.setText(String.valueOf(animal.marking));
         animalName.setText(animal.name);
-        animalType.setText(animal.type);
+        for (int i=0;i<typeSpinner.getCount();i++){
+            if (typeSpinner.getItemAtPosition(i).equals(post.type)){
+                typeSpinner.setSelection(i);
+            }
+        }
+        animalCompliantText.setText(animal.compliant_desc);
+        animalCompliant.setChecked(animal.compliant);
         Map<String, String> image_object = animal.images;
         images = animal.images;
         Iterator it = null;
@@ -278,7 +323,7 @@ public class animalsWild extends AppCompatActivity {
 
         String id = "a_" + animalNum;
 
-        AnimalDesc new_animal = new AnimalDesc(animalType.getText().toString(), animalMarking.getText().toString(), animalName.getText().toString(), true, images);
+        AnimalDesc new_animal = new AnimalDesc(typeSpinner.getSelectedItem().toString(), animalMarking.getText().toString(), animalName.getText().toString(), true, "", images, animalCompliant.isChecked(), animalCompliantText.getText().toString());
         mDatabase.child("visit"+visitNum).child("animals").child("wild").child(id).setValue(new_animal);
         openAnimalsHome(v);
     }

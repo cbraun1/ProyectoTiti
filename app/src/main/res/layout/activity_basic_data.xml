@@ -291,6 +291,23 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/gpsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="        Punto GPS"
+                android:paddingTop="5dp"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/gpsCoordsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
 
         </LinearLayout>
     </ScrollView>

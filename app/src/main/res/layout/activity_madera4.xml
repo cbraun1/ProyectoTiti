@@ -16,23 +16,13 @@
         tools:ignore="ContentDescription"/>
 
     <TextView
-        android:id="@+id/number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="5 de 6"
-        android:textSize="18sp"
-        android:paddingTop="0dp"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MADERA DEL BOSQUE"
         android:textSize="18sp"
         android:paddingTop="0dp"
-        android:layout_below="@+id/number"
+        android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true" />
 
     <!--<Button-->

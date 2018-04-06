@@ -7,9 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Recycle;
-import com.example.proyectotiti.models.Structure;
+import com.example.proyectotiti.models.Visit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +27,7 @@ public class recycle2 extends AppCompatActivity {
     private EditText recycle_deliver;
 
     private Recycle recycle;
+    private Class nextField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,10 @@ public class recycle2 extends AppCompatActivity {
         recycle_items = (EditText) findViewById(R.id.editTextRecycled);
         recycle_deliver = (EditText) findViewById(R.id.editTextRecyclingQ3);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("recycle");
-        if(!visitNum.equals("1")){
-            readFromDB();
-        }
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
+        //if(!visitNum.equals("1")){
+        readFromDB();
+        //}
     }
 
     public void readFromDB(){
@@ -56,8 +56,19 @@ public class recycle2 extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("DEBUG", String.valueOf(dataSnapshot));
-                Recycle post = dataSnapshot.getValue(Recycle.class);
-                prepopulate(post);
+                Visit post = dataSnapshot.getValue(Visit.class);
+                if(post != null){
+                    if(post.recycle.recycle_deliver != null || post.recycle.recycle_items != null){
+                        prepopulate(post.recycle);
+
+                    }
+                    if(post.conservation.committed){
+                        nextField = conservacion1.class;
+                    }
+                    else{
+                        nextField = visitOverview.class;
+                    }
+                }
             }
 
             @Override
@@ -77,10 +88,10 @@ public class recycle2 extends AppCompatActivity {
     }
 
     public void submitRecycle(View v){
-        mDatabase.child("recycle_items").setValue(recycle_items.getText().toString());
-        mDatabase.child("recycle_deliver").setValue(recycle_deliver.getText().toString());
+        mDatabase.child("recycle").child("recycle_items").setValue(recycle_items.getText().toString());
+        mDatabase.child("recycle").child("recycle_deliver").setValue(recycle_deliver.getText().toString());
 
-        openConservacion0(v);
+        openNextField(v);
     }
 
     public void openRecycle1(View v){
@@ -92,8 +103,8 @@ public class recycle2 extends AppCompatActivity {
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
-    public void openConservacion0(View v){
-        Intent intentDetails = new Intent(recycle2.this, conservaion0.class);
+    public void openNextField(View v){
+        Intent intentDetails = new Intent(recycle2.this, nextField);
         Bundle bundle = new Bundle();
         bundle.putString("visitNum", visitNum);
         bundle.putString("familyNum", familyNum);

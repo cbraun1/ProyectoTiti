@@ -13,9 +13,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class conservaion0 extends AppCompatActivity {
+public class conservacion0 extends AppCompatActivity {
 
-    private static final String TAG = "conservaion0";
+    private static final String TAG = "conservacion0";
 
     private DatabaseReference mDatabase;
 
@@ -29,7 +29,7 @@ public class conservaion0 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conservaion0);
+        setContentView(R.layout.activity_conservacion0);
 
         // Get current Info
         Intent intentExtras = getIntent();
@@ -80,7 +80,7 @@ public class conservaion0 extends AppCompatActivity {
 
     public void openLastField(View v){
 
-            Intent intentDetails = new Intent(conservaion0.this, nextField);
+            Intent intentDetails = new Intent(conservacion0.this, nextField);
             Bundle bundle = new Bundle();
             bundle.putString("familyNum", familyNum);
             bundle.putString("visitNum", visitNum);
@@ -93,7 +93,7 @@ public class conservaion0 extends AppCompatActivity {
     public void openConservacion1(View v){
         // Pass the id of the family selected to the new activity
         // Pass false to initial visit flag
-        Intent intentDetails = new Intent(conservaion0.this, conservacion1.class);
+        Intent intentDetails = new Intent(conservacion0.this, conservacion1.class);
         Bundle bundle = new Bundle();
         bundle.putString("familyNum", familyNum);
         bundle.putString("visitNum", visitNum);

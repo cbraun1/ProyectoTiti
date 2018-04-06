@@ -1,12 +1,16 @@
 package com.example.proyectotiti;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 import com.example.proyectotiti.models.Animal;
 import com.example.proyectotiti.models.AnimalDesc;
@@ -28,9 +32,13 @@ public class animalsHome extends BaseActivity {
     private String familyNum;
     private String visitNum;
 
+    private Switch compliant_switch;
+
     private RadioGroup wildRdGp;
     private RadioGroup domesticRdGp;
     private Class nextField;
+
+    private EditText input;
 
     /* This function runs upon the creation of the animalsHome screen.
     * If it is not an initial visit, it will prompt the app to read from the database
@@ -40,6 +48,8 @@ public class animalsHome extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals_home);
+
+        compliant_switch = (Switch) findViewById(R.id.switch1);
 
         // Set up Radio Button Gorups with Linear Layout
         LinearLayout wildLinearLayout = (LinearLayout) findViewById(R.id.linear_wild);
@@ -81,7 +91,7 @@ public class animalsHome extends BaseActivity {
                         nextField = recycle1.class;
                     }
                     else if(post.conservation.committed){
-                        nextField = conservaion0.class;
+                        nextField = conservacion1.class;
                     }
                     else{
                         nextField = visitOverview.class;
@@ -101,6 +111,8 @@ public class animalsHome extends BaseActivity {
     }
 
     public void prepopulate(Animal animal){
+        // Set compliance switch
+        compliant_switch.setChecked(animal.compliant);
         // Iterate through wild animals and prepopulate
         if(animal.wild != null){
             Log.e(TAG, String.valueOf(animal.wild));
@@ -150,27 +162,87 @@ public class animalsHome extends BaseActivity {
     }
 
     public void deleteWildAnimal(View v){
-        int selectedId = wildRdGp.getCheckedRadioButtonId();
-        if(selectedId != -1){
-            String id = "a_" + selectedId;
-            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visit"+visitNum).child("animals").child("wild").child(id);
-            dDatabase.child("active").setValue(false);
-            wildRdGp.removeAllViews();
-            domesticRdGp.removeAllViews();
-            wildRdGp.clearCheck();
-        }
+        // Create popup message for why you are deleting
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿Por qué quieres eliminar?");
+
+        input = new EditText(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.e(TAG, "here");
+                int selectedId = wildRdGp.getCheckedRadioButtonId();
+                Log.e(TAG, String.valueOf(selectedId));
+
+                if(selectedId != -1){
+                    String id = "a_" + selectedId;
+                    DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("animals").child("wild").child(id);
+                    dDatabase.child("active").setValue(false);
+                    dDatabase.child("inactive_desc").setValue(input.getText().toString());
+                    wildRdGp.removeAllViews();
+                    domesticRdGp.removeAllViews();
+                    wildRdGp.clearCheck();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.e(TAG, "or here");
+
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     public void deleteDomAnimal(View v){
-        int selectedId = domesticRdGp.getCheckedRadioButtonId();
-        if(selectedId != -1){
-            String id = "a_" + selectedId;
-            DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visit"+visitNum).child("animals").child("domestic").child(id);
-            dDatabase.child("active").setValue(false);
-            wildRdGp.removeAllViews();
-            domesticRdGp.removeAllViews();
-            domesticRdGp.clearCheck();
-        }
+
+        // Create popup message for why you are deleting
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿Por qué quieres eliminar?");
+
+        final EditText input = new EditText(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                int selectedId = domesticRdGp.getCheckedRadioButtonId();
+
+                if(selectedId != -1){
+                    String id = "a_" + selectedId;
+                    DatabaseReference dDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("animals").child("domestic").child(id);
+                    dDatabase.child("active").setValue(false);
+                    dDatabase.child("inactive_desc").setValue(input.getText().toString());
+                    domesticRdGp.removeAllViews();
+                    wildRdGp.removeAllViews();
+                    domesticRdGp.clearCheck();
+                }
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
     }
 
     public void openBasicData(View v){
@@ -187,7 +259,7 @@ public class animalsHome extends BaseActivity {
     }
 
     public void openNextField(View v){
-
+        mDatabase.child("visit"+visitNum).child("animals").child("compliant").setValue(compliant_switch.isChecked());
         Intent intentDetails = new Intent(animalsHome.this, nextField);
         Bundle bundle = new Bundle();
         bundle.putString("familyNum", familyNum);

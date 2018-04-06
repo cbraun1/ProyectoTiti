@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 
-import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.Structure;
 import com.example.proyectotiti.models.Visit;
 import com.google.firebase.database.DataSnapshot;
@@ -67,7 +65,7 @@ public class madera5 extends AppCompatActivity {
                         nextField = recycle1.class;
                     }
                     else if(post.conservation.committed){
-                        nextField = conservaion0.class;
+                        nextField = conservacion1.class;
                     }
                     else{
                         nextField = visitOverview.class;
@@ -93,8 +91,8 @@ public class madera5 extends AppCompatActivity {
     }
 
     public void submitStructure(View v){
-        mDatabase.child("stove_freq").setValue(stove_freq.getText().toString());
-        mDatabase.child("stove_type").setValue(stove_type.getText().toString());
+        mDatabase.child("structures").child("stove_freq").setValue(stove_freq.getText().toString());
+        mDatabase.child("structures").child("stove_type").setValue(stove_type.getText().toString());
 
         openNextField(v);
     }

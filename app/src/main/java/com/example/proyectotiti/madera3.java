@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 
-import com.example.proyectotiti.models.OldNewPair;
 import com.example.proyectotiti.models.StructureDesc;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +24,8 @@ public class madera3 extends AppCompatActivity {
     private EditText structure_type;
     private EditText structure_size;
     private EditText structure_function;
+    private Switch structureCompliant;
+    private EditText structureCompliantText;
 
     private String familyNum;
     private String structureNum;
@@ -43,6 +45,8 @@ public class madera3 extends AppCompatActivity {
         structure_type = (EditText)findViewById(R.id.editTextFenceType);
         structure_size = (EditText)findViewById(R.id.editTextPerimeter);
         structure_function = (EditText)findViewById(R.id.editTextFunction);
+        structureCompliant = (Switch)findViewById(R.id.switch1);
+        structureCompliantText = (EditText)findViewById(R.id.editTextCompliance);
 
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
@@ -108,11 +112,13 @@ public class madera3 extends AppCompatActivity {
         structure_type.setText(structure.type);
         structure_function.setText(structure.function);
         structure_size.setText(structure.size);
+        structureCompliantText.setText(post.compliant_desc);
+        structureCompliant.setChecked(post.compliant);
 
     }
 
     public void submitStructure(View v){
-        StructureDesc new_structure = new StructureDesc(structure_type.getText().toString(), structure_function.getText().toString(), structure_name.getText().toString(), true, structure_size.getText().toString());
+        StructureDesc new_structure = new StructureDesc(structure_type.getText().toString(), structure_function.getText().toString(), structure_name.getText().toString(), true, structure_size.getText().toString(), structureCompliant.isChecked(), structureCompliantText.getText().toString());
         mDatabase.child("visit"+visitNum).child("structures").child("fence").child("s_"+structureNum).setValue(new_structure);
         openMadera0(v);
     }
