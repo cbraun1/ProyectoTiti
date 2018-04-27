@@ -33,7 +33,7 @@ public class home extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long families_count = dataSnapshot.getChildrenCount();
-                Log.e(TAG, String.valueOf(families_count));
+                Log.e(TAG, "Number of existing families: " + String.valueOf(families_count));
                 families_count = families_count + 1;
                 newFamilyNum = String.valueOf(families_count);
 

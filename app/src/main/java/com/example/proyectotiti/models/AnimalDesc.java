@@ -11,6 +11,7 @@ import java.util.Map;
  * Inactive_desc (String): description of why an animal was deactivated
  * Compliant (Boolean): true if the animal is compliant with the rules of the user
  * Compliant_desc (String): description of why an animal is/is not compliant
+ * Observation_desc (String): observations for the specific animal
  */
 
 public class AnimalDesc {
@@ -23,12 +24,13 @@ public class AnimalDesc {
     public Map<String, String> images;
     public Boolean compliant;
     public String compliant_desc;
+    public String observation_desc;
 
     public AnimalDesc() {
         // Default constructor required for calls to DataSnapshot.getValue(AnimalDesc.class)
     }
 
-    public AnimalDesc(String type, String marking, String name, Boolean active, String inactive_desc, Map<String, String> images, Boolean compliant,String compliant_desc) {
+    public AnimalDesc(String type, String marking, String name, Boolean active, String inactive_desc, Map<String, String> images, Boolean compliant,String compliant_desc,String observation_desc) {
         this.type = type;
         this.marking = marking;
         this.name = name;
@@ -37,6 +39,7 @@ public class AnimalDesc {
         this.images = images;
         this.compliant = compliant;
         this.compliant_desc = compliant_desc;
+        this.observation_desc = observation_desc;
 
     }
 }

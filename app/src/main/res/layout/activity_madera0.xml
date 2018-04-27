@@ -107,7 +107,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.40"
                 android:textSize="16sp"
-                android:text="Obediente" />
+                android:text="Cumple"
+                android:showText="true"
+                android:textOff="No"
+                android:textOn="Si"/>
 
 
             <!--<LinearLayout-->

@@ -136,7 +136,7 @@ public class visitOverview extends AppCompatActivity {
 
                     AnimalDesc ad = e.getValue();
                     if(ad.active){
-                        animalWildText += ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n";
+                        animalWildText += "\n" + ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n";
                     }
                 }
                 wildText.setText(animalWildText);
@@ -157,7 +157,7 @@ public class visitOverview extends AppCompatActivity {
 
                     AnimalDesc ad = e.getValue();
                     if(ad.active){
-                        animalDomText += ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n";
+                        animalDomText += "\n" + ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n";
                     }
                 }
                 domText.setText(animalDomText);
@@ -187,7 +187,7 @@ public class visitOverview extends AppCompatActivity {
 
                     StructureDesc sd = e.getValue();
                     if(sd.active){
-                        structureConText += sd.name + "\n" + " Metros lineales: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n";
+                        structureConText += "\n" + sd.name + "\n" + " Metros lineales: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n";
                     }
                 }
                 conText.setText(structureConText);
@@ -208,7 +208,7 @@ public class visitOverview extends AppCompatActivity {
 
                     StructureDesc sd = e.getValue();
                     if(sd.active){
-                        structureFenceText += sd.name + "\n" + " Metros lineales: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n";
+                        structureFenceText += "\n" + sd.name + "\n" + " Metros lineales: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n";
                     }
                 }
                 fenceText.setText(structureFenceText);
@@ -240,6 +240,19 @@ public class visitOverview extends AppCompatActivity {
                 recycleText.setText("Cómo maneja residuos? "+visit.recycle.waste_man);
             }
             mlinearLayout.addView(recycleText);
+
+        }
+
+        if(visit.conservation.committed && visit.conservation != null){
+            TextView conservationTitle = new TextView(this);
+            conservationTitle.setText("Conservacion");
+            conservationTitle.setTextSize(25);
+            mlinearLayout.addView(conservationTitle);
+
+            TextView conservationText = new TextView(this);
+
+            conservationText.setText("Number of hectares: " + visit.conservation.area + "\n" + "Number of hectares under agreement: " + visit.conservation.agree_area + "\n");
+            mlinearLayout.addView(conservationText);
 
         }
 

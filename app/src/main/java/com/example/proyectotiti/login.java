@@ -29,9 +29,6 @@ public class login extends BaseActivity implements View.OnClickListener{
 
     private EditText userInput;
     private EditText passInput;
-    private Button SignInButton;
-    private Button SignUpButton;
-    private Button ForgotPasswordButton;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -47,14 +44,14 @@ public class login extends BaseActivity implements View.OnClickListener{
         // Views
         userInput = (EditText)findViewById(R.id.usernameInput);
         passInput = (EditText)findViewById(R.id.passwordInput);
-        SignInButton = (Button)findViewById(R.id.startButton);
-        SignUpButton = (Button)findViewById(R.id.emailCreateAccountButton);
-        ForgotPasswordButton = (Button)findViewById(R.id.forgotPasswordButton);
+        Button signInButton = (Button) findViewById(R.id.startButton);
+        Button signUpButton = (Button) findViewById(R.id.emailCreateAccountButton);
+        Button forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
 
         // Buttons
-        SignInButton.setOnClickListener(this);
-        SignUpButton.setOnClickListener(this);
-        ForgotPasswordButton.setOnClickListener(this);
+        signInButton.setOnClickListener(this);
+        signUpButton.setOnClickListener(this);
+        forgotPasswordButton.setOnClickListener(this);
 
         // Sets up Firebase auth and realtime database
         mAuth = FirebaseAuth.getInstance();
@@ -77,7 +74,7 @@ public class login extends BaseActivity implements View.OnClickListener{
 
     /* This function runs upon pressing the sign in button.  */
     private void signIn(String email, String password) {
-        Log.d(TAG, "signIn");
+        Log.d(TAG, "In signIn function");
         // Ensure password and username has been filled out
         if (!validateForm()) {
             return;
@@ -109,7 +106,7 @@ public class login extends BaseActivity implements View.OnClickListener{
     /* This function runs upon pressing the button to create a new account.
     * Checks if a user is already signed in. */
     private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
+        Log.d(TAG, "In createAccount function");
         // Ensure password and username has been filled out
         if (!validateForm()) {
             return;

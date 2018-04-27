@@ -54,7 +54,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".animalsWild"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".madera0"
             android:windowSoftInputMode="adjustResize" />
@@ -90,7 +90,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".animalsDomestic"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".madera5"
             android:windowSoftInputMode="adjustResize" />

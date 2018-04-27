@@ -123,8 +123,10 @@ public class basicData extends BaseActivity {
             @Override
             public void onLocationChanged(Location location) {
                 Log.e(TAG, "in");
-                gpsCoords.append(location.getLatitude() + "," + location.getLongitude());
+                gpsCoords.setText(location.getLatitude() + "," + location.getLongitude());
                 Log.e(TAG, String.valueOf(location.getLatitude()));
+                locationMan.removeUpdates(locationListener);
+                locationMan = null;
             }
 
             @Override

@@ -26,68 +26,6 @@
         android:text="ANIMALES"
         android:textSize="18sp" />
 
-    <!--<Button-->
-        <!--android:id="@+id/continueButton"-->
-        <!--style="@android:style/Widget.Button"-->
-        <!--android:layout_width="150dp"-->
-        <!--android:layout_height="52dp"-->
-        <!--android:text="SIGUENTE"-->
-        <!--android:textColorLink="@color/colorPrimaryDark"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--tools:layout_editor_absoluteY="460dp"-->
-        <!--tools:layout_editor_absoluteX="234dp"-->
-        <!--android:onClick="openAnimals0"/>-->
-
-    <!--<Button-->
-        <!--android:id="@+id/backButton"-->
-        <!--style="@android:style/Widget.Button"-->
-        <!--android:layout_width="150dp"-->
-        <!--android:layout_height="52dp"-->
-        <!--android:text="ANTERIOR"-->
-        <!--android:textColorLink="@color/colorPrimaryDark"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--tools:layout_editor_absoluteY="460dp"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--android:onClick="openAnimals0"/>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/scrollView3"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/backButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:onClick="openAnimalsHome"
-            android:text="ANTERIOR"
-            android:textColorLink="@color/colorPrimaryDark" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/continueButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:onClick="submitAnimal"
-            android:text="SIGUENTE"
-            android:textColorLink="@color/colorPrimaryDark" />
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="300dp"
         android:layout_height="240dp"
@@ -102,50 +40,6 @@
             android:orientation="vertical"
             android:id="@+id/linearLayoutMain"
             android:weightSum="1">
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewWildAnimalsQ1"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="¿Cuantos animales "-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textStyle="normal"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:textSize="16sp" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewWildAnimalsQ2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="silvestres "-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:textSize="16sp" />-->
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewWildAnimalsQ3"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1.65"-->
-                    <!--android:text="tiene? "-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textStyle="normal"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:textSize="16sp" />-->
-
-                <!--<EditText-->
-                    <!--android:id="@+id/editText"-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:ems="10"-->
-                    <!--android:inputType="number" />-->
-
-
-            <!--</LinearLayout>-->
 
 
             <EditText
@@ -178,21 +72,35 @@
                     android:id="@+id/spinnerType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <!--<EditText-->
-                    <!--android:id="@+id/editTextType"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:ems="10"-->
-                    <!--android:inputType="textPersonName" />-->
 
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinnerWildAnimals"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1.65"-->
 
-                <!--/>-->
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.24"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewWildAnimalsOther"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.40"
+                    android:paddingTop="0dp"
+                    android:text="Otro"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/editTextOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
@@ -233,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="0dp"
-                    android:text="Foto/Video"
+                    android:text="Foto"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -245,14 +153,6 @@
                     app:srcCompat="@android:drawable/ic_menu_camera"
                     tools:ignore="ContentDescription"/>
 
-                <!--<EditText-->
-                    <!--android:id="@+id/editText4"-->
-                    <!--android:layout_width="162dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0.15"-->
-                    <!--android:ems="10"-->
-                    <!--android:hint="0 fotos subidas"-->
-                    <!--android:inputType="textPersonName" />-->
 
 
             </LinearLayout>
@@ -269,7 +169,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.40"
                     android:textSize="16sp"
-                    android:text="Obediente" />
+                    android:text="Cumple"
+                    android:showText="true"
+                    android:textOff="No"
+                    android:textOn="Si" />
 
 
             </LinearLayout>
@@ -279,9 +182,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:hint="Cumple observaciones"/>
+
+            <EditText
+                android:id="@+id/editTextObservations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Observaciones"/>
 
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="ANTERIOR"
+        android:onClick="openAnimalsHome"/>
+
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="SIGUENTE"
+        android:onClick="submitAnimal"/>
 </RelativeLayout>

@@ -65,7 +65,6 @@ public class continuePage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot familySnapshot: dataSnapshot.getChildren()) {
-                    Log.e(TAG, String.valueOf(familySnapshot));
                     String family_id = familySnapshot.getKey();
                     Family post = familySnapshot.getValue(Family.class);
                     if (post != null){

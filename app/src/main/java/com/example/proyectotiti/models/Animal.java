@@ -6,6 +6,7 @@ import java.util.Map;
  * This class contains two different objects "wild" and "domestic" that contain maps so each animal
  * has an ID (String) and a description (AnimalDesc).
  * committed (Boolean): reflects whether the family has committed to this field.
+ * compliant (Boolean): reflects whether the family is compliant in this field.
  */
 
 public class Animal {

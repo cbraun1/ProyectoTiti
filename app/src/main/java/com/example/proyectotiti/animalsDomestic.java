@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyectotiti.models.AnimalDesc;
@@ -48,33 +50,44 @@ public class animalsDomestic extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference storageReference;
 
-    private ImageButton mImageButton;
-    private Uri photoURI;
-    private ArrayList<String> uris = new ArrayList<String>() {};
-
-    private LinearLayout mainLinearLayout;
-    private Map<String, String> images;
-
-    private EditText animalName;
-    private EditText animalMarking;
-    private Switch animalCompliant;
-    private EditText animalCompliantText;
-    private Spinner typeSpinner;
-
+    // Passed from last screen
     private String familyNum;
     private String animalNum;
     private String visitNum;
 
-    private long animalsCount;
-
-    private AnimalDesc animal;
-
+    // Photo capability
+    private ImageButton mImageButton;
+    private Uri photoURI;
+    private ArrayList<String> uris = new ArrayList<String>() {};
+    private Map<String, String> images;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    // Views
+    private LinearLayout mainLinearLayout;
+    private EditText animalName;
+    private EditText animalMarking;
+    private Switch animalCompliant;
+    private EditText animalCompliantText;
+    private EditText animalOther;
+    private Spinner typeSpinner;
+    private EditText animalObservations;
+
+    private long animalsCount;
+    private boolean addNewOption;
+    private AnimalDesc animal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals_domestic);
+
+        // Get current Info
+        Intent intentExtras = getIntent();
+        Bundle extrasBundle = intentExtras.getExtras();
+        familyNum = extrasBundle.getString("familyNum");
+        visitNum = extrasBundle.getString("visitNum");
+        animalNum = extrasBundle.getString("animalNum");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits");
 
         //Views
         animalName = (EditText)findViewById(R.id.editTextAnimal);
@@ -82,13 +95,9 @@ public class animalsDomestic extends AppCompatActivity {
         animalCompliant = (Switch)findViewById(R.id.switch1);
         animalCompliantText = (EditText)findViewById(R.id.editTextCompliance);
         typeSpinner = (Spinner) findViewById(R.id.spinnerType);
-
-
-        Intent intentExtras = getIntent();
-        Bundle extrasBundle = intentExtras.getExtras();
-        familyNum = extrasBundle.getString("familyNum");
-        visitNum = extrasBundle.getString("visitNum");
-        animalNum = extrasBundle.getString("animalNum");
+        final TextView animalOtherTextView = (TextView) findViewById(R.id.textViewWildAnimalsOther);
+        animalOther = (EditText)findViewById(R.id.editTextOther);
+        animalObservations = (EditText)findViewById(R.id.editTextObservations);
 
         mainLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
         mImageButton = (ImageButton)findViewById(R.id.imageButton);
@@ -103,7 +112,22 @@ public class animalsDomestic extends AppCompatActivity {
         });
 
         setUpTypeSpinner();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits");
+
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String chosenOption = (String) parent.getItemAtPosition(position);
+                Log.e("DEBUG", chosenOption);
+                if (chosenOption.equals("otro")){
+                    animalOther.setVisibility(View.VISIBLE);
+                    animalOtherTextView.setVisibility(View.VISIBLE);
+                    addNewOption = true;
+                }
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
 
         if (animalNum.equals("-1")){
@@ -114,8 +138,9 @@ public class animalsDomestic extends AppCompatActivity {
         }
     }
 
+    // Pulls the types of domestic animals from the Firebase database
     private void setUpTypeSpinner() {
-        DatabaseReference tDatabase = FirebaseDatabase.getInstance().getReference().child("animal_types");
+        DatabaseReference tDatabase = FirebaseDatabase.getInstance().getReference().child("domestic_animals");
         tDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -235,9 +260,7 @@ public class animalsDomestic extends AppCompatActivity {
         final ValueEventListener animalListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
                 animalsCount = dataSnapshot.getChildrenCount();
-                Log.e("DEBUG", String.valueOf(animalsCount));
                 animalNum = String.valueOf((int)animalsCount + 1);
             }
 
@@ -250,12 +273,12 @@ public class animalsDomestic extends AppCompatActivity {
         mDatabase.child("visit"+visitNum).child("animals").child("domestic").addValueEventListener(animalListener);
     }
 
+    // Pulls data from Firebase database
     public void readFromDB(){
         // Add value event listener to the list of families
         ValueEventListener aListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
                 AnimalDesc post = dataSnapshot.getValue(AnimalDesc.class);
                 prepopulate(post);
             }
@@ -281,10 +304,10 @@ public class animalsDomestic extends AppCompatActivity {
         }
         animalCompliantText.setText(animal.compliant_desc);
         animalCompliant.setChecked(animal.compliant);
+        animalObservations.setText(animal.observation_desc);
         Map<String, String> image_object = animal.images;
         images = animal.images;
         Iterator it = null;
-
 
         // Display all saved images
         if (image_object!=null){
@@ -301,6 +324,7 @@ public class animalsDomestic extends AppCompatActivity {
 
     }
 
+    // Run when the user submits the animal
     public void submitAnimal(View v){
         Map<String, String> uploads = new HashMap<String, String>();
 
@@ -318,7 +342,18 @@ public class animalsDomestic extends AppCompatActivity {
         }
         String id = "a_" + animalNum;
 
-        AnimalDesc new_animal = new AnimalDesc(typeSpinner.getSelectedItem().toString(), animalMarking.getText().toString(), animalName.getText().toString(), true, "",images, animalCompliant.isChecked(), animalCompliantText.getText().toString());
+        AnimalDesc new_animal;
+        if(addNewOption){
+            new_animal = new AnimalDesc(animalOther.getText().toString(), animalMarking.getText().toString(), animalName.getText().toString(), true, "",images, animalCompliant.isChecked(), animalCompliantText.getText().toString(),animalObservations.getText().toString());
+
+            // Add the new domestic animal option to the database
+            DatabaseReference nDatabase = FirebaseDatabase.getInstance().getReference().child("domestic_animals").child(animalOther.getText().toString());
+            nDatabase.setValue(animalOther.getText().toString());
+        }
+        else{
+            new_animal = new AnimalDesc(typeSpinner.getSelectedItem().toString(), animalMarking.getText().toString(), animalName.getText().toString(), true, "",images, animalCompliant.isChecked(), animalCompliantText.getText().toString(),animalObservations.getText().toString());
+
+        }
         mDatabase.child("visit"+visitNum).child("animals").child("domestic").child(id).setValue(new_animal);
         openAnimalsHome(v);
     }

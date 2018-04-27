@@ -57,7 +57,6 @@ public class viewVisits extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot visitSnapshot: dataSnapshot.getChildren()) {
-                    Log.e(TAG, String.valueOf(visitSnapshot));
                     String visit_id = visitSnapshot.getKey();
                     Visit post = visitSnapshot.getValue(Visit.class);
                     if (post != null){
@@ -93,7 +92,6 @@ public class viewVisits extends AppCompatActivity {
         ValueEventListener visitListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e(TAG, String.valueOf(dataSnapshot));
                 long numOfVisits = dataSnapshot.getChildrenCount();
                 numOfVisits = numOfVisits + 1;
                 visitNum = String.valueOf(numOfVisits);
@@ -119,7 +117,7 @@ public class viewVisits extends AppCompatActivity {
 
     public void startVisitOverview(View v){
         visitNum = String.valueOf(v.getId());
-        Log.e(TAG, visitNum);
+        Log.e(TAG, "Visit number: " + visitNum);
         Intent intentDetails = new Intent(viewVisits.this, visitOverview.class);
         Bundle bundle = new Bundle();
         bundle.putString("familyNum", familyNum);
