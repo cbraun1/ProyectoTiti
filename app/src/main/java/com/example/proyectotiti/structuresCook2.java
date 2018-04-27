@@ -63,7 +63,7 @@ public class structuresCook2 extends AppCompatActivity {
                         nextField = recycle1.class;
                     }
                     else if(post.conservation.committed){
-                        nextField = conservacion1.class;
+                        nextField = conservation.class;
                     }
                     else{
                         nextField = visitOverview.class;

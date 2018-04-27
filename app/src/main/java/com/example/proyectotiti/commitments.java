@@ -67,7 +67,7 @@ public class commitments extends AppCompatActivity {
 
         }
         else if(conservacionCheckbox.isChecked()){
-            intentDetails = new Intent(commitments.this, conservacion1.class);
+            intentDetails = new Intent(commitments.this, conservation.class);
 
         }
         else{

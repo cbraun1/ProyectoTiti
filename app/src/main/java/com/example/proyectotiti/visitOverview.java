@@ -42,15 +42,17 @@ public class visitOverview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_overview);
 
-        mlinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         // Get current Info
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
         familyNum = extrasBundle.getString("familyNum");
         visitNum = extrasBundle.getString("visitNum");
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
         userDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+
+        //Views
+        mlinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+
         getVisitInfo();
     }
 
@@ -60,17 +62,17 @@ public class visitOverview extends AppCompatActivity {
         ValueEventListener visitListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot visitSnapshot) {
-                Log.e(TAG, String.valueOf(visitSnapshot));
                 final Visit post = visitSnapshot.getValue(Visit.class);
+
                 // Add value event listener to the list of families
                 ValueEventListener userListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot userSnapshot) {
+
                         for(DataSnapshot ds : userSnapshot.getChildren()) {
-                            Log.e(TAG, String.valueOf(userSnapshot));
                             User user = ds.getValue(User.class);
+
                             if(post.userID.equals(user.id)){
-                                Log.e(TAG, "should populate");
                                 populateForm(post, user.username);
                             }
                         }
@@ -109,7 +111,7 @@ public class visitOverview extends AppCompatActivity {
         userView.setText("Usuario: " + username);
 
         TextView bdataView = new TextView(this);
-        bdataView.setText("Dirrecion: " + visit.basicData.address + "\n" + "Communidad: " + visit.basicData.community + "\n" + "Telefono: "+ visit.basicData.phone_number);
+        bdataView.setText("Dirrecion: " + visit.basicData.address + "\n" + "Communidad: " + visit.basicData.community + "\n" + "Telefono: "+ visit.basicData.phone_number + "\n" + "Punto GPS: " +visit.basicData.gps_coords + "\n");
 
         mlinearLayout.addView(nameView);
         mlinearLayout.addView(dateView);
@@ -121,6 +123,11 @@ public class visitOverview extends AppCompatActivity {
             animalTitle.setText("Animales");
             animalTitle.setTextSize(25);
             mlinearLayout.addView(animalTitle);
+
+            TextView compliantTitle = new TextView(this);
+            compliantTitle.setText("Cumple: " + visit.animals.compliant+ "\n");
+            compliantTitle.setTextSize(15);
+            mlinearLayout.addView(compliantTitle);
 
             if(visit.animals.wild != null){
                 TextView wildTitle = new TextView(this);
@@ -136,7 +143,7 @@ public class visitOverview extends AppCompatActivity {
 
                     AnimalDesc ad = e.getValue();
                     if(ad.active){
-                        animalWildText += "\n" + ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n";
+                        animalWildText += "\n" + ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n" + "Observaciones: " + ad.observation_desc + "\n" + "Cumple: " + ad.compliant + "\n" + "Cumple observaciones: " + ad.compliant_desc + "\n";
                     }
                 }
                 wildText.setText(animalWildText);
@@ -157,7 +164,7 @@ public class visitOverview extends AppCompatActivity {
 
                     AnimalDesc ad = e.getValue();
                     if(ad.active){
-                        animalDomText += "\n" + ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n";
+                        animalDomText += "\n" + ad.name + "\n" + "Marcaje: " + ad.marking + "\n" + "Tipo: " + ad.type + "\n" + "Observaciones: " + ad.observation_desc + "\n" + "Cumple: " + ad.compliant + "\n" + "Cumple observaciones: " + ad.compliant_desc + "\n";
                     }
                 }
                 domText.setText(animalDomText);
@@ -173,9 +180,14 @@ public class visitOverview extends AppCompatActivity {
             structureTitle.setTextSize(25);
             mlinearLayout.addView(structureTitle);
 
+            TextView compliantTitle = new TextView(this);
+            compliantTitle.setText("Cumple: " + visit.structures.compliant+ "\n");
+            compliantTitle.setTextSize(15);
+            mlinearLayout.addView(compliantTitle);
+
             if(visit.structures.construction != null){
                 TextView conTitle = new TextView(this);
-                conTitle.setText("Construcciones");
+                conTitle.setText("Construcciones\n");
                 conTitle.setTextSize(15);
                 mlinearLayout.addView(conTitle);
 
@@ -187,7 +199,7 @@ public class visitOverview extends AppCompatActivity {
 
                     StructureDesc sd = e.getValue();
                     if(sd.active){
-                        structureConText += "\n" + sd.name + "\n" + " Metros lineales: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n";
+                        structureConText += "\n" + sd.name + "\n" + " Metros cuadrados: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n" + "Cumple: " + sd.compliant + "\n" + "Cumple observaciones: " + sd.compliant_desc + "\n";
                     }
                 }
                 conText.setText(structureConText);
@@ -196,7 +208,7 @@ public class visitOverview extends AppCompatActivity {
             }
             if(visit.structures.fence != null){
                 TextView fenceTitle = new TextView(this);
-                fenceTitle.setText("Cercados");
+                fenceTitle.setText("Cercados\n");
                 fenceTitle.setTextSize(15);
                 mlinearLayout.addView(fenceTitle);
 
@@ -208,7 +220,7 @@ public class visitOverview extends AppCompatActivity {
 
                     StructureDesc sd = e.getValue();
                     if(sd.active){
-                        structureFenceText += "\n" + sd.name + "\n" + " Metros lineales: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n";
+                        structureFenceText += "\n" + sd.name + "\n" + " Metros lineales: " + sd.size + "\n" + "Tipo: " + sd.type + "\n" + "Función: " + sd.function + "\n" + "Cumple: " + sd.compliant + "\n" + "Cumple observaciones: " + sd.compliant_desc + "\n";
                     }
                 }
                 fenceText.setText(structureFenceText);
@@ -216,9 +228,17 @@ public class visitOverview extends AppCompatActivity {
             }
 
 
-            if(visit.structures.cookWithWood){
+            if(visit.structures.cookWithWood || visit.structures.cookWithCoal){
                 TextView structureText = new TextView(this);
-                structureText.setText("Cocina con leña y/ o carbón" + "\n" + "Frecuencia: " + visit.structures.stove_freq + "\n" + "Tipo de estufa: " + visit.structures.stove_type + "\n");
+                String text = "";
+                if(visit.structures.cookWithWood){
+                    text += "Cocina con leña\n";
+                }
+                if(visit.structures.cookWithCoal){
+                    text += "Cocina con carbon\n";
+                }
+                text += "Frecuencia: " + visit.structures.stove_freq + "\n" + "Tipo de estufa: " + visit.structures.stove_type + "\n";
+                structureText.setText(text);
                 mlinearLayout.addView(structureText);
             }
 
@@ -231,13 +251,18 @@ public class visitOverview extends AppCompatActivity {
             recycleTitle.setTextSize(25);
             mlinearLayout.addView(recycleTitle);
 
+            TextView compliantTitle = new TextView(this);
+            compliantTitle.setText("Cumple: " + visit.recycle.compliant+ "\n");
+            compliantTitle.setTextSize(15);
+            mlinearLayout.addView(compliantTitle);
+
             TextView recycleText = new TextView(this);
 
             if(visit.recycle.doRecycle){
-                recycleText.setText("A quién entrega reciclados: " + visit.recycle.recycle_deliver + "\n" + "Recicla:" + visit.recycle.recycle_items);
+                recycleText.setText("A quién entrega reciclados: " + visit.recycle.recycle_deliver + "\n" + "Recicla:" + visit.recycle.recycle_items + "\n");
             }
             else{
-                recycleText.setText("Cómo maneja residuos? "+visit.recycle.waste_man);
+                recycleText.setText("Cómo maneja residuos? "+visit.recycle.waste_man + "\n");
             }
             mlinearLayout.addView(recycleText);
 
@@ -249,9 +274,14 @@ public class visitOverview extends AppCompatActivity {
             conservationTitle.setTextSize(25);
             mlinearLayout.addView(conservationTitle);
 
+            TextView compliantTitle = new TextView(this);
+            compliantTitle.setText("Cumple: " + visit.conservation.compliant+ "\n");
+            compliantTitle.setTextSize(15);
+            mlinearLayout.addView(compliantTitle);
+
             TextView conservationText = new TextView(this);
 
-            conservationText.setText("Number of hectares: " + visit.conservation.area + "\n" + "Number of hectares under agreement: " + visit.conservation.agree_area + "\n");
+            conservationText.setText("Hectáreas de la propiedad: " + visit.conservation.area + "\n" + "Número de hectáreas bajo acuerdo: " + visit.conservation.agree_area + "\n");
             mlinearLayout.addView(conservationText);
 
         }

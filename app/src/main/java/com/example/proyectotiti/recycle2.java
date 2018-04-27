@@ -63,7 +63,7 @@ public class recycle2 extends AppCompatActivity {
 
                     }
                     if(post.conservation.committed){
-                        nextField = conservacion1.class;
+                        nextField = conservation.class;
                     }
                     else{
                         nextField = visitOverview.class;

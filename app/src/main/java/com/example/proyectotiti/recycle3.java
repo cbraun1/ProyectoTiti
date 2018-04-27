@@ -19,19 +19,17 @@ public class recycle3 extends AppCompatActivity {
 
     private static final String TAG = "recycle3";
 
-
     private DatabaseReference mDatabase;
-    private DatabaseReference visitsDatabase;
 
+    // Passed from last screen
     private String familyNum;
     private String visitNum;
 
+    // Views
     private EditText waste_man;
 
     private Recycle recycle;
     private Class nextField;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +41,12 @@ public class recycle3 extends AppCompatActivity {
         Bundle extrasBundle = intentExtras.getExtras();
         familyNum = extrasBundle.getString("familyNum");
         visitNum = extrasBundle.getString("visitNum");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
 
         // Views
         waste_man = (EditText) findViewById(R.id.editText2);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
-//        if(!visitNum.equals("1")){
-            readFromDB();
-//        }
+        readFromDB();
     }
 
     public void readFromDB(){
@@ -58,15 +54,15 @@ public class recycle3 extends AppCompatActivity {
         ValueEventListener visitListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e(TAG, String.valueOf(dataSnapshot));
                 Visit post = dataSnapshot.getValue(Visit.class);
+
                 if(post != null){
                     if(post.recycle.waste_man != null){
                         prepopulate(post.recycle);
 
                     }
                     if(post.conservation.committed){
-                        nextField = conservacion1.class;
+                        nextField = conservation.class;
                     }
                     else{
                         nextField = visitOverview.class;
@@ -108,11 +104,11 @@ public class recycle3 extends AppCompatActivity {
         startActivity(intentDetails);
     }
     public void openNextField(View v){
-            Intent intentDetails = new Intent(recycle3.this, nextField);
-            Bundle bundle = new Bundle();
-            bundle.putString("familyNum", familyNum);
-            bundle.putString("visitNum", visitNum);
-            intentDetails.putExtras(bundle);
-            startActivity(intentDetails);
+        Intent intentDetails = new Intent(recycle3.this, nextField);
+        Bundle bundle = new Bundle();
+        bundle.putString("familyNum", familyNum);
+        bundle.putString("visitNum", visitNum);
+        intentDetails.putExtras(bundle);
+        startActivity(intentDetails);
     }
 }

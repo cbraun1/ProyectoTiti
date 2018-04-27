@@ -491,7 +491,7 @@ public class basicData extends BaseActivity {
 
         }
         else if(conservation){
-            intentDetails = new Intent(basicData.this, conservacion1.class);
+            intentDetails = new Intent(basicData.this, com.example.proyectotiti.conservation.class);
 
         }
         else{

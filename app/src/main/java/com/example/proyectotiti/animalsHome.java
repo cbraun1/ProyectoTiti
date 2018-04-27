@@ -97,7 +97,7 @@ public class animalsHome extends BaseActivity {
                         nextField = recycle1.class;
                     }
                     else if(post.conservation.committed){
-                        nextField = conservacion1.class;
+                        nextField = conservation.class;
                     }
                     else{
                         nextField = visitOverview.class;

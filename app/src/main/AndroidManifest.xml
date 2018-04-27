@@ -94,8 +94,7 @@
         <activity android:name=".displayImages" />
         <activity android:name=".viewVisits" />
         <activity android:name=".visitOverview" />
-        <activity android:name=".conservacion0" />
-        <activity android:name=".conservacion1" />
+        <activity android:name=".conservation" />
         <activity android:name=".commitments"></activity>
     </application>
 
