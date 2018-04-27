@@ -45,45 +45,42 @@ public class recycle1 extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference storageReference;
 
-    private ImageButton mImageButton;
-    private Uri photoURI;
-    private ArrayList<String> uris = new ArrayList<String>() {};
-
-    private LinearLayout mainLinearLayout;
-    private Map<String, String> images;
-
+    // Passed from last screen
     private String familyNum;
     private String visitNum;
 
-    private Switch compliant_switch;
+    // Photo capability
+    private ImageButton mImageButton;
+    private Uri photoURI;
+    private ArrayList<String> uris = new ArrayList<String>() {};
+    private Map<String, String> images;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    // Views
+    private Switch compliant_switch;
+    private LinearLayout mainLinearLayout;
     private RadioButton radioButtonSi;
     private RadioButton radioButtonNo;
 
     private Recycle recycle;
-
     private Class nextField;
-
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle1);
 
-        compliant_switch = (Switch) findViewById(R.id.switch1);
-
         // Get current Info
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
-        //firstPass = extrasBundle.getBoolean("firstPass");
         familyNum = extrasBundle.getString("familyNum");
         visitNum = extrasBundle.getString("visitNum");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
 
         // Views
         radioButtonSi = (RadioButton) findViewById(R.id.radioButtonSi);
         radioButtonNo = (RadioButton) findViewById(R.id.radioButtonNo);
+        compliant_switch = (Switch) findViewById(R.id.switch1);
 
         mainLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
         mImageButton = (ImageButton)findViewById(R.id.imageButtonMadera);
@@ -97,11 +94,7 @@ public class recycle1 extends AppCompatActivity {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
-//        if (!visitNum.equals("1")){
-            readFromDB();
-//        }
-
+        readFromDB();
 
     }
 
@@ -198,12 +191,14 @@ public class recycle1 extends AppCompatActivity {
         ValueEventListener bdListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
                 Visit post = dataSnapshot.getValue(Visit.class);
+
                 if(post != null){
+
                     if (!visitNum.equals("1")){
                         prepopulate(post.recycle);
                     }
+
                     if(post.structures.committed){
                         nextField = structuresHome.class;
                     }
@@ -240,7 +235,6 @@ public class recycle1 extends AppCompatActivity {
         images = recycle.images;
         Iterator it = null;
 
-
         // Display all saved images
         if (image_object!=null){
             it = image_object.entrySet().iterator();
@@ -271,6 +265,7 @@ public class recycle1 extends AppCompatActivity {
         else{
             images = uploads;
         }
+
         mDatabase.child("recycle").child("compliant").setValue(compliant_switch.isChecked());
         mDatabase.child("images").setValue(images);
         if(radioButtonSi.isChecked()){
@@ -310,4 +305,5 @@ public class recycle1 extends AppCompatActivity {
         bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
-    }}
+    }
+}

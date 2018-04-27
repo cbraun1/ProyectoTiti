@@ -18,11 +18,12 @@ import com.google.firebase.database.ValueEventListener;
 public class recycle2 extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
-    private DatabaseReference visitsDatabase;
 
+    // Passed from last screen
     private String familyNum;
     private String visitNum;
 
+    // Views
     private EditText recycle_items;
     private EditText recycle_deliver;
 
@@ -39,15 +40,14 @@ public class recycle2 extends AppCompatActivity {
         Bundle extrasBundle = intentExtras.getExtras();
         familyNum = extrasBundle.getString("familyNum");
         visitNum = extrasBundle.getString("visitNum");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
 
         // Views
         recycle_items = (EditText) findViewById(R.id.editTextRecycled);
         recycle_deliver = (EditText) findViewById(R.id.editTextRecyclingQ3);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
-        //if(!visitNum.equals("1")){
         readFromDB();
-        //}
+
     }
 
     public void readFromDB(){
@@ -55,8 +55,8 @@ public class recycle2 extends AppCompatActivity {
         ValueEventListener rListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
                 Visit post = dataSnapshot.getValue(Visit.class);
+
                 if(post != null){
                     if(post.recycle.recycle_deliver != null || post.recycle.recycle_items != null){
                         prepopulate(post.recycle);
