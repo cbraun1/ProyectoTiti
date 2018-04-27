@@ -14,7 +14,8 @@ public class Structure {
 
     public Map<String, StructureDesc> construction;
     public Map<String, StructureDesc> fence;
-    public Boolean cookWithWoodCoal;
+    public Boolean cookWithWood;
+    public Boolean cookWithCoal;
     public String stove_freq;
     public String stove_type;
     public Map<String, String> images;
@@ -25,10 +26,11 @@ public class Structure {
         // Default constructor required for calls to DataSnapshot.getValue(Structure.class)
     }
 
-    public Structure(Map<String, StructureDesc> construction, Map<String, StructureDesc> fence, Boolean cookWithWoodCoal, String stove_freq, String stove_type, Map<String,String> images, boolean committed, boolean compliant) {
+    public Structure(Map<String, StructureDesc> construction, Map<String, StructureDesc> fence, Boolean cookWithWood, Boolean cookWithCoal, String stove_freq, String stove_type, Map<String,String> images, boolean committed, boolean compliant) {
         this.construction = construction;
         this.fence = fence;
-        this.cookWithWoodCoal = cookWithWoodCoal;
+        this.cookWithWood = cookWithWood;
+        this.cookWithCoal = cookWithCoal;
         this.stove_freq = stove_freq;
         this.stove_type = stove_type;
         this.images = images;

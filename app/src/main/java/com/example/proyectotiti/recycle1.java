@@ -205,7 +205,7 @@ public class recycle1 extends AppCompatActivity {
                         prepopulate(post.recycle);
                     }
                     if(post.structures.committed){
-                        nextField = madera0.class;
+                        nextField = structuresHome.class;
                     }
                     else if(post.animals.committed){
                         nextField = animalsHome.class;

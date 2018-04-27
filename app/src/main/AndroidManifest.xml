@@ -56,19 +56,16 @@
             android:name=".animalsWild"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".madera0"
+            android:name=".structuresHome"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".madera1"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".structuresFence"
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".madera3"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".structuresCon"
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".madera2"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".madera4"
+            android:name=".structuresCook"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".recycle1"
@@ -92,7 +89,7 @@
             android:name=".animalsDomestic"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".madera5"
+            android:name=".structuresCook2"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".displayImages" />
         <activity android:name=".viewVisits" />

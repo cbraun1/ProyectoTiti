@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyectotiti.madera4">
+    tools:context="com.example.proyectotiti.structuresCook">
 
     <ImageView
         android:id="@+id/logo"
@@ -156,7 +156,7 @@
     <!--xmlns:tools="http://schemas.android.com/tools"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
-    <!--tools:context="com.example.proyectotiti.madera5">-->
+    <!--tools:context="com.example.proyectotiti.structuresCook2resCook2">-->
 
     <!--<ImageView-->
         <!--android:id="@+id/logo"-->

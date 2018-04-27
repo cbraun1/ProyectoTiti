@@ -38,32 +38,35 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class madera4 extends AppCompatActivity {
+public class structuresCook extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private StorageReference storageReference;
 
-    private ImageButton mImageButton;
-    private Uri photoURI;
-    private ArrayList<String> uris = new ArrayList<String>() {};
-
-    private LinearLayout mainLinearLayout;
-    private Map<String, String> images;
-
+    // Passed from last screen
     private String familyNum;
     private String visitNum;
 
-    private RadioButton radioButtonSi;
-    private RadioButton radioButtonNo;
+    // Photo capability
+    private ImageButton mImageButton;
+    private Uri photoURI;
+    private ArrayList<String> uris = new ArrayList<String>() {};
+    private Map<String, String> images;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    // Views
+    private LinearLayout mainLinearLayout;
+    private RadioButton radioButtonSiWood;
+    private RadioButton radioButtonNoWood;
+    private RadioButton radioButtonSiCoal;
+    private RadioButton radioButtonNoCoal;
 
     private Structure structure;
-
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_madera4);
+        setContentView(R.layout.activity_structures_cook);
 
         // Get current Info
         Intent intentExtras = getIntent();
@@ -84,8 +87,10 @@ public class madera4 extends AppCompatActivity {
         });
 
         // Views
-        radioButtonSi = (RadioButton) findViewById(R.id.radioButtonSi);
-        radioButtonNo = (RadioButton) findViewById(R.id.radioButtonNo);
+        radioButtonSiWood = (RadioButton) findViewById(R.id.radioButtonSiWood);
+        radioButtonNoWood = (RadioButton) findViewById(R.id.radioButtonNoWood);
+        radioButtonSiCoal = (RadioButton) findViewById(R.id.radioButtonSiCoal);
+        radioButtonNoCoal = (RadioButton) findViewById(R.id.radioButtonNoCoal);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum).child("structures");
         if (!visitNum.equals("1")) {
@@ -164,7 +169,7 @@ public class madera4 extends AppCompatActivity {
                             uris.add(taskSnapshot.getDownloadUrl().toString());
 
                             // Display new image
-                            ImageView image = new ImageView(madera4.this);
+                            ImageView image = new ImageView(structuresCook.this);
                             Picasso.with(image.getContext()).load(taskSnapshot.getDownloadUrl().toString()).into(image);
                             mainLinearLayout.addView(image);
 
@@ -186,7 +191,6 @@ public class madera4 extends AppCompatActivity {
         ValueEventListener sListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("DEBUG", String.valueOf(dataSnapshot));
                 Structure post = dataSnapshot.getValue(Structure.class);
                 prepopulate(post);
             }
@@ -202,11 +206,18 @@ public class madera4 extends AppCompatActivity {
 
     public void prepopulate(Structure post){
         structure = post;
-        if(post.cookWithWoodCoal){
-            radioButtonSi.setChecked(true);
+        if(post.cookWithWood){
+            radioButtonSiWood.setChecked(true);
         }
         else{
-            radioButtonNo.setChecked(true);
+            radioButtonNoWood.setChecked(true);
+        }
+
+        if(post.cookWithCoal){
+            radioButtonSiCoal.setChecked(true);
+        }
+        else{
+            radioButtonNoCoal.setChecked(true);
         }
 
         Map<String, String> image_object = structure.images;
@@ -220,7 +231,7 @@ public class madera4 extends AppCompatActivity {
 
             while(it.hasNext()){
                 Map.Entry pair = (Map.Entry)it.next();
-                ImageView image = new ImageView(madera4.this);
+                ImageView image = new ImageView(structuresCook.this);
                 Picasso.with(image.getContext()).load(pair.getValue().toString()).into(image);
                 mainLinearLayout.addView(image);
             }
@@ -244,29 +255,30 @@ public class madera4 extends AppCompatActivity {
             images = uploads;
         }
         mDatabase.child("images").setValue(images);
-        if(radioButtonSi.isChecked()){
-            mDatabase.child("cookWithWoodCoal").setValue(true);
-            openMadera5(v);
+
+        mDatabase.child("cookWithWood").setValue(radioButtonSiWood.isChecked());
+        mDatabase.child("cookWithCoal").setValue(radioButtonSiCoal.isChecked());
+        if(radioButtonSiWood.isChecked() || radioButtonSiCoal.isChecked()){
+            openStructuresCook2(v);
         }
         else {
-            if(radioButtonNo.isChecked()) {
-                mDatabase.child("cookWithWoodCoal").setValue(false);
+            if(radioButtonNoWood.isChecked() && radioButtonNoCoal.isChecked()) {
                 openRecycle1(v);
             }
         }
     }
 
-    public void openMadera0(View v){
-        Intent intentDetails = new Intent(madera4.this, madera0.class);
+    public void openStructuresHome(View v){
+        Intent intentDetails = new Intent(structuresCook.this, structuresHome.class);
         Bundle bundle = new Bundle();
         bundle.putString("visitNum", visitNum);
         bundle.putString("familyNum", familyNum);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
-    public void openMadera5(View v){
+    public void openStructuresCook2(View v){
 
-        Intent intentDetails = new Intent(madera4.this, madera5.class);
+        Intent intentDetails = new Intent(structuresCook.this, structuresCook2.class);
         Bundle bundle = new Bundle();
         bundle.putString("visitNum", visitNum);
         bundle.putString("familyNum", familyNum);
@@ -274,7 +286,7 @@ public class madera4 extends AppCompatActivity {
         startActivity(intentDetails);
     }
     public void openRecycle1(View v){
-        Intent intentDetails = new Intent(madera4.this, recycle1.class);
+        Intent intentDetails = new Intent(structuresCook.this, recycle1.class);
         Bundle bundle = new Bundle();
         bundle.putString("visitNum", visitNum);
         bundle.putString("familyNum", familyNum);

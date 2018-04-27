@@ -1,7 +1,5 @@
 package com.example.proyectotiti.models;
 
-import java.util.Map;
-
 /** StructureDesc Class
  * This class contains the different attributes given to each structure.
  * Type (String): designates the type of structure
@@ -17,6 +15,7 @@ public class StructureDesc {
     public String function;
     public String name;
     public Boolean active;
+    public String inactive_desc;
     public String size;
     public Boolean compliant;
     public String compliant_desc;
@@ -26,11 +25,12 @@ public class StructureDesc {
         // Default constructor required for calls to DataSnapshot.getValue(StructureDesc.class)
     }
 
-    public StructureDesc(String type, String function, String name, Boolean active, String size, Boolean compliant,String compliant_desc) {
+    public StructureDesc(String type, String function, String name, Boolean active, String inactive_desc, String size, Boolean compliant,String compliant_desc) {
         this.type = type;
         this.function = function;
         this.name = name;
         this.active = active;
+        this.inactive_desc = inactive_desc;
         this.size = size;
         this.compliant = compliant;
         this.compliant_desc = compliant_desc;

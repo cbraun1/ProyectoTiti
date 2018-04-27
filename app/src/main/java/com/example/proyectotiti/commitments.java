@@ -59,7 +59,7 @@ public class commitments extends AppCompatActivity {
 
         }
         else if (structureCheckbox.isChecked()){
-            intentDetails = new Intent(commitments.this, madera0.class);
+            intentDetails = new Intent(commitments.this, structuresHome.class);
 
         }
         else if(recycleCheckbox.isChecked()){

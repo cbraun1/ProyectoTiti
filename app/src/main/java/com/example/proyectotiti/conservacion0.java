@@ -56,7 +56,7 @@ public class conservacion0 extends AppCompatActivity {
                         nextField = recycle1.class;
                     }
                     else if(post.structures.committed){
-                        nextField = madera0.class;
+                        nextField = structuresHome.class;
                     }
                     else if(post.animals.committed){
                         nextField = animalsHome.class;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyectotiti.madera3">
+    tools:context="com.example.proyectotiti.structuresFence">
 
     <ImageView
         android:id="@+id/logo"
@@ -26,68 +26,6 @@
         android:paddingTop="0dp"
         android:layout_centerHorizontal="true"/>
 
-    <!--<Button-->
-        <!--android:id="@+id/continueButton"-->
-        <!--style="@android:style/Widget.Button"-->
-        <!--android:layout_width="150dp"-->
-        <!--android:layout_height="52dp"-->
-        <!--android:text="SIGUENTE"-->
-        <!--android:textColorLink="@color/colorPrimaryDark"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--tools:layout_editor_absoluteY="460dp"-->
-        <!--tools:layout_editor_absoluteX="234dp"-->
-        <!--android:onClick="openMadera0"/>-->
-
-    <!--<Button-->
-        <!--android:id="@+id/backButton"-->
-        <!--style="@android:style/Widget.Button"-->
-        <!--android:layout_width="150dp"-->
-        <!--android:layout_height="52dp"-->
-        <!--android:text="ANTERIOR"-->
-        <!--android:textColorLink="@color/colorPrimaryDark"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--tools:layout_editor_absoluteY="460dp"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--android:onClick="openMadera0"/>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/scrollView3"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/backButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:onClick="openMadera0"
-            android:text="ANTERIOR"
-            android:textColorLink="@color/colorPrimaryDark" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/continueButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:onClick="submitStructure"
-            android:text="SIGUENTE"
-            android:textColorLink="@color/colorPrimaryDark" />
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="300dp"
         android:layout_height="240dp"
@@ -102,50 +40,6 @@
             android:id="@+id/linearLayout"
             android:weightSum="1">
 
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewFencesQ1"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="¿Cuantos "-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textStyle="normal"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:textSize="16sp" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewFencesQ2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="cercados "-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:textSize="16sp" />-->
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewFencesQ3"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0.00"-->
-                    <!--android:text="tiene? "-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:textStyle="normal"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:textSize="16sp" />-->
-
-                <!--<EditText-->
-                    <!--android:id="@+id/editText"-->
-                    <!--android:layout_width="123dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:ems="10"-->
-                    <!--android:inputType="number" />-->
-
-
-            <!--</LinearLayout>-->
 
             <EditText
                 android:id="@+id/editTextCercado"
@@ -165,32 +59,59 @@
 
                 <TextView
                     android:id="@+id/textViewFencesQ5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="112dp"
+                    android:layout_height="32dp"
                     android:paddingTop="0dp"
                     android:text="¿De que tipo?"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="normal" />
 
-                <EditText
-                    android:id="@+id/editTextFenceType"
+                <Spinner
+                    android:id="@+id/spinnerType"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:layout_height="wrap_content" />
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.24"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewConStructureOther"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.40"
+                    android:paddingTop="0dp"
+                    android:text="Otro"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/editTextOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:visibility="gone"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textViewFencesQ6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_weight="0.40"
                     android:layout_height="wrap_content"
                     android:paddingTop="0dp"
@@ -201,7 +122,7 @@
 
                 <EditText
                     android:id="@+id/editTextPerimeter"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -269,11 +190,14 @@
 
                 <Switch
                     android:id="@+id/switch1"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.40"
                     android:textSize="16sp"
-                    android:text="Obediente" />
+                    android:text="Cumple"
+                    android:showText="true"
+                    android:textOff="No"
+                    android:textOn="Si"/>
 
 
             </LinearLayout>
@@ -283,9 +207,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:hint="Cumple observaciones"/>
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="ANTERIOR"
+        android:onClick="openStructuresHome"/>
+
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="SIGUENTE"
+        android:onClick="submitStructure"/>
 
 </RelativeLayout>

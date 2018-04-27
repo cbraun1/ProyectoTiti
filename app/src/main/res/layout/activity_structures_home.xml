@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyectotiti.madera0">
+    tools:context="com.example.proyectotiti.structuresHome">
 
     <ImageView
         android:id="@+id/logo"
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:onClick="openMadera4"
+            android:onClick="openStructuresCook"
             android:text="SIGUENTE"
             android:textColorLink="@color/colorPrimaryDark" />
     </LinearLayout>
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@android:drawable/ic_menu_edit"
-                    android:onClick="openMadera2"
+                    android:onClick="openStructuresCon"
                     tools:ignore="ContentDescription"/>
 
                 <ImageButton
@@ -199,7 +199,7 @@
                     android:id="@+id/imageButtonEdit2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="openMadera3"
+                    android:onClick="openStructuresFence"
                     app:srcCompat="@android:drawable/ic_menu_edit"
                     tools:ignore="ContentDescription"/>
 

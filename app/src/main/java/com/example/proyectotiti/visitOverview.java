@@ -216,7 +216,7 @@ public class visitOverview extends AppCompatActivity {
             }
 
 
-            if(visit.structures.cookWithWoodCoal){
+            if(visit.structures.cookWithWood){
                 TextView structureText = new TextView(this);
                 structureText.setText("Cocina con leña y/ o carbón" + "\n" + "Frecuencia: " + visit.structures.stove_freq + "\n" + "Tipo de estufa: " + visit.structures.stove_type + "\n");
                 mlinearLayout.addView(structureText);

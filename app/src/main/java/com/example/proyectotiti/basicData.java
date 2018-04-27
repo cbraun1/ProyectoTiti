@@ -1,8 +1,6 @@
 package com.example.proyectotiti;
 
-import android.*;
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,7 +19,6 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,7 +29,6 @@ import android.widget.Toast;
 
 import com.example.proyectotiti.models.BasicData;
 import com.example.proyectotiti.models.Date_Class;
-import com.example.proyectotiti.models.Family;
 import com.example.proyectotiti.models.Visit;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -147,7 +143,6 @@ public class basicData extends BaseActivity {
 
 
         mprovider = locationMan.getBestProvider(crit, false);
-        Log.e(TAG, mprovider);
 
         if (mprovider != null && !mprovider.equals("")) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -488,7 +483,7 @@ public class basicData extends BaseActivity {
 
         }
         else if (structures){
-            intentDetails = new Intent(basicData.this, madera0.class);
+            intentDetails = new Intent(basicData.this, structuresHome.class);
 
         }
         else if(recycle){

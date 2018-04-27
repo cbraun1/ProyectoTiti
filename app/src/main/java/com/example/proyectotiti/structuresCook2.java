@@ -15,25 +15,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class madera5 extends AppCompatActivity {
+public class structuresCook2 extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
-    private DatabaseReference visitsDatabase;
 
+    // Passed from last screen
     private String familyNum;
     private String visitNum;
 
+    // Views
     private EditText stove_freq;
     private EditText stove_type;
 
     private Structure structure;
-
     private Class nextField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_madera5);
+        setContentView(R.layout.activity_structures_cook2);
 
         // Get current Info
         Intent intentExtras = getIntent();
@@ -46,9 +46,7 @@ public class madera5 extends AppCompatActivity {
         stove_type = (EditText) findViewById(R.id.editTextStoveType);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("families").child(familyNum).child("visits").child("visit"+visitNum);
-//        if (!visitNum.equals("1")){
-            readFromDB();
-//        }
+        readFromDB();
     }
 
     public void readFromDB() {
@@ -98,17 +96,16 @@ public class madera5 extends AppCompatActivity {
     }
 
     public void openMadera4(View v){
-        Intent intentDetails = new Intent(madera5.this, madera4.class);
+        Intent intentDetails = new Intent(structuresCook2.this, structuresCook.class);
         Bundle bundle = new Bundle();
         bundle.putString("visitNum", visitNum);
         bundle.putString("familyNum", familyNum);
-        //bundle.putBoolean("firstPass", true);
         intentDetails.putExtras(bundle);
         startActivity(intentDetails);
     }
 
     public void openNextField(View v){
-        Intent intentDetails = new Intent(madera5.this, nextField);
+        Intent intentDetails = new Intent(structuresCook2.this, nextField);
         Bundle bundle = new Bundle();
         bundle.putString("familyNum", familyNum);
         bundle.putString("visitNum", visitNum);
